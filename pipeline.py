@@ -104,6 +104,8 @@ def perform_updates(cursor):
         "DELETE FROM public.nba WHERE fg_percent = 0;",
         "ALTER TABLE public.nba ADD COLUMN month INTEGER;",
         "UPDATE public.nba SET month = EXTRACT(MONTH FROM date);",
+        "ALTER TABLE public.nba ADD COLUMN days_since INTEGER;",
+        "UPDATE public.nba SET days_since = date - DATE '2023-10-24';",
         "ALTER TABLE public.nba DROP COLUMN threepa, DROP COLUMN threep_percent, DROP COLUMN fta, DROP COLUMN twopa;",
         "ALTER TABLE public.nba RENAME COLUMN resultChar TO result;",
         "UPDATE public.nba SET result = CASE WHEN result = 'L' THEN 0 WHEN result = 'W' THEN 1 END;",
