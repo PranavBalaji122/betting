@@ -2,7 +2,6 @@ import requests
 from datetime import datetime, timedelta, timezone
 import json
 
-#names of teams
 nba_teams = {
     "Atlanta Hawks": "ATL",
     "Boston Celtics": "BOS",
