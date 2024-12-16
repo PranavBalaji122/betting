@@ -167,17 +167,14 @@ def update_game_details(cursor):
     for game in games:
         game_id, player_name, game_date, team, opponent_team = game
         
-        # Fetch detailed stats for teammates and opponents
         for relation, team_to_query in [('teammates', team), ('opponents', opponent_team)]:
             cursor.execute(f"""
-                WITH RankedPlayers AS (
+                WITH RelevantPlayers AS (
                     SELECT
                         player,
-                        pts, trb, ast,
-                        p_r AS pr,
-                        p_a AS pa,
-                        a_r AS ar,
-                        p_r_a AS pra,
+                        trb,
+                        ast,
+                        pts,
                         RANK() OVER (ORDER BY mp DESC) AS rank
                     FROM
                         public.nba
@@ -186,26 +183,30 @@ def update_game_details(cursor):
                         date = %s AND
                         player != %s
                 )
-                SELECT jsonb_agg(jsonb_build_object(
-                    'player', player, 'points', pts, 'rebounds', trb, 'assists', ast,
-                    'pr', pr, 'pa', pa, 'ar', ar, 'pra', pra
-                ))
-                FROM RankedPlayers
+                SELECT
+                    jsonb_agg(jsonb_build_object('player', player, 'rebounds', trb)),
+                    jsonb_agg(jsonb_build_object('player', player, 'assists', ast)),
+                    jsonb_agg(jsonb_build_object('player', player, 'pr', pts + trb)),
+                    jsonb_agg(jsonb_build_object('player', player, 'pa', pts + ast)),
+                    jsonb_agg(jsonb_build_object('player', player, 'ar', ast + trb)),
+                    jsonb_agg(jsonb_build_object('player', player, 'pra', pts + trb + ast))
+                FROM RelevantPlayers
                 WHERE rank <= 8;
             """, (team_to_query, game_date, player_name))
-            stats = cursor.fetchone()[0]
-            
-            # Update the respective column based on whether it's teammates or opponents
+            rebounds, assists, pr, pa, ar, pra = cursor.fetchone()
+
+            # Update the respective columns based on whether it's teammates or opponents
             cursor.execute(f"""
                 UPDATE public.nba
-                SET {relation}_rebounds = %s, 
-                    {relation}_assists = %s, 
-                    {relation}_pr = %s, 
-                    {relation}_pa = %s, 
-                    {relation}_ar = %s, 
+                SET 
+                    {relation}_rebounds = %s,
+                    {relation}_assists = %s,
+                    {relation}_pr = %s,
+                    {relation}_pa = %s,
+                    {relation}_ar = %s,
                     {relation}_pra = %s
                 WHERE id = %s;
-            """, (Json(stats), Json(stats), Json(stats), Json(stats), Json(stats), Json(stats), game_id))
+            """, (Json(rebounds), Json(assists), Json(pr), Json(pa), Json(ar), Json(pra), game_id))
 
 
 
