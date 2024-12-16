@@ -1,6 +1,7 @@
 from io import StringIO
 import pandas as pd
 import psycopg2
+from psycopg2.extras import Json
 from psycopg2 import sql
 
 def process_csv():
@@ -115,29 +116,121 @@ def perform_updates(cursor):
     for command in updates:
         cursor.execute(command)
         
+def create_most_recent_player_team_table(cursor):
+    sql_query = """
+    WITH RankedPlayerTeams AS (
+        SELECT
+            player,
+            team,
+            pos,  -- Include the position column
+            date,
+            ROW_NUMBER() OVER (PARTITION BY player ORDER BY date DESC) AS rn
+        FROM
+            public.nba
+    )
+    SELECT
+        player,
+        team,
+        pos  -- Include the position in the final SELECT
+    INTO
+        public.latest_player_teams
+    FROM
+    RankedPlayerTeams
+    WHERE
+        rn = 1;
+    """
+    cursor.execute(sql_query)
+    print("Most recent player-team table created successfully.")
+
+
+def update_game_details(cursor):
+    cursor.execute("""
+        ALTER TABLE public.nba
+            ADD COLUMN IF NOT EXISTS teammates_rebounds JSONB,
+            ADD COLUMN IF NOT EXISTS teammates_assists JSONB,
+            ADD COLUMN IF NOT EXISTS teammates_pr JSONB,
+            ADD COLUMN IF NOT EXISTS teammates_pa JSONB,
+            ADD COLUMN IF NOT EXISTS teammates_ar JSONB,
+            ADD COLUMN IF NOT EXISTS teammates_pra JSONB,
+            ADD COLUMN IF NOT EXISTS opponents_rebounds JSONB,
+            ADD COLUMN IF NOT EXISTS opponents_assists JSONB,
+            ADD COLUMN IF NOT EXISTS opponents_pr JSONB,
+            ADD COLUMN IF NOT EXISTS opponents_pa JSONB,
+            ADD COLUMN IF NOT EXISTS opponents_ar JSONB,
+            ADD COLUMN IF NOT EXISTS opponents_pra JSONB;
+    """)
+    cursor.execute("""
+        SELECT id, player, date, team, opp FROM public.nba;
+    """)
+    games = cursor.fetchall()
+
+    for game in games:
+        game_id, player_name, game_date, team, opponent_team = game
+        
+        # Fetch detailed stats for teammates and opponents
+        for relation, team_to_query in [('teammates', team), ('opponents', opponent_team)]:
+            cursor.execute(f"""
+                WITH RankedPlayers AS (
+                    SELECT
+                        player,
+                        pts, trb, ast,
+                        p_r AS pr,
+                        p_a AS pa,
+                        a_r AS ar,
+                        p_r_a AS pra,
+                        RANK() OVER (ORDER BY mp DESC) AS rank
+                    FROM
+                        public.nba
+                    WHERE
+                        team = %s AND
+                        date = %s AND
+                        player != %s
+                )
+                SELECT jsonb_agg(jsonb_build_object(
+                    'player', player, 'points', pts, 'rebounds', trb, 'assists', ast,
+                    'pr', pr, 'pa', pa, 'ar', ar, 'pra', pra
+                ))
+                FROM RankedPlayers
+                WHERE rank <= 8;
+            """, (team_to_query, game_date, player_name))
+            stats = cursor.fetchone()[0]
+            
+            # Update the respective column based on whether it's teammates or opponents
+            cursor.execute(f"""
+                UPDATE public.nba
+                SET {relation}_rebounds = %s, 
+                    {relation}_assists = %s, 
+                    {relation}_pr = %s, 
+                    {relation}_pa = %s, 
+                    {relation}_ar = %s, 
+                    {relation}_pra = %s
+                WHERE id = %s;
+            """, (Json(stats), Json(stats), Json(stats), Json(stats), Json(stats), Json(stats), game_id))
+
+
 
 def main():
-    
     conn = psycopg2.connect(
-        host = "localhost", 
-        dbname = "mnrj", 
-        user= "postgres", 
-        password = "gwdb", 
-        port = 5600
+        host="localhost", 
+        dbname="mnrj", 
+        user="postgres", 
+        password="gwdb", 
+        port="5600"
     )
     cursor = conn.cursor()
 
-    # Execute pipeline steps
     try:
         process_csv()
         create_table(cursor)
         load_data(cursor)
         perform_updates(cursor)
-        conn.commit()  # Commit all changes
+        create_most_recent_player_team_table(cursor)
+        update_game_details(cursor)  # New function to update teammate details
+        conn.commit()
         print("Pipeline executed successfully.")
     except Exception as e:
         print(f"An error occurred: {e}")
-        conn.rollback()  # Roll back in case of error
+        conn.rollback()
     finally:
         cursor.close()
         conn.close()
