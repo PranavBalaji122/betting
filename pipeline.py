@@ -184,6 +184,7 @@ def update_game_details(cursor):
                         player != %s
                 )
                 SELECT
+                    jsonb_agg(jsonb_build_object('player', player, 'points', pts)),
                     jsonb_agg(jsonb_build_object('player', player, 'rebounds', trb)),
                     jsonb_agg(jsonb_build_object('player', player, 'assists', ast)),
                     jsonb_agg(jsonb_build_object('player', player, 'pr', pts + trb)),
@@ -193,12 +194,13 @@ def update_game_details(cursor):
                 FROM RelevantPlayers
                 WHERE rank <= 8;
             """, (team_to_query, game_date, player_name))
-            rebounds, assists, pr, pa, ar, pra = cursor.fetchone()
+            points, rebounds, assists, pr, pa, ar, pra = cursor.fetchone()
 
             # Update the respective columns based on whether it's teammates or opponents
             cursor.execute(f"""
                 UPDATE public.nba
                 SET 
+                    {relation}_points = %s,
                     {relation}_rebounds = %s,
                     {relation}_assists = %s,
                     {relation}_pr = %s,
@@ -206,7 +208,7 @@ def update_game_details(cursor):
                     {relation}_ar = %s,
                     {relation}_pra = %s
                 WHERE id = %s;
-            """, (Json(rebounds), Json(assists), Json(pr), Json(pa), Json(ar), Json(pra), game_id))
+            """, (Json(points), Json(rebounds), Json(assists), Json(pr), Json(pa), Json(ar), Json(pra), game_id))
 
 
 
