@@ -74,15 +74,17 @@ def predict_features(df, player_id, opponent,feature):
 
     # Calculate the predicted points by averaging the 'pts' of these closest games
     predicted_features = closest_games[feature].mean()
-    print(f"Predicted points based on the 10 closest games: {predicted_features}")
     return predicted_features
 
 # Main function to run the prediction
-def main():
+def run(player, opp):
     df = load_data()
-    player_id = "Jalen Williams"
-    opponent = 'ORL'  # Actual opponent code
-    predict_features(df, player_id, opponent, 'pts')
+    player_id = player
+    opponent = opp
+    print(predict_features(df, player_id, opponent, 'pts'))
+
+def main():
+    run("Lauri Markkanen","DET")
 
 if __name__ == '__main__':
     main()
