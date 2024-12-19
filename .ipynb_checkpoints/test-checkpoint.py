@@ -17,7 +17,7 @@ def load_data():
     return df
 
 # Function to predict points based on opponent and the closest historical games
-def predict_feature(df, player_id, opponent, feature):
+def predict_points(df, player_id, opponent):
     # Define columns of interest for similarity checking
     similarity_columns = [
         'result', 'total_score', 'mp', 'fga', 'fg_percent', 'twop', 
@@ -60,9 +60,10 @@ def predict_feature(df, player_id, opponent, feature):
     # Reintegrate the distances back to the original player data and select the top 10 closest games
     player_data['distance'] = player_data_filtered['distance']
     closest_games = player_data.nsmallest(5, 'distance')
-    
-    # Calculate the predict ed points by averaging the 'pts' of these closest games
-    predicted_points = closest_games[feature].mean()
+
+    # Calculate the predicted points by averaging the 'pts' of these closest games
+    predicted_points = closest_games['pts'].mean()
+    print(f"Predicted points based on the 10 closest games: {predicted_points}")
     return predicted_points
 
 # Main function to run the prediction
@@ -70,7 +71,7 @@ def main():
     df = load_data()
     player_id = 'Jaylen Brown'  # Placeholder for player ID
     opponent = 'WAS'  # Placeholder for opponent code
-    predict_feature(df, player_id, opponent)
+    predict_points(df, player_id, opponent)
 
 if __name__ == '__main__':
     main()
