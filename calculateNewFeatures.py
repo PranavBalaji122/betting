@@ -1,4 +1,4 @@
-from test import predict_feature
+from test import predict_features
 import psycopg2
 import pandas as pd
 from sklearn.preprocessing import MinMaxScaler
@@ -22,14 +22,13 @@ def calulateNewFeatures(df, player_id, opponent):
     columns_to_predict = [
         'result', 'total_score', 'mp', 'fga', 'fg_percent', 'twop', 
         'twop_percent', 'threep', 'ft', 'ft_percent', 'ts_percent', 
-        'trb', 'ast', 'stl', 'blk', 'tov', 'pf', 'pts', 'gmsc', 
-        'bpm', 'plus_minus', 'p_r_a', 'p_r', 'p_a', 'a_r'
+        'trb', 'ast', 'stl', 'blk', 'tov', 'pf', 'gmsc','pts'
     ]
 
     predictions = {}
 
     for feature in columns_to_predict:
-        predicted_value = predict_feature(df, player_id, opponent, feature)
+        predicted_value = predict_features(df, player_id, opponent, feature)
         predictions[feature] = [predicted_value]  # Store as a single-item list for DataFrame compatibility
 
     # Convert the dictionary to a DataFrame
@@ -38,12 +37,10 @@ def calulateNewFeatures(df, player_id, opponent):
     
 
 
-def main():
+def main(player_id, opponent):
     df = load_data()
-    player_id = 'Jaylen Brown'
-    opponent = 'WAS'
     features = calulateNewFeatures(df, player_id, opponent)
-    print(features)
+    return(features)
 
 if __name__ == '__main__':
     main()

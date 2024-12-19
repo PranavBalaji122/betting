@@ -70,7 +70,6 @@ def predict_features(df, player_id, opponent,feature):
     # Select the top 10 closest games based on the calculated distances
     closest_games = player_data.nsmallest(5, 'distance')
 
-    print(closest_games)
 
     # Calculate the predicted points by averaging the 'pts' of these closest games
     predicted_features = closest_games[feature].mean()
