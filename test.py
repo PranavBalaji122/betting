@@ -35,17 +35,17 @@ def predict_features(df, player_id, opponent,feature):
     similarity_columns.remove(feature)
 
     # Filter the data for the specific player
-    player_data = df[df['player'] == player_id]
+    player_data = df[df['player'] == player_id].copy()
     
     if player_data.empty:
-        print("No data available for this player.")
+        # print("No data available for this player.")
         return None
 
     # Further filter for games against the specified opponent
-    opponent_data = player_data[player_data['opp'] == opponent]
+    opponent_data = player_data[player_data['opp'] == opponent].copy()
     
     if opponent_data.empty:
-        print("No historical games available against this opponent.")
+        # print("No historical games available against this opponent.")
         return None
 
     # Handle NaNs in the specified columns
@@ -65,12 +65,12 @@ def predict_features(df, player_id, opponent,feature):
 
     # Calculate Euclidean distances from this average to all games within filtered player data
     distances = weighted_scaled_df.apply(lambda row: distance.euclidean(row, specific_avg), axis=1)
-    player_data['distance'] = distances
+    player_data.loc[:,'distance'] = distances
 
     # Select the top 10 closest games based on the calculated distances
     closest_games = player_data.nsmallest(5, 'distance')
 
-    print(closest_games)
+    # print(closest_games)
 
     # Calculate the predicted points by averaging the 'pts' of these closest games
     predicted_features = closest_games[feature].mean()
