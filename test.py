@@ -81,7 +81,7 @@ def run(player, opp, feat):
     df = load_data()
     player_id = player
     opponent = opp
-    print(predict_features(df, player_id, opponent, feat))
+    return predict_features(df, player_id, opponent, feat)
 
 def main():
     run("Lauri Markkanen","DET", 'pts')
