@@ -15,6 +15,11 @@ def load_data():
     )
     df = pd.read_sql("SELECT * FROM nba;", conn)
     conn.close()
+    # df.to_csv('sql.csv', encoding='utf-8', index=False)
+    return df
+
+def load_data1():
+    df = pd.read_csv('sql.csv')
     return df
 
 
@@ -30,7 +35,7 @@ def predict_features(df, player_id, opponent,feature):
     similarity_columns = [
         'total_score', 'mp', 'fga', 'fg_percent', 'twop', 
         'twop_percent', 'threep', 'ft', 'ft_percent', 'ts_percent', 
-        'trb', 'ast', 'stl', 'blk', 'tov', 'pf', 'gmsc','pts', 'hoa'
+        'trb', 'ast', 'stl', 'blk', 'tov', 'pf', 'gmsc','pts', 'hoa','p_r_a'
     ]
     similarity_columns.remove(feature)
 
@@ -56,7 +61,7 @@ def predict_features(df, player_id, opponent,feature):
     scaler = MinMaxScaler()
     scaled_data = scaler.fit_transform(player_data_filtered)
     scaled_df = pd.DataFrame(scaled_data, columns=similarity_columns, index=player_data_filtered.index)
-    decay_rate = 0.001 # Increase or decrease this to tune the time relevance
+    decay_rate = 0.005 # Increase or decrease this to tune the time relevance
     weights = calculate_weights(player_data['days_since'], decay_rate)
     weighted_scaled_df = scaled_df.mul(weights, axis=0)  # Element-wise multiplication for weighting
     
@@ -78,13 +83,13 @@ def predict_features(df, player_id, opponent,feature):
 
 # Main function to run the prediction
 def run(player, opp, feat):
-    df = load_data()
+    df = load_data1()
     player_id = player
     opponent = opp
     return predict_features(df, player_id, opponent, feat)
 
 def main():
-    print(run("Cade Cunningham","UTA", 'trb'))
+    run("Lauri Markkanen","DET", 'pts')
 
 if __name__ == '__main__':
     main()
