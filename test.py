@@ -28,9 +28,9 @@ def calculate_weights(days_since, decay_rate):
 def predict_features(df, player_id, opponent,feature):
     # Define columns of interest for similarity checking
     similarity_columns = [
-        'result', 'total_score', 'mp', 'fga', 'fg_percent', 'twop', 
+        'total_score', 'mp', 'fga', 'fg_percent', 'twop', 
         'twop_percent', 'threep', 'ft', 'ft_percent', 'ts_percent', 
-        'trb', 'ast', 'stl', 'blk', 'tov', 'pf', 'gmsc','pts'
+        'trb', 'ast', 'stl', 'blk', 'tov', 'pf', 'gmsc','pts', 'hoa'
     ]
     similarity_columns.remove(feature)
 
@@ -70,6 +70,7 @@ def predict_features(df, player_id, opponent,feature):
     # Select the top 10 closest games based on the calculated distances
     closest_games = player_data.nsmallest(5, 'distance')
 
+    print(closest_games)
 
     # Calculate the predicted points by averaging the 'pts' of these closest games
     predicted_features = closest_games[feature].mean()
@@ -79,7 +80,7 @@ def predict_features(df, player_id, opponent,feature):
 # Main function to run the prediction
 def main():
     df = load_data()
-    player_id = 'Shai Gilgeous-Alexander'  # Actual player ID
+    player_id = "Jalen Williams"
     opponent = 'ORL'  # Actual opponent code
     predict_features(df, player_id, opponent, 'pts')
 
