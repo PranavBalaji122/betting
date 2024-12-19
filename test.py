@@ -19,17 +19,20 @@ def load_data():
 
 
 def calculate_weights(days_since, decay_rate):
-    """Calculate exponential decay weights for each game based on days since the game was played."""
-    return np.exp(-decay_rate * days_since)
+    """Calculate exponential weights where more recent games (higher days_since) have more influence."""
+    max_days = np.max(days_since)
+    return np.exp(decay_rate * (days_since - max_days))
+
 
 # Function to predict points based on opponent and weighted recent games
-def predict_points(df, player_id, opponent):
+def predict_features(df, player_id, opponent,feature):
     # Define columns of interest for similarity checking
     similarity_columns = [
         'result', 'total_score', 'mp', 'fga', 'fg_percent', 'twop', 
         'twop_percent', 'threep', 'ft', 'ft_percent', 'ts_percent', 
-        'trb', 'ast', 'stl', 'blk', 'tov', 'pf', 'gmsc'
+        'trb', 'ast', 'stl', 'blk', 'tov', 'pf', 'gmsc','pts'
     ]
+    similarity_columns.remove(feature)
 
     # Filter the data for the specific player
     player_data = df[df['player'] == player_id]
@@ -53,7 +56,7 @@ def predict_points(df, player_id, opponent):
     scaler = MinMaxScaler()
     scaled_data = scaler.fit_transform(player_data_filtered)
     scaled_df = pd.DataFrame(scaled_data, columns=similarity_columns, index=player_data_filtered.index)
-    decay_rate = 0.01  # Increase or decrease this to tune the time relevance
+    decay_rate = 0.001 # Increase or decrease this to tune the time relevance
     weights = calculate_weights(player_data['days_since'], decay_rate)
     weighted_scaled_df = scaled_df.mul(weights, axis=0)  # Element-wise multiplication for weighting
     
@@ -70,16 +73,16 @@ def predict_points(df, player_id, opponent):
     print(closest_games)
 
     # Calculate the predicted points by averaging the 'pts' of these closest games
-    predicted_points = closest_games['pts'].mean()
-    print(f"Predicted points based on the 10 closest games: {predicted_points}")
-    return predicted_points
+    predicted_features = closest_games[feature].mean()
+    print(f"Predicted points based on the 10 closest games: {predicted_features}")
+    return predicted_features
 
 # Main function to run the prediction
 def main():
     df = load_data()
     player_id = 'Shai Gilgeous-Alexander'  # Actual player ID
     opponent = 'ORL'  # Actual opponent code
-    predict_points(df, player_id, opponent)
+    predict_features(df, player_id, opponent, 'pts')
 
 if __name__ == '__main__':
     main()
