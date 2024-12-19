@@ -145,7 +145,7 @@ def create_most_recent_player_team_table(cursor):
 
 def update_game_details(cursor):
     cursor.execute("""
-        ALTER TABLE public.nba
+        ALTER TABLE public.nba 
             ADD COLUMN IF NOT EXISTS teammates_points JSONB,
             ADD COLUMN IF NOT EXISTS teammates_rebounds JSONB,
             ADD COLUMN IF NOT EXISTS teammates_assists JSONB,
