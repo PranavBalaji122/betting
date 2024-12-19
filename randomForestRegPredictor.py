@@ -69,8 +69,8 @@ def predict_points(player, opp, model):
 
 # Main function to train the model and make a prediction
 def main():
-    player = 'Jalen Williams'
-    opp = 'ORL'
+    player = 'Christian Braun'
+    opp = 'POR'
 
     df = load_data()
     random_forest_model = train_random_forest_model(df, player)
