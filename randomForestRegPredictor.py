@@ -22,7 +22,7 @@ def load_data():
 
 
 # Function to train the random forest model
-def train_random_forest_model(data, player):
+def train_random_forest_model(data, player, target):
     # Drop unnecessary columns
     data = data[data['player'] == player]
     columns_to_keep = [
@@ -38,8 +38,8 @@ def train_random_forest_model(data, player):
     
 
     # Separate features and target variable
-    X = data.drop(['pts'], axis=1)  # Assuming 'pts' is the target column
-    y = data['pts']
+    X = data.drop([target], axis=1)  # target is the target column
+    y = data[target]
 
     # Split the data into training and test sets
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
@@ -58,26 +58,33 @@ def train_random_forest_model(data, player):
 
 
 # Function to predict points for a specific player and opponent
-def predict_points(player, opp, model):
+def predict_points(player, opp, model, target):
     features = calulateNewFeatures(player, opp)
-    features = features.drop(columns=['pts'])
+    features = features.drop(columns=[target])
     prediction = model.predict(features)
 
-    print(f"Predicted points for {player} against {opp}: {prediction[0]}")
+    print(f"Predicted {target} for {player} against {opp}: {prediction[0]}")
     return prediction[0]
 
 
 # Main function to train the model and make a prediction
-def main():
-    player = 'Christian Braun'
-    opp = 'POR'
+def main(player, opp, target):
+    pridectedPoints = 0
 
     df = load_data()
-    random_forest_model = train_random_forest_model(df, player)
+    random_forest_model = train_random_forest_model(df, player, target)
 
     # Make a prediction for a specific player and opponent    
-    predict_points(player, opp, random_forest_model)
+    pridectedPoints = predict_points(player, opp, random_forest_model, target)
+    return pridectedPoints
 
+def run(player, opp, target):
+    pridectedPoints = 0
+    pridectedPoints = main(player, opp, target)
+    return pridectedPoints
 
 if __name__ == '__main__':
-    main()
+    player = 'Cade Cunningham'
+    opponent = 'UTA'
+    target = 'trb'
+    main(player, opponent, target)

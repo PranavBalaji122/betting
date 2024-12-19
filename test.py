@@ -84,7 +84,7 @@ def run(player, opp, feat):
     return predict_features(df, player_id, opponent, feat)
 
 def main():
-    run("Lauri Markkanen","DET", 'pts')
+    print(run("Cade Cunningham","UTA", 'trb'))
 
 if __name__ == '__main__':
     main()
