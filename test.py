@@ -77,14 +77,14 @@ def predict_features(df, player_id, opponent,feature):
     return predicted_features
 
 # Main function to run the prediction
-def run(player, opp):
+def run(player, opp, feat):
     df = load_data()
     player_id = player
     opponent = opp
-    print(predict_features(df, player_id, opponent, 'pts'))
+    print(predict_features(df, player_id, opponent, feat))
 
 def main():
-    run("Lauri Markkanen","DET")
+    run("Lauri Markkanen","DET", 'pts')
 
 if __name__ == '__main__':
     main()
