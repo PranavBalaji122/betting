@@ -2,6 +2,7 @@ import psycopg2
 import pandas as pd
 from sklearn.preprocessing import MinMaxScaler
 from scipy.spatial import distance
+import numpy as np
 
 # Function to connect to the PostgreSQL database and load data
 def load_data():
@@ -16,14 +17,18 @@ def load_data():
     conn.close()
     return df
 
-# Function to predict points based on opponent and the closest historical games
-def predict_feature(df, player_id, opponent, feature):
+
+def calculate_weights(days_since, decay_rate):
+    """Calculate exponential decay weights for each game based on days since the game was played."""
+    return np.exp(-decay_rate * days_since)
+
+# Function to predict points based on opponent and weighted recent games
+def predict_points(df, player_id, opponent):
     # Define columns of interest for similarity checking
     similarity_columns = [
         'result', 'total_score', 'mp', 'fga', 'fg_percent', 'twop', 
         'twop_percent', 'threep', 'ft', 'ft_percent', 'ts_percent', 
-        'trb', 'ast', 'stl', 'blk', 'tov', 'pf', 'pts', 'gmsc', 
-        'bpm', 'plus_minus', 'p_r_a', 'p_r', 'p_a', 'a_r'
+        'trb', 'ast', 'stl', 'blk', 'tov', 'pf', 'gmsc'
     ]
 
     # Filter the data for the specific player
@@ -40,37 +45,41 @@ def predict_feature(df, player_id, opponent, feature):
         print("No historical games available against this opponent.")
         return None
 
-    # Select and handle NaNs in the specified columns
-    player_data_filtered = player_data[similarity_columns]
-    player_data_filtered = player_data_filtered.fillna(player_data_filtered.mean())  # Fill NaNs with column mean
-    player_data_filtered = player_data_filtered.fillna(0)  # Fill remaining NaNs if any column was entirely NaN
+    # Handle NaNs in the specified columns
+    player_data_filtered = player_data[similarity_columns].fillna(player_data[similarity_columns].mean())
+    player_data_filtered = player_data_filtered.fillna(0)
 
     # Scaling the specified columns between 0 and 1
     scaler = MinMaxScaler()
     scaled_data = scaler.fit_transform(player_data_filtered)
     scaled_df = pd.DataFrame(scaled_data, columns=similarity_columns, index=player_data_filtered.index)
+    decay_rate = 0.01  # Increase or decrease this to tune the time relevance
+    weights = calculate_weights(player_data['days_since'], decay_rate)
+    weighted_scaled_df = scaled_df.mul(weights, axis=0)  # Element-wise multiplication for weighting
     
-    # Calculate the average of the scaled statistics from games against the opponent
-    specific_avg = scaled_df.loc[opponent_data.index].mean()
+    # Calculate the average of the weighted scaled statistics from games against the opponent
+    specific_avg = weighted_scaled_df.loc[opponent_data.index].mean()
 
     # Calculate Euclidean distances from this average to all games within filtered player data
-    distances = scaled_df.apply(lambda row: distance.euclidean(row, specific_avg), axis=1)
-    player_data_filtered['distance'] = distances
+    distances = weighted_scaled_df.apply(lambda row: distance.euclidean(row, specific_avg), axis=1)
+    player_data['distance'] = distances
 
-    # Reintegrate the distances back to the original player data and select the top 10 closest games
-    player_data['distance'] = player_data_filtered['distance']
+    # Select the top 10 closest games based on the calculated distances
     closest_games = player_data.nsmallest(5, 'distance')
-    
-    # Calculate the predict ed points by averaging the 'pts' of these closest games
-    predicted_points = closest_games[feature].mean()
+
+    print(closest_games)
+
+    # Calculate the predicted points by averaging the 'pts' of these closest games
+    predicted_points = closest_games['pts'].mean()
+    print(f"Predicted points based on the 10 closest games: {predicted_points}")
     return predicted_points
 
 # Main function to run the prediction
 def main():
     df = load_data()
-    player_id = 'Jaylen Brown'  # Placeholder for player ID
-    opponent = 'WAS'  # Placeholder for opponent code
-    predict_feature(df, player_id, opponent)
+    player_id = 'Shai Gilgeous-Alexander'  # Actual player ID
+    opponent = 'ORL'  # Actual opponent code
+    predict_points(df, player_id, opponent)
 
 if __name__ == '__main__':
     main()
