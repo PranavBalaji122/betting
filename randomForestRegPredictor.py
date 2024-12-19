@@ -26,7 +26,7 @@ def train_random_forest_model(data, player):
     # Drop unnecessary columns
     data = data[data['player'] == player]
     columns_to_keep = [
-    'result', 'total_score', 'mp', 'fga', 'fg_percent', 'twop', 
+    'total_score', 'mp', 'fga', 'fg_percent', 'twop', 
     'twop_percent', 'threep', 'ft', 'ft_percent', 'ts_percent', 
     'trb', 'ast', 'stl', 'blk', 'tov', 'pf', 'gmsc', 'pts'
     ]
@@ -45,7 +45,7 @@ def train_random_forest_model(data, player):
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
     # Train a Random Forest Regressor
-    random_forest_model = RandomForestRegressor(n_estimators=100, random_state=42)
+    random_forest_model = RandomForestRegressor(n_estimators=1000, random_state=42)
     random_forest_model.fit(X_train, y_train)
 
     # Evaluate the model (optional)
@@ -58,8 +58,8 @@ def train_random_forest_model(data, player):
 
 
 # Function to predict points for a specific player and opponent
-def predict_points(player, opp, model, df):
-    features = calulateNewFeatures(df, player, opp)
+def predict_points(player, opp, model):
+    features = calulateNewFeatures(player, opp)
     features = features.drop(columns=['pts'])
     prediction = model.predict(features)
 
@@ -69,14 +69,14 @@ def predict_points(player, opp, model, df):
 
 # Main function to train the model and make a prediction
 def main():
-    player = 'Isaiah Joe'
+    player = 'Jalen Williams'
     opp = 'ORL'
 
     df = load_data()
     random_forest_model = train_random_forest_model(df, player)
 
     # Make a prediction for a specific player and opponent    
-    predict_points(player, opp, random_forest_model, df)
+    predict_points(player, opp, random_forest_model)
 
 
 if __name__ == '__main__':
