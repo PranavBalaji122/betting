@@ -33,7 +33,7 @@ def calculate_weights(days_since, decay_rate):
 def predict_features(df, player_id, opponent,feature):
     # Define columns of interest for similarity checking
     similarity_columns = [
-        'total_score', 'mp','fg', 'fga', 'fg_percent', 'twop', 
+        'mp','fg', 'fga', 'fg_percent', 'twop', 
         'twop_percent', 'threep', 'ft', 'ft_percent', 'ts_percent', 
         'trb', 'ast', 'stl', 'blk', 'tov', 'pf', 'gmsc','pts', 'hoa','p_r_a'
     ]
@@ -41,13 +41,17 @@ def predict_features(df, player_id, opponent,feature):
 
     # Filter the data for the specific player
     player_data = df[df['player'] == player_id].copy()
-    
+    decay_rate = 0.000 # Increase or decrease this to tune the time relevance
+    if(int(player_data['age'].mean()) < 22):
+        decay_rate = 0.00
     if player_data.empty:
         # print("No data available for this player.")
         return None
 
     # Further filter for games against the specified opponent
     opponent_data = player_data[player_data['opp'] == opponent].copy()
+    if(len(opponent_data) < 2):
+        return None
     
     if opponent_data.empty:
         # print("No historical games available against this opponent.")
@@ -61,7 +65,7 @@ def predict_features(df, player_id, opponent,feature):
     scaler = MinMaxScaler()
     scaled_data = scaler.fit_transform(player_data_filtered)
     scaled_df = pd.DataFrame(scaled_data, columns=similarity_columns, index=player_data_filtered.index)
-    decay_rate = 0.001 # Increase or decrease this to tune the time relevance
+
     weights = calculate_weights(player_data['days_since'], decay_rate)
     weighted_scaled_df = scaled_df.mul(weights, axis=0)  # Element-wise multiplication for weighting
     
@@ -74,8 +78,7 @@ def predict_features(df, player_id, opponent,feature):
 
     # Select the top 10 closest games based on the calculated distances
     closest_games = player_data.nsmallest(5, 'distance')
-    print("hi")
-    #print(closest_games)
+    # print(closest_games)
 
     # Calculate the predicted points by averaging the 'pts' of these closest games
     predicted_features = closest_games[feature].mean()
@@ -89,7 +92,7 @@ def run(player, opp, feat):
     return predict_features(df, player_id, opponent, feat)
 
 def main():
-    run("Jayson Tatum","CHI", 'pts')
+    print(run("Jayson Tatum","CHI", 'pts'))
 
 if __name__ == '__main__':
     main()

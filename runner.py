@@ -1,7 +1,8 @@
 import json
 import numpy as np
 from test import run 
-DIFF = 3
+DIFF = 0
+MAXDIFF = 10
 
 def load_injury_report():
     with open('injury.json', 'r') as file:
@@ -34,7 +35,7 @@ def process_json_data(input_path, output_path):
             if prediction is None:
                 continue
 
-            if (line - prediction > DIFF):
+            if ((line - prediction > DIFF) and (line - prediction < MAXDIFF)):
                 modified_prop = {
                     'player': player,
                     'team': prop['team'],
@@ -46,7 +47,7 @@ def process_json_data(input_path, output_path):
                     'prediction': prediction
                 }
                 results[platform].append(modified_prop)
-            elif (prediction - line > DIFF):
+            elif ((prediction - line > DIFF) and (prediction - line < MAXDIFF)):
                 modified_prop = {
                     'player': player,
                     'team': prop['team'],
