@@ -7,7 +7,7 @@ def read_json_file(file_path):
     """
     with open(file_path, 'r', encoding='utf-8') as file:
         data = json.load(file)
-    return data
+        return data
 
 def fetch_player_details(cursor, description, home_team, away_team):
     """

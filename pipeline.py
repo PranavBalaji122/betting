@@ -4,6 +4,11 @@ import psycopg2
 from psycopg2.extras import Json
 from psycopg2 import sql
 
+def reset_tables(cursor):
+    cursor.execute("DROP TABLE IF EXISTS public.nba;")
+    cursor.execute("DROP TABLE IF EXISTS public.game_stats;")
+    cursor.execute("DROP TABLE IF EXISTS public.latest_player_teams;")
+
 def process_csv():
     csv_columns = [
         'Player', 'Date', 'Age', 'Team', 'HOA', 'Opp', 'Result', 'GS', 'MP', 'FG', 'FGA',
@@ -143,74 +148,80 @@ def create_most_recent_player_team_table(cursor):
     print("Most recent player-team table created successfully.")
 
 
-def update_game_details(cursor):
+def create_game_stats_table(cursor):
     cursor.execute("""
-        ALTER TABLE public.nba 
-            ADD COLUMN IF NOT EXISTS teammates_points JSONB,
-            ADD COLUMN IF NOT EXISTS teammates_rebounds JSONB,
-            ADD COLUMN IF NOT EXISTS teammates_assists JSONB,
-            ADD COLUMN IF NOT EXISTS teammates_pr JSONB,
-            ADD COLUMN IF NOT EXISTS teammates_pa JSONB,
-            ADD COLUMN IF NOT EXISTS teammates_ar JSONB,
-            ADD COLUMN IF NOT EXISTS teammates_pra JSONB,
-            ADD COLUMN IF NOT EXISTS opponents_points JSONB,
-            ADD COLUMN IF NOT EXISTS opponents_rebounds JSONB,
-            ADD COLUMN IF NOT EXISTS opponents_assists JSONB,
-            ADD COLUMN IF NOT EXISTS opponents_pr JSONB,
-            ADD COLUMN IF NOT EXISTS opponents_pa JSONB,
-            ADD COLUMN IF NOT EXISTS opponents_ar JSONB,
-            ADD COLUMN IF NOT EXISTS opponents_pra JSONB;
+        CREATE TABLE IF NOT EXISTS game_stats
+        (
+            game_id SERIAL PRIMARY KEY,
+            date DATE,
+            team VARCHAR(10),
+            opponent VARCHAR(10),
+            teammates_points JSONB,
+            teammates_rebounds JSONB,
+            teammates_assists JSONB,
+            teammates_pr JSONB,
+            teammates_pa JSONB,
+            teammates_ar JSONB,
+            teammates_pra JSONB,
+            opponents_points JSONB,
+            opponents_rebounds JSONB,
+            opponents_assists JSONB,
+            opponents_pr JSONB,
+            opponents_pa JSONB,
+            opponents_ar JSONB,
+            opponents_pra JSONB
+        );
     """)
+    print("Game stats table created successfully.")
+
+def update_game_stats(cursor):
+    # Fetch distinct games and teams
     cursor.execute("""
-        SELECT id, player, date, team, opp FROM public.nba;
+        SELECT DISTINCT date, team, opp FROM public.nba;
     """)
     games = cursor.fetchall()
 
-    for game in games:
-        game_id, player_name, game_date, team, opponent_team = game
-        
-        for relation, team_to_query in [('teammates', team), ('opponents', opponent_team)]:
-            cursor.execute(f"""
-                WITH RelevantPlayers AS (
-                    SELECT
-                        player,
-                        trb,
-                        ast,
-                        pts,
-                        RANK() OVER (ORDER BY mp DESC) AS rank
-                    FROM
-                        public.nba
-                    WHERE
-                        team = %s AND
-                        date = %s AND
-                        player != %s
-                )
-                SELECT
-                    jsonb_agg(jsonb_build_object('player', player, 'points', pts)),
-                    jsonb_agg(jsonb_build_object('player', player, 'rebounds', trb)),
-                    jsonb_agg(jsonb_build_object('player', player, 'assists', ast)),
-                    jsonb_agg(jsonb_build_object('player', player, 'pr', pts + trb)),
-                    jsonb_agg(jsonb_build_object('player', player, 'pa', pts + ast)),
-                    jsonb_agg(jsonb_build_object('player', player, 'ar', ast + trb)),
-                    jsonb_agg(jsonb_build_object('player', player, 'pra', pts + trb + ast))
-                FROM RelevantPlayers
-                WHERE rank <= 8;
-            """, (team_to_query, game_date, player_name))
-            points, rebounds, assists, pr, pa, ar, pra = cursor.fetchone()
+    for game_date, team, opponent in games:
+        team_stats = {metric: {} for metric in ['points', 'rebounds', 'assists', 'pr', 'pa', 'ar', 'pra']}
+        opponent_stats = {metric: {} for metric in ['points', 'rebounds', 'assists', 'pr', 'pa', 'ar', 'pra']}
 
-            # Update the respective columns based on whether it's teammates or opponents
-            cursor.execute(f"""
-                UPDATE public.nba
-                SET 
-                    {relation}_points = %s,
-                    {relation}_rebounds = %s,
-                    {relation}_assists = %s,
-                    {relation}_pr = %s,
-                    {relation}_pa = %s,
-                    {relation}_ar = %s,
-                    {relation}_pra = %s
-                WHERE id = %s;
-            """, (Json(points), Json(rebounds), Json(assists), Json(pr), Json(pa), Json(ar), Json(pra), game_id))
+        # Get top 7 players by average minutes for each team
+        for relation, team_to_query in [('teammates', team), ('opponents', opponent)]:
+            cursor.execute("""
+                SELECT player
+                FROM public.nba
+                WHERE team = %s
+                GROUP BY player
+                ORDER BY AVG(mp) DESC
+                LIMIT 8;
+            """, (team_to_query,))
+            top_players = [row[0] for row in cursor.fetchall()]
+
+            # Fetch player stats for the game
+            cursor.execute("""
+                SELECT player, pts, trb, ast
+                FROM public.nba
+                WHERE team = %s AND date = %s;
+            """, (team_to_query, game_date))
+            stats = cursor.fetchall()
+            stats_dict = {stat[0]: stat[1:] for stat in stats}
+
+            # Prepare the data, filling in zeros for absent top players
+            for player in top_players:
+                pts, trb, ast = stats_dict.get(player, (0, 0, 0))
+                metrics = {'points': pts, 'rebounds': trb, 'assists': ast, 'pr': pts + trb, 'pa': pts + ast, 'ar': ast + trb, 'pra': pts + trb + ast}
+                for metric in metrics:
+                    if relation == 'teammates':
+                        team_stats[metric][player] = metrics[metric]
+                    else:
+                        opponent_stats[metric][player] = metrics[metric]
+
+        # Insert data into the new table
+        cursor.execute("""
+            INSERT INTO game_stats (date, team, opponent, teammates_points, teammates_rebounds, teammates_assists, teammates_pr, teammates_pa, teammates_ar, teammates_pra, opponents_points, opponents_rebounds, opponents_assists, opponents_pr, opponents_pa, opponents_ar, opponents_pra)
+            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s);
+        """, (game_date, team, opponent, Json(team_stats['points']), Json(team_stats['rebounds']), Json(team_stats['assists']), Json(team_stats['pr']), Json(team_stats['pa']), Json(team_stats['ar']), Json(team_stats['pra']), Json(opponent_stats['points']), Json(opponent_stats['rebounds']), Json(opponent_stats['assists']), Json(opponent_stats['pr']), Json(opponent_stats['pa']), Json(opponent_stats['ar']), Json(opponent_stats['pra'])))
+
 
 
 
@@ -226,11 +237,14 @@ def main():
 
     try:
         process_csv()
+        reset_tables(cursor)
+        conn.commit()
         create_table(cursor)
         load_data(cursor)
         perform_updates(cursor)
         create_most_recent_player_team_table(cursor)
-        update_game_details(cursor)  # New function to update teammate details
+        create_game_stats_table(cursor)
+        update_game_stats(cursor)  # New function to update teammate details
         conn.commit()
         print("Pipeline executed successfully.")
     except Exception as e:

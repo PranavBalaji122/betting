@@ -51,7 +51,7 @@ def game_ids(base_url, api_key, commence_time_to):
 def get_odds(base_url, game_id, api_key, market_types):
     market_data = {}
     for market_type in market_types:
-        url = f"{base_url}/{game_id}/odds?apiKey={api_key}&markets={market_type}&oddsFormat=american&bookmakers=draftkings,fanduel"
+        url = f"{base_url}/{game_id}/odds?apiKey={api_key}&markets={market_type}&oddsFormat=american&bookmakers=draftkings"
         try:
             response = requests.get(url)
             if response.status_code == 200:
@@ -81,7 +81,8 @@ def get_odds(base_url, game_id, api_key, market_types):
 
 def collect_all_odds(base_url, api_key, game_ids):
     #market_types = ["player_points", "player_rebounds", "player_assists", "player_points_rebounds_assists", "player_points_rebounds", "player_points_assists", "player_rebounds_assists"]
-    market_types = ["player_points", "player_rebounds","player_assists", "player_points_rebounds_assists"]
+    # market_types = ["player_points", "player_rebounds","player_assists", "player_points_rebounds_assists"]
+    market_types = ["player_points", "player_rebounds"]
     all_bookmakers_data = {}
 
     for game_id in game_ids:
