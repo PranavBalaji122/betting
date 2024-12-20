@@ -24,6 +24,7 @@ def calulateNewFeatures(player_id, opponent):
         'twop_percent', 'threep', 'ft', 'ft_percent', 'ts_percent', 
         'trb', 'ast', 'stl', 'blk', 'tov', 'pf', 'gmsc','pts'
     ]
+    
 
     predictions = {}
 
@@ -44,4 +45,4 @@ def main(player_id, opponent):
 if __name__ == '__main__':
     player_id = 'Jayson Tatum'
     opponent = 'MIA'
-    main(player_id, opponent)
+    print(main(player_id, opponent))

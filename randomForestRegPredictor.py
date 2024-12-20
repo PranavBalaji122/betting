@@ -5,6 +5,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.metrics import mean_squared_error
 from calculateNewFeatures import calulateNewFeatures
+from sklearn.preprocessing import LabelEncoder
 
 
 # Function to load data
@@ -25,27 +26,29 @@ def load_data():
 def train_random_forest_model(data, player, target):
     # Drop unnecessary columns
     data = data[data['player'] == player]
+
     columns_to_keep = [
-    'total_score', 'mp', 'fga', 'fg_percent', 'twop', 
-    'twop_percent', 'threep', 'ft', 'ft_percent', 'ts_percent', 
-    'trb', 'ast', 'stl', 'blk', 'tov', 'pf', 'gmsc', 'pts'
+        'total_score', 'mp', 'fga', 'fg_percent', 'twop', 
+        'twop_percent', 'threep', 'ft', 'ft_percent', 'ts_percent', 
+        'trb', 'ast', 'stl', 'blk', 'tov', 'pf', 'gmsc','pts'
     ]
     data = data.loc[:, columns_to_keep]
-
+    
     # Drop rows with missing values
+
     data = data.dropna()
-    
-    
+
+
 
     # Separate features and target variable
     X = data.drop([target], axis=1)  # target is the target column
     y = data[target]
-
+    
     # Split the data into training and test sets
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
     # Train a Random Forest Regressor
-    random_forest_model = RandomForestRegressor(n_estimators=1000, random_state=42)
+    random_forest_model = RandomForestRegressor(n_estimators=10000, random_state=42)
     random_forest_model.fit(X_train, y_train)
 
     # Evaluate the model (optional)
@@ -84,7 +87,7 @@ def run(player, opp, target):
     return pridectedPoints
 
 if __name__ == '__main__':
-    player = 'Cade Cunningham'
-    opponent = 'UTA'
-    target = 'trb'
+    player = 'Jayson Tatum'
+    opponent = 'CHI'
+    target = 'pts'
     main(player, opponent, target)
