@@ -28,34 +28,23 @@ def get_data_for_training():
     return df
 
 def parseData(df, player_name):
-    df['teammates_points'] = df['teammates_points']
-    df['teammates_rebounds'] = df['teammates_rebounds']
-    df['teammates_assists'] = df['teammates_assists']
-    df['opponents_points'] = df['opponents_points']
-    df['opponents_rebounds'] = df['opponents_rebounds']
-    df['opponents_assists'] = df['opponents_assists']
-    df['opponent'] = df['opponent']
-
+   
     label_encoder = LabelEncoder()
-
     df['opponent_encoded'] = label_encoder.fit_transform(df['opponent'])
     print(df[['opponent', 'opponent_encoded']].drop_duplicates())
-
     
     X, y = [], []
     for index, row in df.iterrows():
         player_stats = row['teammates_points'].pop(player_name, None)
+        row['teammates_rebounds'].pop(player_name, None)
+        row['teammates_assists'].pop(player_name, None)
         if player_stats is not None:
-            y.append(player_stats)  # Use player's points as the label
+            y.append(player_stats)  
             features = []
-            # Iterate over the specific columns, checking their data type before appending
             for stat in ['teammates_points', 'teammates_rebounds', 'teammates_assists',
                          'opponents_points', 'opponents_rebounds', 'opponents_assists']:
-                if isinstance(row[stat], dict):  # Check if the item is a dictionary
-                    features.extend(row[stat].values())
-                else:
-                    features.append(row[stat])  # Append directly if it's numeric or another non-dictionary type
-            # Append 'opponent_encoded' directly as it is an integer
+                            features.extend(row[stat].values())
+
             features.append(row['opponent_encoded'])
             X.append(features)
 
@@ -65,8 +54,12 @@ def parseData(df, player_name):
 def trainModel(playerName):
     data = get_data_for_training()
     X, y = parseData(data, playerName)
+
+
+
+
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
-    
+
     scaler = StandardScaler()
     X_train = scaler.fit_transform(X_train)
     X_test = scaler.transform(X_test)
@@ -74,33 +67,36 @@ def trainModel(playerName):
     class Net(nn.Module):
         def __init__(self):
             super(Net, self).__init__()
-            # Define the input layer
-            self.fc1 = nn.Linear(X_train.shape[1], 100)
+            self.fc1 = nn.Linear(X_train.shape[1], 50)
+            self.dropout1 = nn.Dropout(0.25)
 
-            # Create a dictionary to hold the intermediate layers
-            self.layers = nn.ModuleDict({
-                f'fc{i}': nn.Linear(100, 100) for i in range(2, 40)  # 38 additional layers
-            })
+            # Dynamically creating 200 hidden layers
+            self.hidden_layers = nn.ModuleList()
+            for _ in range(200):  # Create 200 layers of size 50
+                self.hidden_layers.append(nn.Linear(50, 50))
+                self.hidden_layers.append(nn.Dropout(0.25))  # Adding dropout to each layer
 
-            # Define the output layer
-            self.output = nn.Linear(100, 1)
+            self.fc_last = nn.Linear(50, 50)  # Final hidden layer before the output
+            self.output = nn.Linear(50, 1)
 
         def forward(self, x):
-            # Pass through the first layer
             x = torch.relu(self.fc1(x))
-
-            # Pass through the intermediate layers
-            for i in range(2, 40):
-                layer = self.layers[f'fc{i}']
-                x = torch.relu(layer(x))
-
-            # Pass through the output layer
+            x = self.dropout1(x)
+            for layer in self.hidden_layers:
+                if isinstance(layer, nn.Linear):
+                    x = torch.relu(layer(x))
+                elif isinstance(layer, nn.Dropout):
+                    x = layer(x)
+            x = torch.relu(self.fc_last(x))
             x = self.output(x)
             return x
+
     
     model = Net()
     criterion = nn.MSELoss()
-    optimizer = optim.Adam(model.parameters(), lr=0.01)
+    optimizer = optim.Adam(model.parameters(), lr=0.0001)
+    scheduler = torch.optim.lr_scheduler.StepLR(optimizer, step_size=50, gamma=0.1)
+
 
      # Convert arrays to tensors
     X_train_t = torch.FloatTensor(X_train)
@@ -110,7 +106,7 @@ def trainModel(playerName):
 
     # Train the model
     model.train()
-    for epoch in range(1000):  # Number of epochs
+    for epoch in range(10000):  # Number of epochs
         optimizer.zero_grad()
         outputs = model(X_train_t)
         loss = criterion(outputs.squeeze(), y_train_t)
@@ -124,7 +120,11 @@ def trainModel(playerName):
         predicted = model(X_test_t).squeeze()
         mse = criterion(predicted, y_test_t)
         print(f'Test MSE: {mse.item()}')
-    data = [2, 0, 19, 6, 16, 14, 20, 5, 0, 3, 1, 8, 20, 8, 2, 0, 4, 4, 4, 3, 0, 12, 10, 9, 10, 10, 5, 12, 5, 5, 9, 0, 3, 7, 8, 1, 1, 4, 6, 0, 2, 0, 3, 0, 3, 1, 2, 2]
+    
+    
+
+    data = [19,22,7,8,6,8,4,5,7,6,4,4,7,7,8,2,1,1,2,0,3,14,14,19,7,14,9,7,2,4,5,10,4,0,1,4,8,4,5,2,6,1,2,2,1,3]
+    
     print(len(data))
     data = np.array([data])
     data_tensor = torch.FloatTensor(data)

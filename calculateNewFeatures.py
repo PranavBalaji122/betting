@@ -3,6 +3,7 @@ import psycopg2
 import pandas as pd
 from sklearn.preprocessing import MinMaxScaler
 from scipy.spatial import distance
+
 def load_data():
     conn = psycopg2.connect(
         host="localhost",
@@ -20,9 +21,9 @@ def load_data():
 # we will use this dataframe as the X for the random regression forest model
 def calulateNewFeatures(player_id, opponent):
     columns_to_predict = [
-        'total_score', 'mp', 'fga', 'fg_percent', 'twop', 
+        'mp','fg', 'fga', 'fg_percent', 'twop', 
         'twop_percent', 'threep', 'ft', 'ft_percent', 'ts_percent', 
-        'trb', 'ast', 'stl', 'blk', 'tov', 'pf', 'gmsc','pts'
+        'trb', 'ast', 'stl', 'blk', 'tov', 'pf', 'gmsc','pts', 'hoa','p_r_a'
     ]
     
 
