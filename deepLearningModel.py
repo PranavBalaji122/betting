@@ -52,67 +52,55 @@ def parseData(df, player_name):
 
 
 def trainModel(playerName):
+
+
     data = get_data_for_training()
     X, y = parseData(data, playerName)
 
-
-
-
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
-
     scaler = StandardScaler()
     X_train = scaler.fit_transform(X_train)
     X_test = scaler.transform(X_test)
 
+    device = torch.device("mps" if torch.backends.mps.is_available() else "cpu")
+    print(f"Using {device} device.")
+
     class Net(nn.Module):
-        def __init__(self):
+        def __init__(self, input_size):
             super(Net, self).__init__()
-            self.fc1 = nn.Linear(X_train.shape[1], 50)
-            self.dropout1 = nn.Dropout(0.25)
-
-            # Dynamically creating 200 hidden layers
-            self.hidden_layers = nn.ModuleList()
-            for _ in range(200):  # Create 200 layers of size 50
-                self.hidden_layers.append(nn.Linear(50, 50))
-                self.hidden_layers.append(nn.Dropout(0.25))  # Adding dropout to each layer
-
-            self.fc_last = nn.Linear(50, 50)  # Final hidden layer before the output
-            self.output = nn.Linear(50, 1)
+            self.fc1 = nn.Linear(input_size, 50)  
+            
+            self.hidden_layers = nn.ModuleList([nn.Linear(50, 50) for _ in range(500)])
+            
+            self.output = nn.Linear(50, 1)  
 
         def forward(self, x):
-            x = torch.relu(self.fc1(x))
-            x = self.dropout1(x)
+            x = torch.relu(self.fc1(x)) 
+            
             for layer in self.hidden_layers:
-                if isinstance(layer, nn.Linear):
-                    x = torch.relu(layer(x))
-                elif isinstance(layer, nn.Dropout):
-                    x = layer(x)
-            x = torch.relu(self.fc_last(x))
-            x = self.output(x)
+                x = torch.relu(layer(x))
+            
+            x = self.output(x)  # Final output
             return x
 
-    
-    model = Net()
+    model = Net(X_train.shape[1]).to(device)
+
     criterion = nn.MSELoss()
-    optimizer = optim.Adam(model.parameters(), lr=0.0001)
-    scheduler = torch.optim.lr_scheduler.StepLR(optimizer, step_size=50, gamma=0.1)
+    optimizer = optim.Adam(model.parameters(), lr=0.001)
 
+    X_train_t = torch.FloatTensor(X_train).to(device)
+    y_train_t = torch.FloatTensor(y_train).to(device)
+    X_test_t = torch.FloatTensor(X_test).to(device)
+    y_test_t = torch.FloatTensor(y_test).to(device)
 
-     # Convert arrays to tensors
-    X_train_t = torch.FloatTensor(X_train)
-    y_train_t = torch.FloatTensor(y_train)
-    X_test_t = torch.FloatTensor(X_test)
-    y_test_t = torch.FloatTensor(y_test)
-
-    # Train the model
     model.train()
-    for epoch in range(10000):  # Number of epochs
+    for epoch in range(100):
         optimizer.zero_grad()
         outputs = model(X_train_t)
         loss = criterion(outputs.squeeze(), y_train_t)
         loss.backward()
         optimizer.step()
-        if epoch % 100 == 0:
+        if epoch % 10 == 0:
             print(f'Epoch {epoch+1}, Loss: {loss.item()}')
 
     model.eval()
@@ -120,14 +108,14 @@ def trainModel(playerName):
         predicted = model(X_test_t).squeeze()
         mse = criterion(predicted, y_test_t)
         print(f'Test MSE: {mse.item()}')
-    
-    
+    return model
 
+def testModel(model):
     data = [19,22,7,8,6,8,4,5,7,6,4,4,7,7,8,2,1,1,2,0,3,14,14,19,7,14,9,7,2,4,5,10,4,0,1,4,8,4,5,2,6,1,2,2,1,3]
-    
-    print(len(data))
+    device = torch.device("mps" if torch.backends.mps.is_available() else "cpu")
+
     data = np.array([data])
-    data_tensor = torch.FloatTensor(data)
+    data_tensor = torch.FloatTensor(data).to(device)
     model.eval() 
     with torch.no_grad():  # Context-manager that disables gradient calculation (for inference)
         prediction = model(data_tensor)
@@ -138,7 +126,8 @@ def trainModel(playerName):
 
 
 
-trainModel("Jayson Tatum")
+model = trainModel("Jayson Tatum")
+testModel(model)
 
 #gatherData("LeBron James", "LAL", "GSW", "pts")
 
