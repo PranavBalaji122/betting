@@ -15,7 +15,7 @@ def load_data():
     )
     df = pd.read_sql("SELECT * FROM nba;", conn)
     conn.close()
-    # df.to_csv('sql.csv', encoding='utf-8', index=False)
+    df.to_csv('sql.csv', encoding='utf-8', index=False)
     return df
 
 def load_data1():
@@ -41,7 +41,7 @@ def predict_features(df, player_id, opponent,feature):
 
     # Filter the data for the specific player
     player_data = df[df['player'] == player_id].copy()
-    decay_rate = 0.000 # Increase or decrease this to tune the time relevance
+    decay_rate = 0.001 # Increase or decrease this to tune the time relevance
     if(int(player_data['age'].mean()) < 22):
         decay_rate = 0.00
     if player_data.empty:
