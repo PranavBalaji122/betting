@@ -163,7 +163,7 @@ def create_game_stats_table(cursor):
             game_id SERIAL PRIMARY KEY,
             date DATE,
             team VARCHAR(10),
-            opponent VARCHAR(10),
+            opp VARCHAR(10),
             teammates_points JSONB,
             teammates_rebounds JSONB,
             teammates_assists JSONB,
@@ -194,7 +194,7 @@ def update_game_stats(cursor):
         opponent_stats = {metric: {} for metric in ['points', 'rebounds', 'assists', 'pr', 'pa', 'ar', 'pra']}
 
         # Get top 7 players by average minutes for each team
-        for relation, team_to_query in [('teammates', team), ('opponents', opponent)]:
+        for relation, team_to_query in [('teammates', team), ('opponent', opponent)]:
             cursor.execute("""
                 SELECT player
                 FROM public.nba
@@ -224,7 +224,7 @@ def update_game_stats(cursor):
 
         # Insert data into the new table
         cursor.execute("""
-            INSERT INTO game_stats (date, team, opponent, teammates_points, teammates_rebounds, teammates_assists, teammates_pr, teammates_pa, teammates_ar, teammates_pra, opponents_points, opponents_rebounds, opponents_assists, opponents_pr, opponents_pa, opponents_ar, opponents_pra)
+            INSERT INTO game_stats (date, team, opp, teammates_points, teammates_rebounds, teammates_assists, teammates_pr, teammates_pa, teammates_ar, teammates_pra, opponents_points, opponents_rebounds, opponents_assists, opponents_pr, opponents_pa, opponents_ar, opponents_pra)
             VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s);
         """, (game_date, team, opponent, Json(team_stats['points']), Json(team_stats['rebounds']), Json(team_stats['assists']), Json(team_stats['pr']), Json(team_stats['pa']), Json(team_stats['ar']), Json(team_stats['pra']), Json(opponent_stats['points']), Json(opponent_stats['rebounds']), Json(opponent_stats['assists']), Json(opponent_stats['pr']), Json(opponent_stats['pa']), Json(opponent_stats['ar']), Json(opponent_stats['pra'])))
 
@@ -348,7 +348,7 @@ def main():
         "Sandro Mamukelashvili": 'F', 
         "Scottie Barnes": 'F', 
         "Seth Lundy": 'G', 
-        "Svi Mykhailiuk": 'S', 
+        "Svi Mykhailiuk": 'G', 
         "Taj Gibson": 'F', 
         "Talen Horton-Tucker": 'F', 
         "Terance Mann": 'G', 

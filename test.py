@@ -30,20 +30,19 @@ def calculate_weights(days_since, decay_rate):
 
 
 # Function to predict points based on opponent and weighted recent games
-def predict_features(df, player_id, opponent,feature):
+def predict_features(df, player_id, opponent, hoa, feature):
     # Define columns of interest for similarity checking
     similarity_columns = [
         'mp','fg', 'fga', 'fg_percent', 'twop', 
         'twop_percent', 'threep', 'ft', 'ft_percent', 'ts_percent', 
-        'trb', 'ast', 'stl', 'blk', 'tov', 'pf', 'gmsc','pts', 'hoa','p_r_a'
+        'trb', 'ast', 'stl', 'blk', 'tov', 'pf', 'gmsc','pts','p_r_a', 'hoa', 'p_r', 'p_a', 'a_r'
     ]
-    similarity_columns.remove(feature)
+    if(feature in similarity_columns):
+        similarity_columns.remove(feature)
 
     # Filter the data for the specific player
     player_data = df[df['player'] == player_id].copy()
     decay_rate = 0.001 # Increase or decrease this to tune the time relevance
-    if(int(player_data['age'].mean()) < 22):
-        decay_rate = 0.00
     if player_data.empty:
         # print("No data available for this player.")
         return None
@@ -77,23 +76,23 @@ def predict_features(df, player_id, opponent,feature):
     player_data.loc[:,'distance'] = distances
 
     # Select the top 10 closest games based on the calculated distances
-    closest_games = player_data.nsmallest(5, 'distance')
+    closest_games = player_data.nsmallest(10, 'distance')
 
-    #print(closest_games)
+    print(closest_games)
 
     # Calculate the predicted points by averaging the 'pts' of these closest games
     predicted_features = closest_games[feature].mean()
     return predicted_features
 
 # Main function to run the prediction
-def run(player, opp, feat):
-    df = load_data()
+def run(player, opp, feat, hoa):
+    df = load_data1()
     player_id = player
     opponent = opp
-    return predict_features(df, player_id, opponent, feat)
+    return predict_features(df, player_id, opponent, hoa, feat)
 
 def main():
-    print(run("Jayson Tatum","CHI", 'ast'))
+    print(run("Jayson Tatum","LAL", 'pts', 1))
 
 if __name__ == '__main__':
     main()
