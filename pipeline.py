@@ -27,7 +27,7 @@ def process_csv():
 
     column_mapping = dict(zip(csv_columns, sql_columns))
     df = pd.read_csv('data.csv', keep_default_na=False)
-    # df = df.drop(['Rk'], axis=1)
+    df = df.drop(['Rk'], axis=1)
     df.rename(columns=column_mapping, inplace=True)
 
     # Numeric columns that may contain empty strings
@@ -192,8 +192,6 @@ def update_game_stats(cursor):
                 FROM public.nba
                 WHERE team = %s
                 GROUP BY player
-                ORDER BY AVG(mp) DESC
-                LIMIT 8;
             """, (team_to_query,))
             top_players = [row[0] for row in cursor.fetchall()]
 
