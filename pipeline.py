@@ -121,7 +121,15 @@ def perform_updates(cursor):
     for command in updates:
         cursor.execute(command)
         
-def create_most_recent_player_team_table(cursor):
+def create_most_recent_player_team_table(cursor, positions):
+    # Update player positions based on the provided mapping
+    for player, pos in positions.items():
+        cursor.execute(
+            "UPDATE public.nba SET pos = %s WHERE player = %s;",
+            (pos, player)
+        )
+
+    # Creating the latest_player_teams table with updated positions
     sql_query = """
     WITH RankedPlayerTeams AS (
         SELECT
@@ -145,7 +153,7 @@ def create_most_recent_player_team_table(cursor):
         rn = 1;
     """
     cursor.execute(sql_query)
-    print("Most recent player-team table created successfully.")
+    print("Most recent player-team table created successfully with updated positions.")
 
 
 def create_game_stats_table(cursor):
@@ -232,7 +240,131 @@ def main():
         port="5600"
     )
     cursor = conn.cursor()
-
+    positions = {
+        "Aaron Nesmith": 'F',
+        "Adem Bona": 'C', 
+        "Admiral Schofield": 'F', 
+        "Al Horford": 'C',  
+        "Alperen Sengun": 'C', 
+        "Andrew Wiggins": 'F', 
+        "Anthony Davis": 'F', 
+        "Anthony Edwards": 'G', 
+        "Bam Adebayo": 'C', 
+        "Ben Simmons": 'G', 
+        "Bennedict Mathurin": 'G', 
+        "Bismack Biyombo": 'C', 
+        "Bojan Bogdanović": 'F', 
+        "Bol Bol": 'C', 
+        "Brandon Boston Jr.": 'G', 
+        "Brandon Miller": 'F', 
+        "Bruce Brown": 'F', 
+        "Bryce McGowens": 'G', 
+        "Buddy Hield": 'G', 
+        "Caleb Houstan": 'G', 
+        "Caris LeVert": 'G', 
+        "Chet Holmgren": 'F', 
+        "Chimezie Metu": 'F', 
+        "Cody Martin": 'F', 
+        "Cody Williams": 'F', 
+        "Cody Zeller": 'C', 
+        "Corey Kispert": 'F', 
+        "DaQuan Jeffries": 'G', 
+        "Dalano Banton": 'G', 
+        "Damian Jones": 'C', 
+        "Daniel Gafford": 'C', 
+        "Dario Šarić": 'F', 
+        "DeMar DeRozan": 'F', 
+        "Deni Avdija": 'F', 
+        "Devin Vassell": 'G', 
+        "Dillon Brooks": 'F', 
+        "Domantas Sabonis": 'F', 
+        "Duncan Robinson": 'F', 
+        "Dwight Powell": 'C', 
+        "Dylan Windler": 'G', 
+        "Eric Gordon": 'G', 
+        "Evan Fournier": 'G', 
+        "Evan Mobley": 'F', 
+        "Filip Petrušev": 'C', 
+        "Franz Wagner": 'F', 
+        "Giannis Antetokounmpo": 'F', 
+        "Gordon Hayward": 'F', 
+        "Harry Giles": 'F', 
+        "Isaac Okoro": 'F', 
+        "Isaiah Jackson": 'F', 
+        "Isaiah Stewart": 'C', 
+        "Jaime Jaquez Jr.": 'G', 
+        "Jarrett Allen": 'C', 
+        "Jay Huff": 'C', 
+        "Jaylen Brown": 'G', 
+        "Jeremy Sochan": 'F', 
+        "Jimmy Butler": 'F', 
+        "Joe Ingles": 'G', 
+        "Johnny Furphy": 'F', 
+        "Jontay Porter": 'C', 
+        "Jordan Walsh": 'G', 
+        "Josh Green": 'G', 
+        "Julius Randle": 'F', 
+        "Kai Jones": 'F', 
+        "Karl-Anthony Towns": 'C', 
+        "Karlo Matković": 'C', 
+        "Kelly Olynyk": 'F', 
+        "Kendall Brown": 'G', 
+        "Kenrich Williams": 'F', 
+        "Kevin Durant": 'F', 
+        "Kevin Love": 'F', 
+        "Kevon Looney": 'F', 
+        "Khris Middleton": 'F', 
+        "Klay Thompson": 'G', 
+        "Kobe Brown": 'G', 
+        "Kristaps Porziņģis": 'C', 
+        "Kyle Anderson": 'F', 
+        "Kyle Filipowski": 'F', 
+        "Larry Nance Jr.": 'F', 
+        "Lauri Markkanen": 'F', 
+        "LeBron James": 'F', 
+        "Luka Dončić": 'G', 
+        "Luka Garza": 'C', 
+        "Luke Kornet": 'C', 
+        "Marvin Bagley III": 'F', 
+        "Mason Plumlee": 'C', 
+        "Mikal Bridges": 'F', 
+        "Mike Muscala": 'C', 
+        "Miles Bridges": 'F', 
+        "Moritz Wagner": 'C', 
+        "Myles Turner": 'C', 
+        "Nick Richards": 'C', 
+        "Nicolas Batum": 'F', 
+        "Nikola Jokić": 'F', 
+        "Nikola Jović": 'F', 
+        "Pascal Siakam": 'F', 
+        "Patrick Baldwin Jr.": 'F', 
+        "Paul George": 'F', 
+        "Peyton Watson": 'F', 
+        "RJ Barrett": 'G', 
+        "Reggie Bullock": 'F', 
+        "Richaun Holmes": 'F', 
+        "Robert Covington": 'F', 
+        "Robert Williams": 'C', 
+        "Sandro Mamukelashvili": 'F', 
+        "Scottie Barnes": 'F', 
+        "Seth Lundy": 'G', 
+        "Svi Mykhailiuk": 'S', 
+        "Taj Gibson": 'F', 
+        "Talen Horton-Tucker": 'F', 
+        "Terance Mann": 'G', 
+        "Terry Taylor": 'F', 
+        "Torrey Craig": 'F', 
+        "Trentyn Flowers": 'C', 
+        "Tristan Thompson": 'C', 
+        "Tristan Vukcevic": 'F', 
+        "Troy Brown Jr.": 'F', 
+        "Ulrich Chomche": 'C', 
+        "Victor Wembanyama": 'C', 
+        "Wendell Moore Jr.": 'G', 
+        "Zach Collins": 'F', 
+        "Zach LaVine": 'G', 
+        "Zion Williamson": 'F', 
+    }
     try:
         process_csv()
         reset_tables(cursor)
@@ -240,7 +372,7 @@ def main():
         create_table(cursor)
         load_data(cursor)
         perform_updates(cursor)
-        create_most_recent_player_team_table(cursor)
+        create_most_recent_player_team_table(cursor,positions)
         create_game_stats_table(cursor)
         update_game_stats(cursor)  # New function to update teammate details
         conn.commit()
