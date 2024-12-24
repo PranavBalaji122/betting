@@ -49,7 +49,7 @@ def predict_features(df, player_id, opponent, hoa, feature):
 
     # Further filter for games against the specified opponent
     opponent_data = player_data[player_data['opp'] == opponent].copy()
-    if(len(opponent_data) < 2):
+    if(len(opponent_data) < 1):
         return None
     
     if opponent_data.empty:
@@ -78,21 +78,19 @@ def predict_features(df, player_id, opponent, hoa, feature):
     # Select the top 10 closest games based on the calculated distances
     closest_games = player_data.nsmallest(10, 'distance')
 
-    print(closest_games)
-
     # Calculate the predicted points by averaging the 'pts' of these closest games
     predicted_features = closest_games[feature].mean()
     return predicted_features
 
 # Main function to run the prediction
-def run(player, opp, feat, hoa):
+def soft(player, opp, feat, hoa):
     df = load_data1()
     player_id = player
     opponent = opp
     return predict_features(df, player_id, opponent, hoa, feat)
 
 def main():
-    print(run("Jayson Tatum","LAL", 'pts', 1))
+    print(soft("Anthony Davis","DET", 'p_r', 1))
 
 if __name__ == '__main__':
     main()

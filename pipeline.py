@@ -129,7 +129,7 @@ def create_most_recent_player_team_table(cursor, positions):
             (pos, player)
         )
 
-    # Creating the latest_player_teams table with updated positions
+    # Creating the latest_player_teams table with updated positions and averages of specified stats from the last 15 games
     sql_query = """
     WITH RankedPlayerTeams AS (
         SELECT
@@ -137,23 +137,91 @@ def create_most_recent_player_team_table(cursor, positions):
             team,
             pos,  -- Include the position column
             date,
+            pts,
+            trb,
+            ast,
+            stl,
+            blk,
+            p_r,
+            p_a,
+            a_r,
+            p_r_a,
             ROW_NUMBER() OVER (PARTITION BY player ORDER BY date DESC) AS rn
         FROM
             public.nba
+    ), Last15Games AS (
+        SELECT
+            player,
+            pts,
+            trb,
+            ast,
+            stl,
+            blk,
+            p_r,
+            p_a,
+            a_r,
+            p_r_a
+        FROM (
+            SELECT
+                player,
+                pts,
+                trb,
+                ast,
+                stl,
+                blk,
+                p_r,
+                p_a,
+                a_r,
+                p_r_a,
+                ROW_NUMBER() OVER (PARTITION BY player ORDER BY date DESC) AS game_number
+            FROM
+                public.nba
+        ) AS recent_games
+        WHERE
+            game_number <= 15
+    ), Averages AS (
+        SELECT
+            player,
+            ROUND(AVG(pts), 2) AS avg_pts,
+            ROUND(AVG(trb), 2) AS avg_trb,
+            ROUND(AVG(ast), 2) AS avg_ast,
+            ROUND(AVG(stl), 2) AS avg_stl,
+            ROUND(AVG(blk), 2) AS avg_blk,
+            ROUND(AVG(p_r), 2) AS avg_p_r,
+            ROUND(AVG(p_a), 2) AS avg_p_a,
+            ROUND(AVG(a_r), 2) AS avg_a_r,
+            ROUND(AVG(p_r_a), 2) AS avg_p_r_a
+        FROM
+            Last15Games
+        GROUP BY
+            player
     )
     SELECT
-        player,
-        team,
-        pos  -- Include the position in the final SELECT
+        r.player,
+        r.team,
+        r.pos,
+        a.avg_pts,
+        a.avg_trb,
+        a.avg_ast,
+        a.avg_stl,
+        a.avg_blk,
+        a.avg_p_r,
+        a.avg_p_a,
+        a.avg_a_r,
+        a.avg_p_r_a
     INTO
         public.latest_player_teams
     FROM
-    RankedPlayerTeams
+        RankedPlayerTeams r
+    JOIN
+        Averages a ON r.player = a.player
     WHERE
-        rn = 1;
+        r.rn = 1;
     """
     cursor.execute(sql_query)
-    print("Most recent player-team table created successfully with updated positions.")
+    print("Most recent player-team table created successfully with updated positions and statistical averages from the last 15 games rounded to two decimal points.")
+
+
 
 
 def create_game_stats_table(cursor):
