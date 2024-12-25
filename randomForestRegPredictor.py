@@ -93,7 +93,7 @@ def run(player, opp, target):
     return pridectedPoints
 
 if __name__ == '__main__':
-    player = 'Jayson Tatum'
-    opponent = 'CHI'    
-    target = 'ast'  
+    player = 'Jaylen Brown'
+    opponent = 'WAS'    
+    target = 'trb'  
     main(player, opponent, target)

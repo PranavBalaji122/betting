@@ -69,8 +69,10 @@ def load_game_stats(player,conn):
                     position_totals[pos[0]] += value
 
             return position_totals
+        
         stats_fields = ['teammates_points', 'teammates_rebounds', 'teammates_assists', 'opponents_points', 'opponents_rebounds', 'opponents_assists',
-                        'teammates_pr','teammates_pa','teammates_ar','opponents_pr','opponents_pa','opponents_ar','teammates_pra','opponents_pra']
+                        'teammates_pr','teammates_pa','teammates_ar','opponents_pr','opponents_pa','opponents_ar','teammates_pra','opponents_pra',
+                        'teammates_blocks', 'teammates_turnovers', 'opponents_blocks', 'opponents_turnovers']
         # Applying the transformation for each stats field
         for stat_field in stats_fields:
             df[stat_field] = df[stat_field].apply(lambda x: aggregate_position_data(x, player))
@@ -128,7 +130,10 @@ def random_forest(player, market,conn):
         'opponents_pa_F', 'opponents_pa_C', 'opponents_ar_G', 'opponents_ar_F',
         'opponents_ar_C', 'teammates_pra_G', 'teammates_pra_F',
         'teammates_pra_C', 'opponents_pra_G', 'opponents_pra_F',
-        'opponents_pra_C']),  # Example features
+        'opponents_pra_C', 'teammates_blocks_F', 'teammates_blocks_C','teammates_blocks_G',
+        'teammates_turnovers_F','teammates_turnovers_C','teammates_turnovers_G',
+        'opponents_blocks_F','opponents_blocks_C','opponents_blocks_G',
+        'opponents_turnovers_F','opponents_turnovers_C','opponents_turnovers_G']),  # Example features
         ('categorical', OneHotEncoder(handle_unknown='ignore'), ['opp'])
     ]
 
@@ -145,12 +150,16 @@ def random_forest(player, market,conn):
         'opponents_pa_F', 'opponents_pa_C', 'opponents_ar_G', 'opponents_ar_F',
         'opponents_ar_C', 'teammates_pra_G', 'teammates_pra_F',
         'teammates_pra_C', 'opponents_pra_G', 'opponents_pra_F',
-        'opponents_pra_C']
+        'opponents_pra_C','teammates_blocks_F', 'teammates_blocks_C',
+        'teammates_blocks_G','teammates_turnovers_F','teammates_turnovers_C',
+        'teammates_turnovers_G','opponents_blocks_F','opponents_blocks_C',
+        'opponents_blocks_G','opponents_turnovers_F','opponents_turnovers_C',
+        'opponents_turnovers_G']
     
     target = market
 
     # Split the data into training and test sets
-    X_train, X_test, y_train, y_test = train_test_split(df[features], df[target], test_size=0.1)
+    X_train, X_test, y_train, y_test = train_test_split(df[features], df[target], test_size=0.2)
     preprocessor = ColumnTransformer(transformers=transformers)
 
     # Create Pipelines
@@ -181,11 +190,11 @@ def get_soft_predictions(team, opp, player_df):
     # Initialize dictionaries to hold individual player data
     team_stats = {
         'pts': {}, 'trb': {}, 'ast': {}, 
-        'p_r': {}, 'p_a': {}, 'a_r': {}, 'p_r_a': {}
+        'p_r': {}, 'p_a': {}, 'a_r': {}, 'p_r_a': {}, 'blk': {}, 'tov': {}
     }
     opp_stats = {
         'pts': {}, 'trb': {}, 'ast': {}, 
-        'p_r': {}, 'p_a': {}, 'a_r': {}, 'p_r_a': {}
+        'p_r': {}, 'p_a': {}, 'a_r': {}, 'p_r_a': {}, 'blk': {}, 'tov': {}
     }
 
     # Function to populate player stats
@@ -242,7 +251,12 @@ def get_soft_predictions(team, opp, player_df):
         'opponents_pa': [aggregate_position_data(opp_stats['p_a'], player_df)],
         'opponents_ar': [aggregate_position_data(opp_stats['a_r'], player_df)],
         'teammates_pra': [aggregate_position_data(team_stats['p_r_a'], player_df)],
-        'opponents_pra': [aggregate_position_data(opp_stats['p_r_a'], player_df)]
+        'opponents_pra': [aggregate_position_data(opp_stats['p_r_a'], player_df)],
+        'teammates_blocks': [aggregate_position_data(team_stats['blk'], player_df)],
+        'teammates_turnovers': [aggregate_position_data(team_stats['tov'], player_df)],
+        'opponents_blocks': [aggregate_position_data(opp_stats['blk'], player_df)],
+        'opponents_turnovers': [aggregate_position_data(opp_stats['tov'], player_df)]
+
     }
 
     df = pd.DataFrame(results)
@@ -251,7 +265,9 @@ def get_soft_predictions(team, opp, player_df):
     for field in ['teammates_points', 'teammates_rebounds', 'teammates_assists',
                   'opponents_points', 'opponents_rebounds', 'opponents_assists',
                   'teammates_pr', 'teammates_pa', 'teammates_ar', 'opponents_pr',
-                  'opponents_pa', 'opponents_ar', 'teammates_pra', 'opponents_pra']:
+                  'opponents_pa', 'opponents_ar', 'teammates_pra', 'opponents_pra',
+                  'teammates_blocks', 'teammates_turnovers', 'opponents_blocks', 
+                  'opponents_turnovers']:
         df_field = pd.json_normalize(df[field].iloc[0])
         df_field.columns = [f"{field}_{col}" for col in df_field.columns]  # Rename columns to include stat field
         df = pd.concat([df, df_field], axis=1)
@@ -285,7 +301,11 @@ def run(player, team, opp, hoa, market):
         'teammates_ar_C', 'opponents_pr_G', 'opponents_pr_F', 'opponents_pr_C', 
         'opponents_pa_G', 'opponents_pa_F', 'opponents_pa_C', 'opponents_ar_G', 
         'opponents_ar_F', 'opponents_ar_C', 'teammates_pra_G', 'teammates_pra_F', 
-        'teammates_pra_C', 'opponents_pra_G', 'opponents_pra_F', 'opponents_pra_C'
+        'teammates_pra_C', 'opponents_pra_G', 'opponents_pra_F', 'opponents_pra_C',
+        'teammates_blocks_F', 'teammates_blocks_C', 'teammates_blocks_G',
+        'teammates_turnovers_F', 'teammates_turnovers_C', 'teammates_turnovers_G',
+        'opponents_blocks_F', 'opponents_blocks_C', 'opponents_blocks_G',
+        'opponents_turnovers_F', 'opponents_turnovers_C', 'opponents_turnovers_G'
     ]
 
     pred_vector_df = df[expected_columns].iloc[0:1]  # Select the first row as a DataFrame
@@ -294,5 +314,6 @@ def run(player, team, opp, hoa, market):
     prediction = pipeline.predict(pred_vector_df)[0]
     return prediction, error
 
-prediction, error = run("Jayson Tatum", "BOS", "WAS", 1, "trb")
+prediction, error = run("Jaylen Brown", "BOS", "PHI", 0, "trb")
+
 print(f"Predicted Output: {prediction} + - {math.ceil(error)}")

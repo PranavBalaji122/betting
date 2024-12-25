@@ -142,6 +142,7 @@ def create_most_recent_player_team_table(cursor, positions):
             ast,
             stl,
             blk,
+            tov,  -- Include turnovers
             p_r,
             p_a,
             a_r,
@@ -157,6 +158,7 @@ def create_most_recent_player_team_table(cursor, positions):
             ast,
             stl,
             blk,
+            tov,  -- Include turnovers
             p_r,
             p_a,
             a_r,
@@ -169,6 +171,7 @@ def create_most_recent_player_team_table(cursor, positions):
                 ast,
                 stl,
                 blk,
+                tov,  -- Include turnovers
                 p_r,
                 p_a,
                 a_r,
@@ -187,6 +190,7 @@ def create_most_recent_player_team_table(cursor, positions):
             ROUND(AVG(ast), 2) AS avg_ast,
             ROUND(AVG(stl), 2) AS avg_stl,
             ROUND(AVG(blk), 2) AS avg_blk,
+            ROUND(AVG(tov), 2) AS avg_tov,  -- Calculate average turnovers
             ROUND(AVG(p_r), 2) AS avg_p_r,
             ROUND(AVG(p_a), 2) AS avg_p_a,
             ROUND(AVG(a_r), 2) AS avg_a_r,
@@ -205,6 +209,7 @@ def create_most_recent_player_team_table(cursor, positions):
         a.avg_ast,
         a.avg_stl,
         a.avg_blk,
+        a.avg_tov,  -- Include average turnovers in the selection
         a.avg_p_r,
         a.avg_p_a,
         a.avg_a_r,
@@ -219,7 +224,7 @@ def create_most_recent_player_team_table(cursor, positions):
         r.rn = 1;
     """
     cursor.execute(sql_query)
-    print("Most recent player-team table created successfully with updated positions and statistical averages from the last 15 games rounded to two decimal points.")
+    print("Most recent player-team table created successfully with updated positions and statistical averages from the last 15 games, including blocks and turnovers.")
 
 
 
@@ -239,16 +244,21 @@ def create_game_stats_table(cursor):
             teammates_pa JSONB,
             teammates_ar JSONB,
             teammates_pra JSONB,
+            teammates_blocks JSONB,  -- New column for teammates' blocks
+            teammates_turnovers JSONB,  -- New column for teammates' turnovers
             opponents_points JSONB,
             opponents_rebounds JSONB,
             opponents_assists JSONB,
             opponents_pr JSONB,
             opponents_pa JSONB,
             opponents_ar JSONB,
-            opponents_pra JSONB
+            opponents_pra JSONB,
+            opponents_blocks JSONB,  -- New column for opponents' blocks
+            opponents_turnovers JSONB  -- New column for opponents' turnovers
         );
     """)
-    print("Game stats table created successfully.")
+    print("Game stats table created successfully with new columns for blocks and turnovers.")
+
 
 def update_game_stats(cursor):
     # Fetch distinct games and teams
@@ -258,8 +268,9 @@ def update_game_stats(cursor):
     games = cursor.fetchall()
 
     for game_date, team, opponent in games:
-        team_stats = {metric: {} for metric in ['points', 'rebounds', 'assists', 'pr', 'pa', 'ar', 'pra']}
-        opponent_stats = {metric: {} for metric in ['points', 'rebounds', 'assists', 'pr', 'pa', 'ar', 'pra']}
+        # Expanding metrics to include blocks and turnovers
+        team_stats = {metric: {} for metric in ['points', 'rebounds', 'assists', 'pr', 'pa', 'ar', 'pra', 'blocks', 'turnovers']}
+        opponent_stats = {metric: {} for metric in ['points', 'rebounds', 'assists', 'pr', 'pa', 'ar', 'pra', 'blocks', 'turnovers']}
 
         # Get top 7 players by average minutes for each team
         for relation, team_to_query in [('teammates', team), ('opponent', opponent)]:
@@ -273,7 +284,7 @@ def update_game_stats(cursor):
 
             # Fetch player stats for the game
             cursor.execute("""
-                SELECT player, pts, trb, ast
+                SELECT player, pts, trb, ast, blk, tov
                 FROM public.nba
                 WHERE team = %s AND date = %s;
             """, (team_to_query, game_date))
@@ -282,8 +293,8 @@ def update_game_stats(cursor):
 
             # Prepare the data, filling in zeros for absent top players
             for player in top_players:
-                pts, trb, ast = stats_dict.get(player, (0, 0, 0))
-                metrics = {'points': pts, 'rebounds': trb, 'assists': ast, 'pr': pts + trb, 'pa': pts + ast, 'ar': ast + trb, 'pra': pts + trb + ast}
+                pts, trb, ast, blk, tov = stats_dict.get(player, (0, 0, 0, 0, 0))
+                metrics = {'points': pts, 'rebounds': trb, 'assists': ast, 'pr': pts + trb, 'pa': pts + ast, 'ar': ast + trb, 'pra': pts + trb + ast, 'blocks': blk, 'turnovers': tov}
                 for metric in metrics:
                     if relation == 'teammates':
                         team_stats[metric][player] = metrics[metric]
@@ -292,9 +303,9 @@ def update_game_stats(cursor):
 
         # Insert data into the new table
         cursor.execute("""
-            INSERT INTO game_stats (date, team, opp, teammates_points, teammates_rebounds, teammates_assists, teammates_pr, teammates_pa, teammates_ar, teammates_pra, opponents_points, opponents_rebounds, opponents_assists, opponents_pr, opponents_pa, opponents_ar, opponents_pra)
-            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s);
-        """, (game_date, team, opponent, Json(team_stats['points']), Json(team_stats['rebounds']), Json(team_stats['assists']), Json(team_stats['pr']), Json(team_stats['pa']), Json(team_stats['ar']), Json(team_stats['pra']), Json(opponent_stats['points']), Json(opponent_stats['rebounds']), Json(opponent_stats['assists']), Json(opponent_stats['pr']), Json(opponent_stats['pa']), Json(opponent_stats['ar']), Json(opponent_stats['pra'])))
+            INSERT INTO game_stats (date, team, opp, teammates_points, teammates_rebounds, teammates_assists, teammates_pr, teammates_pa, teammates_ar, teammates_pra, teammates_blocks, teammates_turnovers, opponents_points, opponents_rebounds, opponents_assists, opponents_pr, opponents_pa, opponents_ar, opponents_pra, opponents_blocks, opponents_turnovers)
+            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s);
+        """, (game_date, team, opponent, Json(team_stats['points']), Json(team_stats['rebounds']), Json(team_stats['assists']), Json(team_stats['pr']), Json(team_stats['pa']), Json(team_stats['ar']), Json(team_stats['pra']), Json(team_stats['blocks']), Json(team_stats['turnovers']), Json(opponent_stats['points']), Json(opponent_stats['rebounds']), Json(opponent_stats['assists']), Json(opponent_stats['pr']), Json(opponent_stats['pa']), Json(opponent_stats['ar']), Json(opponent_stats['pra']), Json(opponent_stats['blocks']), Json(opponent_stats['turnovers'])))
 
 
 
