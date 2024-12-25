@@ -1,0 +1,186 @@
+{
+    "MIN": [
+        {
+            "player": "Julius Randle",
+            "market": "pts",
+            "line": 19.5,
+            "bet": {
+                "status": "bad",
+                "predicted": 19.69,
+                "error": 7.895698406938638
+            }
+        },
+        {
+            "player": "Rudy Gobert",
+            "market": "trb",
+            "line": 12.5,
+            "bet": {
+                "status": "bad",
+                "predicted": 13.58,
+                "error": 3.577938768807165
+            }
+        },
+        {
+            "player": "Julius Randle",
+            "market": "ast",
+            "line": 8.5,
+            "bet": {
+                "status": "good",
+                "predicted": 4.22,
+                "error": 2.0115864386100837
+            }
+        },
+        {
+            "player": "Julius Randle",
+            "market": "p_r_a",
+            "line": 36.5,
+            "bet": {
+                "status": "bad",
+                "predicted": 31.06,
+                "error": 7.358222611473507
+            }
+        }
+    ],
+    "BOS": [
+        {
+            "player": "Jayson Tatum",
+            "market": "pts",
+            "line": 27.5,
+            "bet": {
+                "status": "bad",
+                "predicted": 20.29,
+                "error": 7.9485863523018985
+            }
+        },
+        {
+            "player": "Jayson Tatum",
+            "market": "p_r_a",
+            "line": 42.5,
+            "bet": {
+                "status": "bad",
+                "predicted": 36.2,
+                "error": 6.727176537498228
+            }
+        }
+    ],
+    "LAL": [
+        {
+            "player": "LeBron James",
+            "market": "pts",
+            "line": 23.5,
+            "bet": {
+                "status": "bad",
+                "predicted": 24.1,
+                "error": 7.828624217757366
+            }
+        },
+        {
+            "player": "Anthony Davis",
+            "market": "trb",
+            "line": 12.5,
+            "bet": {
+                "status": "bad",
+                "predicted": 15.64,
+                "error": 3.6059534106807316
+            }
+        },
+        {
+            "player": "LeBron James",
+            "market": "ast",
+            "line": 8.5,
+            "bet": {
+                "status": "bad",
+                "predicted": 9.55,
+                "error": 2.472730320535428
+            }
+        },
+        {
+            "player": "Anthony Davis",
+            "market": "p_r_a",
+            "line": 41.5,
+            "bet": {
+                "status": "bad",
+                "predicted": 39.19,
+                "error": 9.824234876523
+            }
+        },
+        {
+            "player": "LeBron James",
+            "market": "p_r_a",
+            "line": 39.5,
+            "bet": {
+                "status": "bad",
+                "predicted": 42.58,
+                "error": 7.224886553731187
+            }
+        }
+    ],
+    "PHO": [
+        {
+            "player": "Kevin Durant",
+            "market": "pts",
+            "line": 30.5,
+            "bet": {
+                "status": "bad",
+                "predicted": 32.6,
+                "error": 7.461689486972773
+            }
+        },
+        {
+            "player": "Tyus Jones",
+            "market": "ast",
+            "line": 6.5,
+            "bet": {
+                "status": "bad",
+                "predicted": 7.21,
+                "error": 2.7608446457370137
+            }
+        },
+        {
+            "player": "Kevin Durant",
+            "market": "p_r_a",
+            "line": 41.5,
+            "bet": {
+                "status": "bad",
+                "predicted": 40.75,
+                "error": 11.683685206303702
+            }
+        }
+    ],
+    "PHI": [
+        {
+            "player": "Joel Embiid",
+            "market": "trb",
+            "line": 8.5,
+            "bet": {
+                "status": "bad",
+                "predicted": 11.99,
+                "error": 4.381069815384449
+            }
+        }
+    ],
+    "GSW": [
+        {
+            "player": "Draymond Green",
+            "market": "ast",
+            "line": 5.5,
+            "bet": {
+                "status": "bad",
+                "predicted": 7.26,
+                "error": 3.125352246814216
+            }
+        }
+    ],
+    "DEN": [
+        {
+            "player": "Jamal Murray",
+            "market": "ast",
+            "line": 5.5,
+            "bet": {
+                "status": "good",
+                "predicted": 8.62,
+                "error": 3.0023709928900137
+            }
+        }
+    ]
+}

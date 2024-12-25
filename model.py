@@ -159,7 +159,7 @@ def random_forest(player, market,conn):
     target = market
 
     # Split the data into training and test sets
-    X_train, X_test, y_train, y_test = train_test_split(df[features], df[target], test_size=0.2)
+    X_train, X_test, y_train, y_test = train_test_split(df[features], df[target], test_size=0.1)
     preprocessor = ColumnTransformer(transformers=transformers)
 
     # Create Pipelines
@@ -312,8 +312,11 @@ def run(player, team, opp, hoa, market):
 
     # Use the DataFrame to predict
     prediction = pipeline.predict(pred_vector_df)[0]
-    return prediction, error
+    return prediction, math.ceil(error)
 
-prediction, error = run("Jaylen Brown", "BOS", "PHI", 0, "trb")
 
-print(f"Predicted Output: {prediction} + - {math.ceil(error)}")
+
+if __name__ == "__main__":
+    for i in ['pts', 'trb', 'ast', 'p_r_a']:
+        prediction, error = run("Stephen Curry", "GSW", "LAL", 0, i)
+        print(f"Predicted Output: {prediction} + - {math.ceil(error)}")

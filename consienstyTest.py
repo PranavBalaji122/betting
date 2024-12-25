@@ -49,7 +49,7 @@ def getConsistency(feature):
 
 
 def main():
-    print(getConsistency('p_r'))
+    print(getConsistency('p_r_a'))
 
 if __name__ == '__main__':
     main()

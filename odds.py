@@ -80,9 +80,9 @@ def get_odds(base_url, game_id, api_key, market_types):
     return market_data
 
 def collect_all_odds(base_url, api_key, game_ids):
-    #market_types = ["player_points", "player_rebounds", "player_assists", "player_points_rebounds_assists", "player_points_rebounds", "player_points_assists", "player_rebounds_assists"]
+    market_types = ["player_points", "player_rebounds", "player_assists", "player_points_rebounds_assists", "player_points_rebounds", "player_points_assists", "player_rebounds_assists"]
     # market_types = ["player_points", "player_rebounds","player_assists", "player_points_rebounds_assists"]
-    market_types = ["player_points", "player_rebounds", "player_assists"]
+    # market_types = ["player_points", "player_rebounds", "player_assists"]
     all_bookmakers_data = {}
 
     for game_id in game_ids:
