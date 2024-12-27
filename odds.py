@@ -103,7 +103,7 @@ tomorrow_at_5am = tomorrow.replace(hour=5, minute=0, second=0, microsecond=0)
 iso_format_with_z = tomorrow_at_5am.isoformat() + 'Z'
 
 commence_time_to = tomorrow_at_5am.isoformat() + 'Z'
-api_key = 'a84fd2b2ffb360a0a568368830dc5295'
+api_key = '00818dd5e805e576c42713cf9a5ef458'
 base_url = "https://api.the-odds-api.com/v4/sports/basketball_nba/events"
 ids = game_ids(base_url, api_key, commence_time_to)
 props = collect_all_odds(base_url, api_key, ids)
