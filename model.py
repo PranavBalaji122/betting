@@ -318,5 +318,5 @@ def run(player, team, opp, hoa, market):
 
 if __name__ == "__main__":
     
-        prediction, error = run("Jayson Tatum", "BOS", "PHI", 0, 'trb')
+        prediction, error = run("Jayson Tatum", "BOS", "IND", 0, 'trb')
         print(f"Predicted Output: {prediction} + - {math.ceil(error)}")
