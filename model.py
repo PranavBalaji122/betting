@@ -177,7 +177,7 @@ def random_forest(player, market,conn):
     error = (math.sqrt(mse))
     
     return pipeline, error
-
+ 
 def get_soft_predictions(team, opp, player_df):
     # Load injured players from JSON file
     with open('injury.json', 'r') as file:
@@ -199,18 +199,25 @@ def get_soft_predictions(team, opp, player_df):
 
     # Function to populate player stats
     def populate_player_stats(players, stats, team_of_player):
+        count = 0
+        player_list = []
         for player in players:
             if player in injuries:  # If player is injured, set all their predicted stats to 0
                 for key in stats:
                     stats[key][player] = 0
             else:
+
                 for key in stats:
                     # Assuming soft function returns a predicted value or NaN for each stat
                     predicted_value = soft(player, opp if team_of_player == team else team, key, 1)
                     # Check if the predicted value is NaN and if so, use the average market value
                     if pd.isna(predicted_value):
+                        count = count +1
+                        player_list.append(player)
                         predicted_value = player_df.loc[player_df['player'] == player, f"avg_{key}"].values[0]
                     stats[key][player] = predicted_value
+        print(set(player_list))
+        print(count)
 
     # Populate stats for both teams
     populate_player_stats(team_players, team_stats, team)
@@ -318,5 +325,5 @@ def run(player, team, opp, hoa, market):
 
 if __name__ == "__main__":
     
-        prediction, error = run("Jayson Tatum", "BOS", "IND", 0, 'trb')
+        prediction, error = run("Jayson Tatum", "BOS", "PHI", 0, 'trb')
         print(f"Predicted Output: {prediction} + - {math.ceil(error)}")
