@@ -50,7 +50,7 @@ def calc_player_stats(odds_data, consistent_players):
         # Check if the player is considered consistent in the current market
         if player in consistent_players.get(market, []):
             print(f"{player} is consistent in {market}")
-            stat, error = run(player, team, opponent, 0, market)  # Assuming 'run' function returns a tuple (stat, error)
+            stat, error = run(player, team, opponent, 0, market,20)  # Assuming 'run' function returns a tuple (stat, error)
 
             # Decide and define the betting status
             is_good_bet = (stat < line and stat + error < line) or (stat > line and stat - error > line)

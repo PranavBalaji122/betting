@@ -15,7 +15,7 @@ def load_data():
     )
     df = pd.read_sql("SELECT * FROM nba;", conn)
     conn.close()
-    df.to_csv('s', encoding='utf-8', index=False)
+    df.to_csv('sql.csv', encoding='utf-8', index=False)
     return df
 
 def load_data1():

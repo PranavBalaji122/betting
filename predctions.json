@@ -3,149 +3,229 @@
         {
             "player": "Jayson Tatum",
             "market": "pts",
-            "line": 29.5,
+            "line": 28.5,
             "bet": {
                 "status": "bad",
-                "predicted": 21.91,
+                "predicted": 23.6,
                 "error": 9
             }
         },
         {
             "player": "Jayson Tatum",
             "market": "p_r_a",
-            "line": 45.5,
+            "line": 43.5,
             "bet": {
                 "status": "bad",
-                "predicted": 38.91,
+                "predicted": 38.55,
                 "error": 9
             }
         }
     ],
-    "IND": [
+    "NOP": [
         {
-            "player": "Pascal Siakam",
+            "player": "Dejounte Murray",
             "market": "pts",
             "line": 20.5,
             "bet": {
                 "status": "bad",
-                "predicted": 24.72,
-                "error": 7
+                "predicted": 28.6,
+                "error": 9
             }
         },
         {
-            "player": "Tyrese Haliburton",
-            "market": "ast",
-            "line": 9.5,
-            "bet": {
-                "status": "bad",
-                "predicted": 8.91,
-                "error": 5
-            }
-        }
-    ],
-    "MIN": [
-        {
-            "player": "Julius Randle",
-            "market": "pts",
-            "line": 20.5,
-            "bet": {
-                "status": "bad",
-                "predicted": 18.0,
-                "error": 6
-            }
-        },
-        {
-            "player": "Rudy Gobert",
+            "player": "Dejounte Murray",
             "market": "trb",
-            "line": 10.5,
-            "bet": {
-                "status": "good",
-                "predicted": 14.56,
-                "error": 3
-            }
-        },
-        {
-            "player": "Julius Randle",
-            "market": "ast",
-            "line": 4.5,
-            "bet": {
-                "status": "bad",
-                "predicted": 5.0,
-                "error": 3
-            }
-        },
-        {
-            "player": "Julius Randle",
-            "market": "p_r_a",
-            "line": 31.5,
-            "bet": {
-                "status": "bad",
-                "predicted": 30.19,
-                "error": 4
-            }
-        }
-    ],
-    "MEM": [
-        {
-            "player": "Ja Morant",
-            "market": "pts",
-            "line": 23.5,
-            "bet": {
-                "status": "good",
-                "predicted": 19.19,
-                "error": 4
-            }
-        },
-        {
-            "player": "Zach Edey",
-            "market": "trb",
-            "line": 8.5,
-            "bet": {
-                "status": "bad",
-                "predicted": 8.12,
-                "error": 4
-            }
-        },
-        {
-            "player": "Ja Morant",
-            "market": "ast",
-            "line": 8.5,
-            "bet": {
-                "status": "bad",
-                "predicted": 9.43,
-                "error": 3
-            }
-        }
-    ],
-    "PHO": [
-        {
-            "player": "Kevin Durant",
-            "market": "pts",
-            "line": 28.5,
-            "bet": {
-                "status": "bad",
-                "predicted": 30.59,
-                "error": 8
-            }
-        },
-        {
-            "player": "Tyus Jones",
-            "market": "ast",
             "line": 6.5,
             "bet": {
                 "status": "bad",
-                "predicted": 6.23,
+                "predicted": 7.8,
+                "error": 4
+            }
+        },
+        {
+            "player": "Dejounte Murray",
+            "market": "p_r_a",
+            "line": 35.5,
+            "bet": {
+                "status": "bad",
+                "predicted": 40.35,
+                "error": 10
+            }
+        }
+    ],
+    "OKC": [
+        {
+            "player": "Shai Gilgeous-Alexander",
+            "market": "pts",
+            "line": 31.5,
+            "bet": {
+                "status": "bad",
+                "predicted": 32.25,
+                "error": 3
+            }
+        },
+        {
+            "player": "Isaiah Hartenstein",
+            "market": "trb",
+            "line": 10.5,
+            "bet": {
+                "status": "bad",
+                "predicted": 13.3,
+                "error": 3
+            }
+        },
+        {
+            "player": "Shai Gilgeous-Alexander",
+            "market": "ast",
+            "line": 5.5,
+            "bet": {
+                "status": "good",
+                "predicted": 8.5,
                 "error": 2
             }
         },
         {
-            "player": "Kevin Durant",
+            "player": "Isaiah Hartenstein",
+            "market": "ast",
+            "line": 3.5,
+            "bet": {
+                "status": "bad",
+                "predicted": 3.2,
+                "error": 2
+            }
+        },
+        {
+            "player": "Shai Gilgeous-Alexander",
+            "market": "p_r_a",
+            "line": 42.5,
+            "bet": {
+                "status": "bad",
+                "predicted": 43.05,
+                "error": 9
+            }
+        },
+        {
+            "player": "Isaiah Hartenstein",
+            "market": "p_r_a",
+            "line": 26.5,
+            "bet": {
+                "status": "bad",
+                "predicted": 26.45,
+                "error": 6
+            }
+        }
+    ],
+    "SAC": [
+        {
+            "player": "DeMar DeRozan",
+            "market": "pts",
+            "line": 20.5,
+            "bet": {
+                "status": "bad",
+                "predicted": 18.3,
+                "error": 8
+            }
+        },
+        {
+            "player": "Domantas Sabonis",
+            "market": "pts",
+            "line": 19.5,
+            "bet": {
+                "status": "bad",
+                "predicted": 24.2,
+                "error": 5
+            }
+        },
+        {
+            "player": "Domantas Sabonis",
+            "market": "trb",
+            "line": 14.5,
+            "bet": {
+                "status": "bad",
+                "predicted": 15.8,
+                "error": 5
+            }
+        },
+        {
+            "player": "Domantas Sabonis",
+            "market": "ast",
+            "line": 5.5,
+            "bet": {
+                "status": "bad",
+                "predicted": 7.25,
+                "error": 4
+            }
+        },
+        {
+            "player": "DeMar DeRozan",
+            "market": "ast",
+            "line": 3.5,
+            "bet": {
+                "status": "bad",
+                "predicted": 5.8,
+                "error": 3
+            }
+        },
+        {
+            "player": "Domantas Sabonis",
+            "market": "p_r_a",
+            "line": 40.5,
+            "bet": {
+                "status": "good",
+                "predicted": 50.85,
+                "error": 7
+            }
+        }
+    ],
+    "LAL": [
+        {
+            "player": "LeBron James",
+            "market": "pts",
+            "line": 23.5,
+            "bet": {
+                "status": "bad",
+                "predicted": 25.1,
+                "error": 6
+            }
+        },
+        {
+            "player": "Anthony Davis",
+            "market": "trb",
+            "line": 11.5,
+            "bet": {
+                "status": "bad",
+                "predicted": 11.95,
+                "error": 4
+            }
+        },
+        {
+            "player": "LeBron James",
+            "market": "ast",
+            "line": 8.5,
+            "bet": {
+                "status": "good",
+                "predicted": 12.6,
+                "error": 4
+            }
+        },
+        {
+            "player": "Anthony Davis",
+            "market": "p_r_a",
+            "line": 40.5,
+            "bet": {
+                "status": "bad",
+                "predicted": 39.15,
+                "error": 12
+            }
+        },
+        {
+            "player": "LeBron James",
             "market": "p_r_a",
             "line": 39.5,
             "bet": {
                 "status": "bad",
-                "predicted": 44.07,
-                "error": 9
+                "predicted": 44.9,
+                "error": 7
             }
         }
     ],
@@ -156,83 +236,51 @@
             "line": 13.5,
             "bet": {
                 "status": "bad",
-                "predicted": 9.38,
-                "error": 5
+                "predicted": 10.7,
+                "error": 3
             }
         },
         {
             "player": "Jalen Brunson",
             "market": "ast",
-            "line": 6.5,
+            "line": 7.5,
             "bet": {
                 "status": "bad",
-                "predicted": 7.77,
+                "predicted": 8.9,
                 "error": 3
             }
         },
         {
             "player": "Karl-Anthony Towns",
             "market": "p_r_a",
-            "line": 37.5,
+            "line": 40.5,
             "bet": {
                 "status": "bad",
-                "predicted": 35.35,
-                "error": 7
+                "predicted": 35.75,
+                "error": 8
             }
         }
     ],
-    "NOP": [
+    "DET": [
         {
-            "player": "Dejounte Murray",
-            "market": "trb",
+            "player": "Cade Cunningham",
+            "market": "ast",
+            "line": 10.5,
+            "bet": {
+                "status": "bad",
+                "predicted": 7.45,
+                "error": 4
+            }
+        }
+    ],
+    "TOR": [
+        {
+            "player": "Scottie Barnes",
+            "market": "ast",
             "line": 5.5,
             "bet": {
                 "status": "bad",
-                "predicted": 8.18,
-                "error": 3
-            }
-        },
-        {
-            "player": "Dejounte Murray",
-            "market": "ast",
-            "line": 7.5,
-            "bet": {
-                "status": "bad",
-                "predicted": 7.28,
-                "error": 4
-            }
-        },
-        {
-            "player": "Dejounte Murray",
-            "market": "p_r_a",
-            "line": 33.5,
-            "bet": {
-                "status": "bad",
-                "predicted": 40.27,
-                "error": 9
-            }
-        }
-    ],
-    "SAS": [
-        {
-            "player": "Chris Paul",
-            "market": "ast",
-            "line": 8.5,
-            "bet": {
-                "status": "bad",
-                "predicted": 8.95,
-                "error": 4
-            }
-        }
-    ],
-    "DEN": [
-        {
-            "player": "Jamal Murray",
-            "market": "ast",
-            "line": 6.5,
-            "bet": {
-                "status": "bad",
-                "predicted": 8.62,
+                "predicted": 7.65,
                 "error": 3
             }
         }
@@ -244,32 +292,42 @@
             "line": 6.5,
             "bet": {
                 "status": "bad",
-                "predicted": 6.53,
+                "predicted": 6.0,
+                "error": 3
+            }
+        },
+        {
+            "player": "Donovan Mitchell",
+            "market": "ast",
+            "line": 4.5,
+            "bet": {
+                "status": "bad",
+                "predicted": 7.3,
                 "error": 3
             }
         }
     ],
-    "DAL": [
+    "SAS": [
         {
-            "player": "Quentin Grimes",
+            "player": "Chris Paul",
             "market": "ast",
-            "line": 2.5,
+            "line": 8.5,
             "bet": {
                 "status": "bad",
-                "predicted": 2.27,
-                "error": 2
+                "predicted": 7.35,
+                "error": 3
             }
         }
     ],
-    "LAC": [
+    "ATL": [
         {
-            "player": "James Harden",
+            "player": "Trae Young",
             "market": "ast",
-            "line": 7.5,
+            "line": 11.5,
             "bet": {
                 "status": "bad",
-                "predicted": 8.81,
-                "error": 3
+                "predicted": 12.5,
+                "error": 4
             }
         }
     ]

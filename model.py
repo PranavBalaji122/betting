@@ -107,7 +107,7 @@ def get_last_data(player, conn):
 
     return avg_mp, avg_plus_minus
 # Function to train the random forest model
-def random_forest(player, market,conn):
+def random_forest(player, market,conn, nestimators):
     
     nba_data = load_nba(player,conn)
     game_stats = load_game_stats(player,conn)
@@ -165,7 +165,7 @@ def random_forest(player, market,conn):
     # Create Pipelines
     pipeline = Pipeline([
         ('preprocessor', preprocessor),
-        ('regressor', RandomForestRegressor())
+        ('regressor', RandomForestRegressor(n_estimators= nestimators))
     ])
 
     # Fit the model
@@ -216,8 +216,8 @@ def get_soft_predictions(team, opp, player_df):
                         player_list.append(player)
                         predicted_value = player_df.loc[player_df['player'] == player, f"avg_{key}"].values[0]
                     stats[key][player] = predicted_value
-        print(set(player_list))
-        print(count)
+        # print(set(player_list))
+        # print(count)
 
     # Populate stats for both teams
     populate_player_stats(team_players, team_stats, team)
@@ -283,9 +283,9 @@ def get_soft_predictions(team, opp, player_df):
     return df
 
 
-def run(player, team, opp, hoa, market):
+def run(player, team, opp, hoa, market, nestimators):
     conn = create_engine('postgresql+psycopg2://postgres:gwdb@localhost:5600/mnrj')
-    pipeline, error = random_forest(player, market, conn)
+    pipeline, error = random_forest(player, market, conn, nestimators)
     avg_mp, avg_plus_minus = get_last_data(player, conn)
     player_df = load_player_positions(conn)
     df = get_soft_predictions(team, opp, player_df)
@@ -324,6 +324,11 @@ def run(player, team, opp, hoa, market):
 
 
 if __name__ == "__main__":
-    
-        prediction, error = run("Jayson Tatum", "BOS", "PHI", 0, 'trb')
+        predcstionSum = 0
+        errorSum = 0
+        for i in range(10):
+            prediction, error = run("Scottie Barnes", "TOR", "ORL", 0, 'trb',20)
+            predcstionSum += prediction
+            errorSum += error
+        print(f"Predicted Output: {predcstionSum/10} + - {math.ceil(errorSum/10)}")
         print(f"Predicted Output: {prediction} + - {math.ceil(error)}")
