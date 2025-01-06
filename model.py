@@ -115,7 +115,6 @@ def random_forest(player, market,conn, nestimators):
         game_stats,
         on= ["team", "opp","date"]
     )
-
     # Define transformers
     transformers = [
         ('actual_scaler', StandardScaler(), ['plus_minus','mp','teammates_points_G','teammates_points_F', 'teammates_points_C', 'teammates_rebounds_G',
@@ -316,7 +315,7 @@ def run(player, team, opp, hoa, market, nestimators):
     ]
 
     pred_vector_df = df[expected_columns].iloc[0:1]  # Select the first row as a DataFrame
-
+    print(error)
     # Use the DataFrame to predict
     prediction = pipeline.predict(pred_vector_df)[0]
     return prediction, math.ceil(error)
