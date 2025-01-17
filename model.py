@@ -106,6 +106,7 @@ def get_last_data(player, conn):
     avg_plus_minus = df['plus_minus'].mean()
 
     return avg_mp, avg_plus_minus
+
 # Function to train the random forest model
 def random_forest(player, market,conn, nestimators):
     
@@ -323,11 +324,6 @@ def run(player, team, opp, hoa, market, nestimators):
 
 
 if __name__ == "__main__":
-        predcstionSum = 0
-        errorSum = 0
-        for i in range(10):
-            prediction, error = run("Scottie Barnes", "TOR", "ORL", 0, 'trb',20)
-            predcstionSum += prediction
-            errorSum += error
-        print(f"Predicted Output: {predcstionSum/10} + - {math.ceil(errorSum/10)}")
-        print(f"Predicted Output: {prediction} + - {math.ceil(error)}")
+
+    prediction, error = run("Scottie Barnes", "TOR", "ORL", 0, 'trb',20)
+    print(f"Predicted Output: {prediction} + - {math.ceil(error)}")
