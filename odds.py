@@ -1,6 +1,11 @@
 import requests
 from datetime import datetime, timedelta, timezone
+from utility.process_props import main
+from utility.load_injuries import load_injuries
 import json
+
+#your odds-api key
+api_key = '00818dd5e805e576c42713cf9a5ef458'
 
 nba_teams = {
     "Atlanta Hawks": "ATL",
@@ -103,13 +108,14 @@ tomorrow_at_5am = tomorrow.replace(hour=5, minute=0, second=0, microsecond=0)
 iso_format_with_z = tomorrow_at_5am.isoformat() + 'Z'
 
 commence_time_to = tomorrow_at_5am.isoformat() + 'Z'
-api_key = '00818dd5e805e576c42713cf9a5ef458'
 base_url = "https://api.the-odds-api.com/v4/sports/basketball_nba/events"
 ids = game_ids(base_url, api_key, commence_time_to)
 props = collect_all_odds(base_url, api_key, ids)
 
  
-with open('props.json', 'w') as file:
+with open('JSON/props.json', 'w') as file:
     json.dump(props, file, indent=4)
 
 print("Data saved to props.json")
+main()
+load_injuries()

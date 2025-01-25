@@ -1,0 +1,103 @@
+{
+    "DraftKings": [
+        {
+            "player": "Zion Williamson",
+            "game": "NOP vs CHA",
+            "market": "pts",
+            "line": 21.5,
+            "bet": {
+                "status": "good",
+                "predicted": 26.6,
+                "error": 5
+            }
+        },
+        {
+            "player": "Domantas Sabonis",
+            "game": "SAC vs NYK",
+            "market": "pts",
+            "line": 19.5,
+            "bet": {
+                "status": "good",
+                "predicted": 28.35,
+                "error": 7
+            }
+        },
+        {
+            "player": "Jamal Murray",
+            "game": "DEN vs MIN",
+            "market": "ast",
+            "line": 5.5,
+            "bet": {
+                "status": "good",
+                "predicted": 8.75,
+                "error": 3
+            }
+        },
+        {
+            "player": "Trae Young",
+            "game": "ATL vs TOR",
+            "market": "ast",
+            "line": 10.5,
+            "bet": {
+                "status": "good",
+                "predicted": 13.65,
+                "error": 3
+            }
+        },
+        {
+            "player": "Donovan Mitchell",
+            "game": "CLE vs HOU",
+            "market": "ast",
+            "line": 4.5,
+            "bet": {
+                "status": "good",
+                "predicted": 7.35,
+                "error": 2
+            }
+        },
+        {
+            "player": "Julius Randle",
+            "game": "MIN vs DEN",
+            "market": "p_r_a",
+            "line": 33.5,
+            "bet": {
+                "status": "good",
+                "predicted": 40.4,
+                "error": 5
+            }
+        },
+        {
+            "player": "Tyler Herro",
+            "game": "MIA vs BKN",
+            "market": "p_r_a",
+            "line": 31.5,
+            "bet": {
+                "status": "good",
+                "predicted": 40.3,
+                "error": 3
+            }
+        },
+        {
+            "player": "Domantas Sabonis",
+            "game": "SAC vs NYK",
+            "market": "p_r_a",
+            "line": 40.5,
+            "bet": {
+                "status": "good",
+                "predicted": 50.45,
+                "error": 6
+            }
+        },
+        {
+            "player": "LeBron James",
+            "game": "LAL vs GSW",
+            "market": "p_r_a",
+            "line": 37.5,
+            "bet": {
+                "status": "good",
+                "predicted": 45.95,
+                "error": 7
+            }
+        }
+    ]
+}

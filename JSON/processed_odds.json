@@ -1,0 +1,3344 @@
+{
+    "DraftKings": [
+        {
+            "player": "Victor Wembanyama",
+            "team": "SAS",
+            "opp": "IND",
+            "hoa": "home",
+            "line": 28.5,
+            "market": "pts",
+            "under": -125,
+            "over": -105
+        },
+        {
+            "player": "Pascal Siakam",
+            "team": "IND",
+            "opp": "SAS",
+            "hoa": "away",
+            "line": 19.5,
+            "market": "pts",
+            "over": -115,
+            "under": -115
+        },
+        {
+            "player": "Devin Vassell",
+            "team": "SAS",
+            "opp": "IND",
+            "hoa": "home",
+            "line": 18.5,
+            "market": "pts",
+            "under": -125,
+            "over": -105
+        },
+        {
+            "player": "Tyrese Haliburton",
+            "team": "IND",
+            "opp": "SAS",
+            "hoa": "away",
+            "line": 17.5,
+            "market": "pts",
+            "over": -105,
+            "under": -125
+        },
+        {
+            "player": "Myles Turner",
+            "team": "IND",
+            "opp": "SAS",
+            "hoa": "away",
+            "line": 15.5,
+            "market": "pts",
+            "under": -125,
+            "over": -105
+        },
+        {
+            "player": "Bennedict Mathurin",
+            "team": "IND",
+            "opp": "SAS",
+            "hoa": "away",
+            "line": 14.5,
+            "market": "pts",
+            "under": -130,
+            "over": 100
+        },
+        {
+            "player": "Stephon Castle",
+            "team": "SAS",
+            "opp": "IND",
+            "hoa": "home",
+            "line": 11.5,
+            "market": "pts",
+            "under": -110,
+            "over": -120
+        },
+        {
+            "player": "Andrew Nembhard",
+            "team": "IND",
+            "opp": "SAS",
+            "hoa": "away",
+            "line": 10.5,
+            "market": "pts",
+            "over": -115,
+            "under": -115
+        },
+        {
+            "player": "Harrison Barnes",
+            "team": "SAS",
+            "opp": "IND",
+            "hoa": "home",
+            "line": 10.5,
+            "market": "pts",
+            "over": -115,
+            "under": -115
+        },
+        {
+            "player": "Keldon Johnson",
+            "team": "SAS",
+            "opp": "IND",
+            "hoa": "home",
+            "line": 10.5,
+            "market": "pts",
+            "over": -115,
+            "under": -115
+        },
+        {
+            "player": "Jeremy Sochan",
+            "team": "SAS",
+            "opp": "IND",
+            "hoa": "home",
+            "line": 9.5,
+            "market": "pts",
+            "over": -120,
+            "under": -110
+        },
+        {
+            "player": "Obi Toppin",
+            "team": "IND",
+            "opp": "SAS",
+            "hoa": "away",
+            "line": 8.5,
+            "market": "pts",
+            "under": -105,
+            "over": -125
+        },
+        {
+            "player": "Chris Paul",
+            "team": "SAS",
+            "opp": "IND",
+            "hoa": "home",
+            "line": 8.5,
+            "market": "pts",
+            "under": -110,
+            "over": -120
+        },
+        {
+            "player": "T.J. McConnell",
+            "team": "IND",
+            "opp": "SAS",
+            "hoa": "away",
+            "line": 8.5,
+            "market": "pts",
+            "under": -130,
+            "over": 100
+        },
+        {
+            "player": "Aaron Nesmith",
+            "team": "IND",
+            "opp": "SAS",
+            "hoa": "away",
+            "line": 7.5,
+            "market": "pts",
+            "over": -125,
+            "under": -105
+        },
+        {
+            "player": "Julian Champagnie",
+            "team": "SAS",
+            "opp": "IND",
+            "hoa": "home",
+            "line": 6.5,
+            "market": "pts",
+            "under": -110,
+            "over": -120
+        },
+        {
+            "player": "Ben Sheppard",
+            "team": "IND",
+            "opp": "SAS",
+            "hoa": "away",
+            "line": 4.5,
+            "market": "pts",
+            "under": -115,
+            "over": -115
+        },
+        {
+            "player": "Anthony Edwards",
+            "team": "MIN",
+            "opp": "DEN",
+            "hoa": "home",
+            "line": 27.5,
+            "market": "pts",
+            "over": -115,
+            "under": -115
+        },
+        {
+            "player": "Julius Randle",
+            "team": "MIN",
+            "opp": "DEN",
+            "hoa": "home",
+            "line": 20.5,
+            "market": "pts",
+            "under": -125,
+            "over": -105
+        },
+        {
+            "player": "Jamal Murray",
+            "team": "DEN",
+            "opp": "MIN",
+            "hoa": "away",
+            "line": 19.5,
+            "market": "pts",
+            "under": -120,
+            "over": -110
+        },
+        {
+            "player": "Jaden McDaniels",
+            "team": "MIN",
+            "opp": "DEN",
+            "hoa": "home",
+            "line": 13.5,
+            "market": "pts",
+            "under": -125,
+            "over": -105
+        },
+        {
+            "player": "Russell Westbrook",
+            "team": "DEN",
+            "opp": "MIN",
+            "hoa": "away",
+            "line": 12.5,
+            "market": "pts",
+            "over": -105,
+            "under": -125
+        },
+        {
+            "player": "Christian Braun",
+            "team": "DEN",
+            "opp": "MIN",
+            "hoa": "away",
+            "line": 11.5,
+            "market": "pts",
+            "under": -115,
+            "over": -115
+        },
+        {
+            "player": "Rudy Gobert",
+            "team": "MIN",
+            "opp": "DEN",
+            "hoa": "home",
+            "line": 11.5,
+            "market": "pts",
+            "under": -120,
+            "over": -110
+        },
+        {
+            "player": "Mike Conley",
+            "team": "MIN",
+            "opp": "DEN",
+            "hoa": "home",
+            "line": 10.5,
+            "market": "pts",
+            "under": -115,
+            "over": -115
+        },
+        {
+            "player": "Jayson Tatum",
+            "team": "BOS",
+            "opp": "DAL",
+            "hoa": "away",
+            "line": 26.5,
+            "market": "pts",
+            "under": -125,
+            "over": -105
+        },
+        {
+            "player": "Kyrie Irving",
+            "team": "DAL",
+            "opp": "BOS",
+            "hoa": "home",
+            "line": 25.5,
+            "market": "pts",
+            "over": -125,
+            "under": -105
+        },
+        {
+            "player": "Jaylen Brown",
+            "team": "BOS",
+            "opp": "DAL",
+            "hoa": "away",
+            "line": 21.5,
+            "market": "pts",
+            "over": -120,
+            "under": -110
+        },
+        {
+            "player": "P.J. Washington",
+            "team": "DAL",
+            "opp": "BOS",
+            "hoa": "home",
+            "line": 15.5,
+            "market": "pts",
+            "over": -125,
+            "under": -105
+        },
+        {
+            "player": "Daniel Gafford",
+            "team": "DAL",
+            "opp": "BOS",
+            "hoa": "home",
+            "line": 14.5,
+            "market": "pts",
+            "under": -120,
+            "over": -110
+        },
+        {
+            "player": "Spencer Dinwiddie",
+            "team": "DAL",
+            "opp": "BOS",
+            "hoa": "home",
+            "line": 14.5,
+            "market": "pts",
+            "over": -110,
+            "under": -120
+        },
+        {
+            "player": "Derrick White",
+            "team": "BOS",
+            "opp": "DAL",
+            "hoa": "away",
+            "line": 12.5,
+            "market": "pts",
+            "under": -110,
+            "over": -120
+        },
+        {
+            "player": "Klay Thompson",
+            "team": "DAL",
+            "opp": "BOS",
+            "hoa": "home",
+            "line": 12.5,
+            "market": "pts",
+            "under": -125,
+            "over": -105
+        },
+        {
+            "player": "Jrue Holiday",
+            "team": "BOS",
+            "opp": "DAL",
+            "hoa": "away",
+            "line": 9.5,
+            "market": "pts",
+            "over": -130,
+            "under": 100
+        },
+        {
+            "player": "Tyler Herro",
+            "team": "MIA",
+            "opp": "BKN",
+            "hoa": "away",
+            "line": 20.5,
+            "market": "pts",
+            "under": -110,
+            "over": -120
+        },
+        {
+            "player": "Kel'el Ware",
+            "team": "MIA",
+            "opp": "BKN",
+            "hoa": "away",
+            "line": 17.5,
+            "market": "pts",
+            "under": -125,
+            "over": -105
+        },
+        {
+            "player": "Bam Adebayo",
+            "team": "MIA",
+            "opp": "BKN",
+            "hoa": "away",
+            "line": 14.5,
+            "market": "pts",
+            "over": -110,
+            "under": -120
+        },
+        {
+            "player": "Duncan Robinson",
+            "team": "MIA",
+            "opp": "BKN",
+            "hoa": "away",
+            "line": 11.5,
+            "market": "pts",
+            "over": -110,
+            "under": -120
+        },
+        {
+            "player": "Ben Simmons",
+            "team": "BRK",
+            "opp": "MIA",
+            "hoa": "away",
+            "line": 7.5,
+            "market": "pts",
+            "over": -125,
+            "under": -105
+        },
+        {
+            "player": "LaMelo Ball",
+            "team": "CHO",
+            "opp": "NOP",
+            "hoa": "away",
+            "line": 30.5,
+            "market": "pts",
+            "over": -110,
+            "under": -120
+        },
+        {
+            "player": "Zion Williamson",
+            "team": "NOP",
+            "opp": "CHA",
+            "hoa": "away",
+            "line": 21.5,
+            "market": "pts",
+            "over": -110,
+            "under": -120
+        },
+        {
+            "player": "Trey Murphy III",
+            "team": "NOP",
+            "opp": "CHA",
+            "hoa": "away",
+            "line": 20.5,
+            "market": "pts",
+            "over": -120,
+            "under": -110
+        },
+        {
+            "player": "Miles Bridges",
+            "team": "CHO",
+            "opp": "NOP",
+            "hoa": "away",
+            "line": 20.5,
+            "market": "pts",
+            "over": -105,
+            "under": -125
+        },
+        {
+            "player": "Mark Williams",
+            "team": "CHO",
+            "opp": "NOP",
+            "hoa": "away",
+            "line": 18.5,
+            "market": "pts",
+            "over": -115,
+            "under": -115
+        },
+        {
+            "player": "Dejounte Murray",
+            "team": "NOP",
+            "opp": "CHA",
+            "hoa": "away",
+            "line": 16.5,
+            "market": "pts",
+            "over": -125,
+            "under": -105
+        },
+        {
+            "player": "Cade Cunningham",
+            "team": "DET",
+            "opp": "ORL",
+            "hoa": "away",
+            "line": 24.5,
+            "market": "pts",
+            "under": -105,
+            "over": -125
+        },
+        {
+            "player": "Paolo Banchero",
+            "team": "ORL",
+            "opp": "DET",
+            "hoa": "home",
+            "line": 24.5,
+            "market": "pts",
+            "over": -110,
+            "under": -120
+        },
+        {
+            "player": "Franz Wagner",
+            "team": "ORL",
+            "opp": "DET",
+            "hoa": "home",
+            "line": 18.5,
+            "market": "pts",
+            "under": -110,
+            "over": -120
+        },
+        {
+            "player": "Malik Beasley",
+            "team": "DET",
+            "opp": "ORL",
+            "hoa": "away",
+            "line": 13.5,
+            "market": "pts",
+            "under": -130,
+            "over": 100
+        },
+        {
+            "player": "Jalen Suggs",
+            "team": "ORL",
+            "opp": "DET",
+            "hoa": "home",
+            "line": 11.5,
+            "market": "pts",
+            "over": -130,
+            "under": 100
+        },
+        {
+            "player": "Tobias Harris",
+            "team": "DET",
+            "opp": "ORL",
+            "hoa": "away",
+            "line": 11.5,
+            "market": "pts",
+            "under": 100,
+            "over": -130
+        },
+        {
+            "player": "Jalen Duren",
+            "team": "DET",
+            "opp": "ORL",
+            "hoa": "away",
+            "line": 10.5,
+            "market": "pts",
+            "under": -105,
+            "over": -125
+        },
+        {
+            "player": "Kentavious Caldwell-Pope",
+            "team": "ORL",
+            "opp": "DET",
+            "hoa": "home",
+            "line": 9.5,
+            "market": "pts",
+            "over": -115,
+            "under": -115
+        },
+        {
+            "player": "Ausar Thompson",
+            "team": "DET",
+            "opp": "ORL",
+            "hoa": "away",
+            "line": 8.5,
+            "market": "pts",
+            "under": -130,
+            "over": 100
+        },
+        {
+            "player": "Trae Young",
+            "team": "ATL",
+            "opp": "TOR",
+            "hoa": "home",
+            "line": 26.5,
+            "market": "pts",
+            "over": 105,
+            "under": -135
+        },
+        {
+            "player": "Scottie Barnes",
+            "team": "TOR",
+            "opp": "ATL",
+            "hoa": "away",
+            "line": 21.5,
+            "market": "pts",
+            "under": -105,
+            "over": -125
+        },
+        {
+            "player": "Dyson Daniels",
+            "team": "ATL",
+            "opp": "TOR",
+            "hoa": "home",
+            "line": 16.5,
+            "market": "pts",
+            "under": -120,
+            "over": -110
+        },
+        {
+            "player": "Gradey Dick",
+            "team": "TOR",
+            "opp": "ATL",
+            "hoa": "away",
+            "line": 15.5,
+            "market": "pts",
+            "under": -120,
+            "over": -110
+        },
+        {
+            "player": "Onyeka Okongwu",
+            "team": "ATL",
+            "opp": "TOR",
+            "hoa": "home",
+            "line": 14.5,
+            "market": "pts",
+            "under": -115,
+            "over": -115
+        },
+        {
+            "player": "Jakob Poeltl",
+            "team": "TOR",
+            "opp": "ATL",
+            "hoa": "away",
+            "line": 13.5,
+            "market": "pts",
+            "under": -110,
+            "over": -120
+        },
+        {
+            "player": "Donovan Mitchell",
+            "team": "CLE",
+            "opp": "HOU",
+            "hoa": "home",
+            "line": 24.5,
+            "market": "pts",
+            "over": -120,
+            "under": -110
+        },
+        {
+            "player": "Darius Garland",
+            "team": "CLE",
+            "opp": "HOU",
+            "hoa": "home",
+            "line": 21.5,
+            "market": "pts",
+            "over": -115,
+            "under": -115
+        },
+        {
+            "player": "Jalen Green",
+            "team": "HOU",
+            "opp": "CLE",
+            "hoa": "away",
+            "line": 20.5,
+            "market": "pts",
+            "under": -110,
+            "over": -120
+        },
+        {
+            "player": "Alperen Sengun",
+            "team": "HOU",
+            "opp": "CLE",
+            "hoa": "away",
+            "line": 18.5,
+            "market": "pts",
+            "under": -115,
+            "over": -115
+        },
+        {
+            "player": "Evan Mobley",
+            "team": "CLE",
+            "opp": "HOU",
+            "hoa": "home",
+            "line": 17.5,
+            "market": "pts",
+            "under": -130,
+            "over": 100
+        },
+        {
+            "player": "Amen Thompson",
+            "team": "HOU",
+            "opp": "CLE",
+            "hoa": "away",
+            "line": 15.5,
+            "market": "pts",
+            "over": -120,
+            "under": -110
+        },
+        {
+            "player": "Fred VanVleet",
+            "team": "HOU",
+            "opp": "CLE",
+            "hoa": "away",
+            "line": 14.5,
+            "market": "pts",
+            "under": -115,
+            "over": -115
+        },
+        {
+            "player": "Jarrett Allen",
+            "team": "CLE",
+            "opp": "HOU",
+            "hoa": "home",
+            "line": 13.5,
+            "market": "pts",
+            "under": -115,
+            "over": -115
+        },
+        {
+            "player": "Dillon Brooks",
+            "team": "HOU",
+            "opp": "CLE",
+            "hoa": "away",
+            "line": 11.5,
+            "market": "pts",
+            "over": -105,
+            "under": -125
+        },
+        {
+            "player": "Jalen Brunson",
+            "team": "NYK",
+            "opp": "SAC",
+            "hoa": "home",
+            "line": 26.5,
+            "market": "pts",
+            "over": -120,
+            "under": -110
+        },
+        {
+            "player": "Karl-Anthony Towns",
+            "team": "NYK",
+            "opp": "SAC",
+            "hoa": "home",
+            "line": 25.5,
+            "market": "pts",
+            "over": -110,
+            "under": -120
+        },
+        {
+            "player": "De'Aaron Fox",
+            "team": "SAC",
+            "opp": "NYK",
+            "hoa": "away",
+            "line": 22.5,
+            "market": "pts",
+            "over": -110,
+            "under": -120
+        },
+        {
+            "player": "DeMar DeRozan",
+            "team": "SAC",
+            "opp": "NYK",
+            "hoa": "away",
+            "line": 21.5,
+            "market": "pts",
+            "over": -120,
+            "under": -110
+        },
+        {
+            "player": "Domantas Sabonis",
+            "team": "SAC",
+            "opp": "NYK",
+            "hoa": "away",
+            "line": 19.5,
+            "market": "pts",
+            "over": -130,
+            "under": 100
+        },
+        {
+            "player": "Malik Monk",
+            "team": "SAC",
+            "opp": "NYK",
+            "hoa": "away",
+            "line": 19.5,
+            "market": "pts",
+            "over": -125,
+            "under": -105
+        },
+        {
+            "player": "Mikal Bridges",
+            "team": "NYK",
+            "opp": "SAC",
+            "hoa": "home",
+            "line": 17.5,
+            "market": "pts",
+            "under": -115,
+            "over": -115
+        },
+        {
+            "player": "OG Anunoby",
+            "team": "NYK",
+            "opp": "SAC",
+            "hoa": "home",
+            "line": 15.5,
+            "market": "pts",
+            "under": -120,
+            "over": -110
+        },
+        {
+            "player": "Josh Hart",
+            "team": "NYK",
+            "opp": "SAC",
+            "hoa": "home",
+            "line": 12.5,
+            "market": "pts",
+            "over": -120,
+            "under": -110
+        },
+        {
+            "player": "Keegan Murray",
+            "team": "SAC",
+            "opp": "NYK",
+            "hoa": "away",
+            "line": 11.5,
+            "market": "pts",
+            "under": -125,
+            "over": -105
+        },
+        {
+            "player": "Tyrese Maxey",
+            "team": "PHI",
+            "opp": "CHI",
+            "hoa": "away",
+            "line": 29.5,
+            "market": "pts",
+            "under": -125,
+            "over": -105
+        },
+        {
+            "player": "Zach LaVine",
+            "team": "CHI",
+            "opp": "PHI",
+            "hoa": "home",
+            "line": 24.5,
+            "market": "pts",
+            "under": -115,
+            "over": -115
+        },
+        {
+            "player": "Paul George",
+            "team": "PHI",
+            "opp": "CHI",
+            "hoa": "away",
+            "line": 20.5,
+            "market": "pts",
+            "over": -120,
+            "under": -110
+        },
+        {
+            "player": "Stephen Curry",
+            "team": "GSW",
+            "opp": "LAL",
+            "hoa": "home",
+            "line": 24.5,
+            "market": "pts",
+            "under": -115,
+            "over": -115
+        },
+        {
+            "player": "Anthony Davis",
+            "team": "LAL",
+            "opp": "GSW",
+            "hoa": "away",
+            "line": 23.5,
+            "market": "pts",
+            "under": -105,
+            "over": -125
+        },
+        {
+            "player": "LeBron James",
+            "team": "LAL",
+            "opp": "GSW",
+            "hoa": "away",
+            "line": 22.5,
+            "market": "pts",
+            "under": -125,
+            "over": -105
+        },
+        {
+            "player": "Andrew Wiggins",
+            "team": "GSW",
+            "opp": "LAL",
+            "hoa": "home",
+            "line": 17.5,
+            "market": "pts",
+            "under": -110,
+            "over": -120
+        },
+        {
+            "player": "Austin Reaves",
+            "team": "LAL",
+            "opp": "GSW",
+            "hoa": "away",
+            "line": 17.5,
+            "market": "pts",
+            "over": -105,
+            "under": -125
+        },
+        {
+            "player": "Buddy Hield",
+            "team": "GSW",
+            "opp": "LAL",
+            "hoa": "home",
+            "line": 11.5,
+            "market": "pts",
+            "under": -125,
+            "over": -105
+        },
+        {
+            "player": "Rui Hachimura",
+            "team": "LAL",
+            "opp": "GSW",
+            "hoa": "away",
+            "line": 11.5,
+            "market": "pts",
+            "over": 100,
+            "under": -130
+        },
+        {
+            "player": "Moses Moody",
+            "team": "GSW",
+            "opp": "LAL",
+            "hoa": "home",
+            "line": 10.5,
+            "market": "pts",
+            "under": -130,
+            "over": 100
+        },
+        {
+            "player": "Max Christie",
+            "team": "LAL",
+            "opp": "GSW",
+            "hoa": "away",
+            "line": 9.5,
+            "market": "pts",
+            "over": -110,
+            "under": -120
+        },
+        {
+            "player": "Trayce Jackson-Davis",
+            "team": "GSW",
+            "opp": "LAL",
+            "hoa": "home",
+            "line": 7.5,
+            "market": "pts",
+            "over": -130,
+            "under": 100
+        },
+        {
+            "player": "Kevin Durant",
+            "team": "PHO",
+            "opp": "WAS",
+            "hoa": "away",
+            "line": 26.5,
+            "market": "pts",
+            "under": -105,
+            "over": -125
+        },
+        {
+            "player": "Devin Booker",
+            "team": "PHO",
+            "opp": "WAS",
+            "hoa": "away",
+            "line": 26.5,
+            "market": "pts",
+            "over": -115,
+            "under": -115
+        },
+        {
+            "player": "Jordan Poole",
+            "team": "WAS",
+            "opp": "PHX",
+            "hoa": "away",
+            "line": 22.5,
+            "market": "pts",
+            "under": -125,
+            "over": -105
+        },
+        {
+            "player": "Kyle Kuzma",
+            "team": "WAS",
+            "opp": "PHX",
+            "hoa": "away",
+            "line": 15.5,
+            "market": "pts",
+            "over": -115,
+            "under": -115
+        },
+        {
+            "player": "Bilal Coulibaly",
+            "team": "WAS",
+            "opp": "PHX",
+            "hoa": "away",
+            "line": 11.5,
+            "market": "pts",
+            "over": -120,
+            "under": -110
+        },
+        {
+            "player": "Alex Sarr",
+            "team": "WAS",
+            "opp": "PHX",
+            "hoa": "away",
+            "line": 11.5,
+            "market": "pts",
+            "over": 100,
+            "under": -130
+        },
+        {
+            "player": "Nick Richards",
+            "team": "CHO",
+            "opp": "WAS",
+            "hoa": "away",
+            "line": 9.5,
+            "market": "pts",
+            "under": -120,
+            "over": -110
+        },
+        {
+            "player": "Tyus Jones",
+            "team": "PHO",
+            "opp": "WAS",
+            "hoa": "away",
+            "line": 9.5,
+            "market": "pts",
+            "over": 100,
+            "under": -130
+        },
+        {
+            "player": "Ryan Dunn",
+            "team": "PHO",
+            "opp": "WAS",
+            "hoa": "away",
+            "line": 8.5,
+            "market": "pts",
+            "over": -125,
+            "under": -105
+        },
+        {
+            "player": "Carlton Carrington",
+            "team": "WAS",
+            "opp": "PHX",
+            "hoa": "away",
+            "line": 8.5,
+            "market": "pts",
+            "over": -105,
+            "under": -125
+        },
+        {
+            "player": "Victor Wembanyama",
+            "team": "SAS",
+            "opp": "IND",
+            "hoa": "home",
+            "line": 11.5,
+            "market": "trb",
+            "under": 110,
+            "over": -140
+        },
+        {
+            "player": "Pascal Siakam",
+            "team": "IND",
+            "opp": "SAS",
+            "hoa": "away",
+            "line": 7.5,
+            "market": "trb",
+            "under": 100,
+            "over": -130
+        },
+        {
+            "player": "Myles Turner",
+            "team": "IND",
+            "opp": "SAS",
+            "hoa": "away",
+            "line": 6.5,
+            "market": "trb",
+            "over": -145,
+            "under": 114
+        },
+        {
+            "player": "Jeremy Sochan",
+            "team": "SAS",
+            "opp": "IND",
+            "hoa": "home",
+            "line": 6.5,
+            "market": "trb",
+            "over": -115,
+            "under": -115
+        },
+        {
+            "player": "Bennedict Mathurin",
+            "team": "IND",
+            "opp": "SAS",
+            "hoa": "away",
+            "line": 4.5,
+            "market": "trb",
+            "under": -115,
+            "over": -115
+        },
+        {
+            "player": "Devin Vassell",
+            "team": "SAS",
+            "opp": "IND",
+            "hoa": "home",
+            "line": 4.5,
+            "market": "trb",
+            "under": -160,
+            "over": 124
+        },
+        {
+            "player": "Chris Paul",
+            "team": "SAS",
+            "opp": "IND",
+            "hoa": "home",
+            "line": 3.5,
+            "market": "trb",
+            "under": 130,
+            "over": -166
+        },
+        {
+            "player": "Harrison Barnes",
+            "team": "SAS",
+            "opp": "IND",
+            "hoa": "home",
+            "line": 3.5,
+            "market": "trb",
+            "under": 114,
+            "over": -145
+        },
+        {
+            "player": "Tyrese Haliburton",
+            "team": "IND",
+            "opp": "SAS",
+            "hoa": "away",
+            "line": 3.5,
+            "market": "trb",
+            "under": 114,
+            "over": -145
+        },
+        {
+            "player": "Keldon Johnson",
+            "team": "SAS",
+            "opp": "IND",
+            "hoa": "home",
+            "line": 3.5,
+            "market": "trb",
+            "over": -140,
+            "under": 110
+        },
+        {
+            "player": "Obi Toppin",
+            "team": "IND",
+            "opp": "SAS",
+            "hoa": "away",
+            "line": 3.5,
+            "market": "trb",
+            "over": -125,
+            "under": -105
+        },
+        {
+            "player": "Andrew Nembhard",
+            "team": "IND",
+            "opp": "SAS",
+            "hoa": "away",
+            "line": 3.5,
+            "market": "trb",
+            "over": -120,
+            "under": -110
+        },
+        {
+            "player": "Aaron Nesmith",
+            "team": "IND",
+            "opp": "SAS",
+            "hoa": "away",
+            "line": 2.5,
+            "market": "trb",
+            "over": -160,
+            "under": 124
+        },
+        {
+            "player": "Julian Champagnie",
+            "team": "SAS",
+            "opp": "IND",
+            "hoa": "home",
+            "line": 2.5,
+            "market": "trb",
+            "under": 100,
+            "over": -130
+        },
+        {
+            "player": "Stephon Castle",
+            "team": "SAS",
+            "opp": "IND",
+            "hoa": "home",
+            "line": 2.5,
+            "market": "trb",
+            "under": -120,
+            "over": -110
+        },
+        {
+            "player": "Ben Sheppard",
+            "team": "IND",
+            "opp": "SAS",
+            "hoa": "away",
+            "line": 2.5,
+            "market": "trb",
+            "under": -140,
+            "over": 110
+        },
+        {
+            "player": "T.J. McConnell",
+            "team": "IND",
+            "opp": "SAS",
+            "hoa": "away",
+            "line": 2.5,
+            "market": "trb",
+            "under": -160,
+            "over": 124
+        },
+        {
+            "player": "Rudy Gobert",
+            "team": "MIN",
+            "opp": "DEN",
+            "hoa": "home",
+            "line": 9.5,
+            "market": "trb",
+            "under": 105,
+            "over": -135
+        },
+        {
+            "player": "Julius Randle",
+            "team": "MIN",
+            "opp": "DEN",
+            "hoa": "home",
+            "line": 7.5,
+            "market": "trb",
+            "under": -135,
+            "over": 105
+        },
+        {
+            "player": "Anthony Edwards",
+            "team": "MIN",
+            "opp": "DEN",
+            "hoa": "home",
+            "line": 5.5,
+            "market": "trb",
+            "under": -125,
+            "over": -105
+        },
+        {
+            "player": "Jaden McDaniels",
+            "team": "MIN",
+            "opp": "DEN",
+            "hoa": "home",
+            "line": 5.5,
+            "market": "trb",
+            "over": 110,
+            "under": -140
+        },
+        {
+            "player": "Russell Westbrook",
+            "team": "DEN",
+            "opp": "MIN",
+            "hoa": "away",
+            "line": 4.5,
+            "market": "trb",
+            "under": -110,
+            "over": -120
+        },
+        {
+            "player": "Christian Braun",
+            "team": "DEN",
+            "opp": "MIN",
+            "hoa": "away",
+            "line": 3.5,
+            "market": "trb",
+            "under": -125,
+            "over": -105
+        },
+        {
+            "player": "Jamal Murray",
+            "team": "DEN",
+            "opp": "MIN",
+            "hoa": "away",
+            "line": 3.5,
+            "market": "trb",
+            "over": 110,
+            "under": -140
+        },
+        {
+            "player": "Mike Conley",
+            "team": "MIN",
+            "opp": "DEN",
+            "hoa": "home",
+            "line": 2.5,
+            "market": "trb",
+            "under": -110,
+            "over": -120
+        },
+        {
+            "player": "Daniel Gafford",
+            "team": "DAL",
+            "opp": "BOS",
+            "hoa": "home",
+            "line": 8.5,
+            "market": "trb",
+            "under": 110,
+            "over": -140
+        },
+        {
+            "player": "Jayson Tatum",
+            "team": "BOS",
+            "opp": "DAL",
+            "hoa": "away",
+            "line": 8.5,
+            "market": "trb",
+            "over": -130,
+            "under": 100
+        },
+        {
+            "player": "P.J. Washington",
+            "team": "DAL",
+            "opp": "BOS",
+            "hoa": "home",
+            "line": 8.5,
+            "market": "trb",
+            "under": -125,
+            "over": -105
+        },
+        {
+            "player": "Jaylen Brown",
+            "team": "BOS",
+            "opp": "DAL",
+            "hoa": "away",
+            "line": 5.5,
+            "market": "trb",
+            "over": 105,
+            "under": -135
+        },
+        {
+            "player": "Jrue Holiday",
+            "team": "BOS",
+            "opp": "DAL",
+            "hoa": "away",
+            "line": 4.5,
+            "market": "trb",
+            "over": 100,
+            "under": -130
+        },
+        {
+            "player": "Kyrie Irving",
+            "team": "DAL",
+            "opp": "BOS",
+            "hoa": "home",
+            "line": 4.5,
+            "market": "trb",
+            "under": -130,
+            "over": 100
+        },
+        {
+            "player": "Derrick White",
+            "team": "BOS",
+            "opp": "DAL",
+            "hoa": "away",
+            "line": 3.5,
+            "market": "trb",
+            "under": -115,
+            "over": -115
+        },
+        {
+            "player": "Spencer Dinwiddie",
+            "team": "DAL",
+            "opp": "BOS",
+            "hoa": "home",
+            "line": 3.5,
+            "market": "trb",
+            "under": -135,
+            "over": 105
+        },
+        {
+            "player": "Klay Thompson",
+            "team": "DAL",
+            "opp": "BOS",
+            "hoa": "home",
+            "line": 3.5,
+            "market": "trb",
+            "under": -154,
+            "over": 120
+        },
+        {
+            "player": "Kel'el Ware",
+            "team": "MIA",
+            "opp": "BKN",
+            "hoa": "away",
+            "line": 9.5,
+            "market": "trb",
+            "under": -115,
+            "over": -115
+        },
+        {
+            "player": "Bam Adebayo",
+            "team": "MIA",
+            "opp": "BKN",
+            "hoa": "away",
+            "line": 9.5,
+            "market": "trb",
+            "under": -140,
+            "over": 110
+        },
+        {
+            "player": "Ben Simmons",
+            "team": "BRK",
+            "opp": "MIA",
+            "hoa": "away",
+            "line": 5.5,
+            "market": "trb",
+            "under": -125,
+            "over": -105
+        },
+        {
+            "player": "Tyler Herro",
+            "team": "MIA",
+            "opp": "BKN",
+            "hoa": "away",
+            "line": 4.5,
+            "market": "trb",
+            "over": -160,
+            "under": 124
+        },
+        {
+            "player": "Duncan Robinson",
+            "team": "MIA",
+            "opp": "BKN",
+            "hoa": "away",
+            "line": 2.5,
+            "market": "trb",
+            "over": -120,
+            "under": -110
+        },
+        {
+            "player": "Mark Williams",
+            "team": "CHO",
+            "opp": "NOP",
+            "hoa": "away",
+            "line": 12.5,
+            "market": "trb",
+            "under": -115,
+            "over": -115
+        },
+        {
+            "player": "Miles Bridges",
+            "team": "CHO",
+            "opp": "NOP",
+            "hoa": "away",
+            "line": 7.5,
+            "market": "trb",
+            "under": -120,
+            "over": -110
+        },
+        {
+            "player": "LaMelo Ball",
+            "team": "CHO",
+            "opp": "NOP",
+            "hoa": "away",
+            "line": 5.5,
+            "market": "trb",
+            "over": -145,
+            "under": 114
+        },
+        {
+            "player": "Jalen Duren",
+            "team": "DET",
+            "opp": "ORL",
+            "hoa": "away",
+            "line": 9.5,
+            "market": "trb",
+            "under": -110,
+            "over": -120
+        },
+        {
+            "player": "Paolo Banchero",
+            "team": "ORL",
+            "opp": "DET",
+            "hoa": "home",
+            "line": 7.5,
+            "market": "trb",
+            "over": 110,
+            "under": -140
+        },
+        {
+            "player": "Tobias Harris",
+            "team": "DET",
+            "opp": "ORL",
+            "hoa": "away",
+            "line": 5.5,
+            "market": "trb",
+            "over": -125,
+            "under": -105
+        },
+        {
+            "player": "Cade Cunningham",
+            "team": "DET",
+            "opp": "ORL",
+            "hoa": "away",
+            "line": 5.5,
+            "market": "trb",
+            "under": -120,
+            "over": -110
+        },
+        {
+            "player": "Ausar Thompson",
+            "team": "DET",
+            "opp": "ORL",
+            "hoa": "away",
+            "line": 4.5,
+            "market": "trb",
+            "over": -135,
+            "under": 105
+        },
+        {
+            "player": "Franz Wagner",
+            "team": "ORL",
+            "opp": "DET",
+            "hoa": "home",
+            "line": 4.5,
+            "market": "trb",
+            "over": 100,
+            "under": -130
+        },
+        {
+            "player": "Jalen Suggs",
+            "team": "ORL",
+            "opp": "DET",
+            "hoa": "home",
+            "line": 3.5,
+            "market": "trb",
+            "under": -166,
+            "over": 130
+        },
+        {
+            "player": "Malik Beasley",
+            "team": "DET",
+            "opp": "ORL",
+            "hoa": "away",
+            "line": 2.5,
+            "market": "trb",
+            "under": -140,
+            "over": 110
+        },
+        {
+            "player": "Kentavious Caldwell-Pope",
+            "team": "ORL",
+            "opp": "DET",
+            "hoa": "home",
+            "line": 2.5,
+            "market": "trb",
+            "over": 130,
+            "under": -166
+        },
+        {
+            "player": "Jakob Poeltl",
+            "team": "TOR",
+            "opp": "ATL",
+            "hoa": "away",
+            "line": 10.5,
+            "market": "trb",
+            "over": 110,
+            "under": -140
+        },
+        {
+            "player": "Onyeka Okongwu",
+            "team": "ATL",
+            "opp": "TOR",
+            "hoa": "home",
+            "line": 9.5,
+            "market": "trb",
+            "over": -160,
+            "under": 124
+        },
+        {
+            "player": "Scottie Barnes",
+            "team": "TOR",
+            "opp": "ATL",
+            "hoa": "away",
+            "line": 8.5,
+            "market": "trb",
+            "over": -120,
+            "under": -110
+        },
+        {
+            "player": "Dyson Daniels",
+            "team": "ATL",
+            "opp": "TOR",
+            "hoa": "home",
+            "line": 5.5,
+            "market": "trb",
+            "under": 100,
+            "over": -130
+        },
+        {
+            "player": "Gradey Dick",
+            "team": "TOR",
+            "opp": "ATL",
+            "hoa": "away",
+            "line": 3.5,
+            "market": "trb",
+            "under": -160,
+            "over": 124
+        },
+        {
+            "player": "Trae Young",
+            "team": "ATL",
+            "opp": "TOR",
+            "hoa": "home",
+            "line": 2.5,
+            "market": "trb",
+            "under": 110,
+            "over": -140
+        },
+        {
+            "player": "Jarrett Allen",
+            "team": "CLE",
+            "opp": "HOU",
+            "hoa": "home",
+            "line": 11.5,
+            "market": "trb",
+            "under": -125,
+            "over": -105
+        },
+        {
+            "player": "Evan Mobley",
+            "team": "CLE",
+            "opp": "HOU",
+            "hoa": "home",
+            "line": 9.5,
+            "market": "trb",
+            "under": -135,
+            "over": 105
+        },
+        {
+            "player": "Donovan Mitchell",
+            "team": "CLE",
+            "opp": "HOU",
+            "hoa": "home",
+            "line": 4.5,
+            "market": "trb",
+            "under": -125,
+            "over": -105
+        },
+        {
+            "player": "Darius Garland",
+            "team": "CLE",
+            "opp": "HOU",
+            "hoa": "home",
+            "line": 2.5,
+            "market": "trb",
+            "over": -125,
+            "under": -105
+        },
+        {
+            "player": "Domantas Sabonis",
+            "team": "SAC",
+            "opp": "NYK",
+            "hoa": "away",
+            "line": 13.5,
+            "market": "trb",
+            "under": -105,
+            "over": -125
+        },
+        {
+            "player": "Karl-Anthony Towns",
+            "team": "NYK",
+            "opp": "SAC",
+            "hoa": "home",
+            "line": 12.5,
+            "market": "trb",
+            "under": 105,
+            "over": -135
+        },
+        {
+            "player": "Josh Hart",
+            "team": "NYK",
+            "opp": "SAC",
+            "hoa": "home",
+            "line": 9.5,
+            "market": "trb",
+            "over": -135,
+            "under": 105
+        },
+        {
+            "player": "Keegan Murray",
+            "team": "SAC",
+            "opp": "NYK",
+            "hoa": "away",
+            "line": 5.5,
+            "market": "trb",
+            "under": 114,
+            "over": -145
+        },
+        {
+            "player": "OG Anunoby",
+            "team": "NYK",
+            "opp": "SAC",
+            "hoa": "home",
+            "line": 4.5,
+            "market": "trb",
+            "under": -120,
+            "over": -110
+        },
+        {
+            "player": "De'Aaron Fox",
+            "team": "SAC",
+            "opp": "NYK",
+            "hoa": "away",
+            "line": 4.5,
+            "market": "trb",
+            "under": -125,
+            "over": -105
+        },
+        {
+            "player": "DeMar DeRozan",
+            "team": "SAC",
+            "opp": "NYK",
+            "hoa": "away",
+            "line": 3.5,
+            "market": "trb",
+            "under": -125,
+            "over": -105
+        },
+        {
+            "player": "Malik Monk",
+            "team": "SAC",
+            "opp": "NYK",
+            "hoa": "away",
+            "line": 3.5,
+            "market": "trb",
+            "over": 110,
+            "under": -140
+        },
+        {
+            "player": "Jalen Brunson",
+            "team": "NYK",
+            "opp": "SAC",
+            "hoa": "home",
+            "line": 2.5,
+            "market": "trb",
+            "under": 124,
+            "over": -160
+        },
+        {
+            "player": "Mikal Bridges",
+            "team": "NYK",
+            "opp": "SAC",
+            "hoa": "home",
+            "line": 2.5,
+            "market": "trb",
+            "over": -135,
+            "under": 105
+        },
+        {
+            "player": "Anthony Davis",
+            "team": "LAL",
+            "opp": "GSW",
+            "hoa": "away",
+            "line": 12.5,
+            "market": "trb",
+            "under": -135,
+            "over": 105
+        },
+        {
+            "player": "LeBron James",
+            "team": "LAL",
+            "opp": "GSW",
+            "hoa": "away",
+            "line": 7.5,
+            "market": "trb",
+            "over": -105,
+            "under": -125
+        },
+        {
+            "player": "Trayce Jackson-Davis",
+            "team": "GSW",
+            "opp": "LAL",
+            "hoa": "home",
+            "line": 6.5,
+            "market": "trb",
+            "over": -115,
+            "under": -115
+        },
+        {
+            "player": "Stephen Curry",
+            "team": "GSW",
+            "opp": "LAL",
+            "hoa": "home",
+            "line": 4.5,
+            "market": "trb",
+            "over": -140,
+            "under": 110
+        },
+        {
+            "player": "Rui Hachimura",
+            "team": "LAL",
+            "opp": "GSW",
+            "hoa": "away",
+            "line": 4.5,
+            "market": "trb",
+            "under": -105,
+            "over": -125
+        },
+        {
+            "player": "Andrew Wiggins",
+            "team": "GSW",
+            "opp": "LAL",
+            "hoa": "home",
+            "line": 4.5,
+            "market": "trb",
+            "under": -110,
+            "over": -120
+        },
+        {
+            "player": "Austin Reaves",
+            "team": "LAL",
+            "opp": "GSW",
+            "hoa": "away",
+            "line": 3.5,
+            "market": "trb",
+            "over": -135,
+            "under": 105
+        },
+        {
+            "player": "Buddy Hield",
+            "team": "GSW",
+            "opp": "LAL",
+            "hoa": "home",
+            "line": 3.5,
+            "market": "trb",
+            "under": -145,
+            "over": 114
+        },
+        {
+            "player": "Max Christie",
+            "team": "LAL",
+            "opp": "GSW",
+            "hoa": "away",
+            "line": 3.5,
+            "market": "trb",
+            "under": -154,
+            "over": 120
+        },
+        {
+            "player": "Moses Moody",
+            "team": "GSW",
+            "opp": "LAL",
+            "hoa": "home",
+            "line": 3.5,
+            "market": "trb",
+            "over": 130,
+            "under": -166
+        },
+        {
+            "player": "Nick Richards",
+            "team": "CHO",
+            "opp": "WAS",
+            "hoa": "away",
+            "line": 9.5,
+            "market": "trb",
+            "under": -120,
+            "over": -110
+        },
+        {
+            "player": "Alex Sarr",
+            "team": "WAS",
+            "opp": "PHX",
+            "hoa": "away",
+            "line": 7.5,
+            "market": "trb",
+            "under": -145,
+            "over": 114
+        },
+        {
+            "player": "Kevin Durant",
+            "team": "PHO",
+            "opp": "WAS",
+            "hoa": "away",
+            "line": 6.5,
+            "market": "trb",
+            "under": 110,
+            "over": -140
+        },
+        {
+            "player": "Kyle Kuzma",
+            "team": "WAS",
+            "opp": "PHX",
+            "hoa": "away",
+            "line": 5.5,
+            "market": "trb",
+            "over": -125,
+            "under": -105
+        },
+        {
+            "player": "Ryan Dunn",
+            "team": "PHO",
+            "opp": "WAS",
+            "hoa": "away",
+            "line": 4.5,
+            "market": "trb",
+            "over": -125,
+            "under": -105
+        },
+        {
+            "player": "Devin Booker",
+            "team": "PHO",
+            "opp": "WAS",
+            "hoa": "away",
+            "line": 4.5,
+            "market": "trb",
+            "over": -110,
+            "under": -120
+        },
+        {
+            "player": "Bilal Coulibaly",
+            "team": "WAS",
+            "opp": "PHX",
+            "hoa": "away",
+            "line": 4.5,
+            "market": "trb",
+            "over": -105,
+            "under": -125
+        },
+        {
+            "player": "Carlton Carrington",
+            "team": "WAS",
+            "opp": "PHX",
+            "hoa": "away",
+            "line": 3.5,
+            "market": "trb",
+            "over": -135,
+            "under": 105
+        },
+        {
+            "player": "Jordan Poole",
+            "team": "WAS",
+            "opp": "PHX",
+            "hoa": "away",
+            "line": 2.5,
+            "market": "trb",
+            "under": 124,
+            "over": -160
+        },
+        {
+            "player": "Tyus Jones",
+            "team": "PHO",
+            "opp": "WAS",
+            "hoa": "away",
+            "line": 2.5,
+            "market": "trb",
+            "under": -154,
+            "over": 120
+        },
+        {
+            "player": "Tyrese Haliburton",
+            "team": "IND",
+            "opp": "SAS",
+            "hoa": "away",
+            "line": 8.5,
+            "market": "ast",
+            "over": -125,
+            "under": -105
+        },
+        {
+            "player": "Chris Paul",
+            "team": "SAS",
+            "opp": "IND",
+            "hoa": "home",
+            "line": 7.5,
+            "market": "ast",
+            "over": -115,
+            "under": -115
+        },
+        {
+            "player": "Andrew Nembhard",
+            "team": "IND",
+            "opp": "SAS",
+            "hoa": "away",
+            "line": 4.5,
+            "market": "ast",
+            "under": 110,
+            "over": -140
+        },
+        {
+            "player": "Victor Wembanyama",
+            "team": "SAS",
+            "opp": "IND",
+            "hoa": "home",
+            "line": 4.5,
+            "market": "ast",
+            "over": 114,
+            "under": -145
+        },
+        {
+            "player": "Pascal Siakam",
+            "team": "IND",
+            "opp": "SAS",
+            "hoa": "away",
+            "line": 3.5,
+            "market": "ast",
+            "over": -130,
+            "under": 100
+        },
+        {
+            "player": "T.J. McConnell",
+            "team": "IND",
+            "opp": "SAS",
+            "hoa": "away",
+            "line": 3.5,
+            "market": "ast",
+            "over": -130,
+            "under": 100
+        },
+        {
+            "player": "Devin Vassell",
+            "team": "SAS",
+            "opp": "IND",
+            "hoa": "home",
+            "line": 3.5,
+            "market": "ast",
+            "over": -120,
+            "under": -110
+        },
+        {
+            "player": "Stephon Castle",
+            "team": "SAS",
+            "opp": "IND",
+            "hoa": "home",
+            "line": 2.5,
+            "market": "ast",
+            "under": 135,
+            "over": -175
+        },
+        {
+            "player": "Jamal Murray",
+            "team": "DEN",
+            "opp": "MIN",
+            "hoa": "away",
+            "line": 5.5,
+            "market": "ast",
+            "over": -120,
+            "under": -110
+        },
+        {
+            "player": "Mike Conley",
+            "team": "MIN",
+            "opp": "DEN",
+            "hoa": "home",
+            "line": 5.5,
+            "market": "ast",
+            "over": -120,
+            "under": -110
+        },
+        {
+            "player": "Julius Randle",
+            "team": "MIN",
+            "opp": "DEN",
+            "hoa": "home",
+            "line": 5.5,
+            "market": "ast",
+            "under": -115,
+            "over": -115
+        },
+        {
+            "player": "Russell Westbrook",
+            "team": "DEN",
+            "opp": "MIN",
+            "hoa": "away",
+            "line": 5.5,
+            "market": "ast",
+            "over": -105,
+            "under": -125
+        },
+        {
+            "player": "Anthony Edwards",
+            "team": "MIN",
+            "opp": "DEN",
+            "hoa": "home",
+            "line": 4.5,
+            "market": "ast",
+            "under": 114,
+            "over": -145
+        },
+        {
+            "player": "Jayson Tatum",
+            "team": "BOS",
+            "opp": "DAL",
+            "hoa": "away",
+            "line": 5.5,
+            "market": "ast",
+            "over": -110,
+            "under": -120
+        },
+        {
+            "player": "Kyrie Irving",
+            "team": "DAL",
+            "opp": "BOS",
+            "hoa": "home",
+            "line": 4.5,
+            "market": "ast",
+            "over": -154,
+            "under": 120
+        },
+        {
+            "player": "Spencer Dinwiddie",
+            "team": "DAL",
+            "opp": "BOS",
+            "hoa": "home",
+            "line": 4.5,
+            "market": "ast",
+            "under": -115,
+            "over": -115
+        },
+        {
+            "player": "Jaylen Brown",
+            "team": "BOS",
+            "opp": "DAL",
+            "hoa": "away",
+            "line": 4.5,
+            "market": "ast",
+            "under": -130,
+            "over": 100
+        },
+        {
+            "player": "Jrue Holiday",
+            "team": "BOS",
+            "opp": "DAL",
+            "hoa": "away",
+            "line": 3.5,
+            "market": "ast",
+            "over": -110,
+            "under": -120
+        },
+        {
+            "player": "Derrick White",
+            "team": "BOS",
+            "opp": "DAL",
+            "hoa": "away",
+            "line": 2.5,
+            "market": "ast",
+            "under": 124,
+            "over": -160
+        },
+        {
+            "player": "Ben Simmons",
+            "team": "BRK",
+            "opp": "MIA",
+            "hoa": "away",
+            "line": 7.5,
+            "market": "ast",
+            "over": -105,
+            "under": -125
+        },
+        {
+            "player": "Tyler Herro",
+            "team": "MIA",
+            "opp": "BKN",
+            "hoa": "away",
+            "line": 5.5,
+            "market": "ast",
+            "over": -110,
+            "under": -120
+        },
+        {
+            "player": "Bam Adebayo",
+            "team": "MIA",
+            "opp": "BKN",
+            "hoa": "away",
+            "line": 3.5,
+            "market": "ast",
+            "under": 114,
+            "over": -145
+        },
+        {
+            "player": "Duncan Robinson",
+            "team": "MIA",
+            "opp": "BKN",
+            "hoa": "away",
+            "line": 3.5,
+            "market": "ast",
+            "under": 110,
+            "over": -140
+        },
+        {
+            "player": "LaMelo Ball",
+            "team": "CHO",
+            "opp": "NOP",
+            "hoa": "away",
+            "line": 8.5,
+            "market": "ast",
+            "under": -110,
+            "over": -120
+        },
+        {
+            "player": "Miles Bridges",
+            "team": "CHO",
+            "opp": "NOP",
+            "hoa": "away",
+            "line": 3.5,
+            "market": "ast",
+            "over": -154,
+            "under": 120
+        },
+        {
+            "player": "Cade Cunningham",
+            "team": "DET",
+            "opp": "ORL",
+            "hoa": "away",
+            "line": 8.5,
+            "market": "ast",
+            "under": -125,
+            "over": -105
+        },
+        {
+            "player": "Paolo Banchero",
+            "team": "ORL",
+            "opp": "DET",
+            "hoa": "home",
+            "line": 4.5,
+            "market": "ast",
+            "over": -130,
+            "under": 100
+        },
+        {
+            "player": "Franz Wagner",
+            "team": "ORL",
+            "opp": "DET",
+            "hoa": "home",
+            "line": 3.5,
+            "market": "ast",
+            "under": 110,
+            "over": -140
+        },
+        {
+            "player": "Jalen Suggs",
+            "team": "ORL",
+            "opp": "DET",
+            "hoa": "home",
+            "line": 2.5,
+            "market": "ast",
+            "over": -135,
+            "under": 105
+        },
+        {
+            "player": "Kentavious Caldwell-Pope",
+            "team": "ORL",
+            "opp": "DET",
+            "hoa": "home",
+            "line": 2.5,
+            "market": "ast",
+            "over": 124,
+            "under": -160
+        },
+        {
+            "player": "Jalen Duren",
+            "team": "DET",
+            "opp": "ORL",
+            "hoa": "away",
+            "line": 2.5,
+            "market": "ast",
+            "over": 140,
+            "under": -180
+        },
+        {
+            "player": "Tobias Harris",
+            "team": "DET",
+            "opp": "ORL",
+            "hoa": "away",
+            "line": 2.5,
+            "market": "ast",
+            "over": 140,
+            "under": -180
+        },
+        {
+            "player": "Ausar Thompson",
+            "team": "DET",
+            "opp": "ORL",
+            "hoa": "away",
+            "line": 1.5,
+            "market": "ast",
+            "under": -130,
+            "over": 100
+        },
+        {
+            "player": "Malik Beasley",
+            "team": "DET",
+            "opp": "ORL",
+            "hoa": "away",
+            "line": 1.5,
+            "market": "ast",
+            "under": -166,
+            "over": 130
+        },
+        {
+            "player": "Trae Young",
+            "team": "ATL",
+            "opp": "TOR",
+            "hoa": "home",
+            "line": 10.5,
+            "market": "ast",
+            "over": -125,
+            "under": -105
+        },
+        {
+            "player": "Scottie Barnes",
+            "team": "TOR",
+            "opp": "ATL",
+            "hoa": "away",
+            "line": 5.5,
+            "market": "ast",
+            "under": 114,
+            "over": -145
+        },
+        {
+            "player": "Dyson Daniels",
+            "team": "ATL",
+            "opp": "TOR",
+            "hoa": "home",
+            "line": 3.5,
+            "market": "ast",
+            "under": 124,
+            "over": -160
+        },
+        {
+            "player": "Darius Garland",
+            "team": "CLE",
+            "opp": "HOU",
+            "hoa": "home",
+            "line": 6.5,
+            "market": "ast",
+            "over": -115,
+            "under": -115
+        },
+        {
+            "player": "Donovan Mitchell",
+            "team": "CLE",
+            "opp": "HOU",
+            "hoa": "home",
+            "line": 4.5,
+            "market": "ast",
+            "under": -135,
+            "over": 105
+        },
+        {
+            "player": "Evan Mobley",
+            "team": "CLE",
+            "opp": "HOU",
+            "hoa": "home",
+            "line": 2.5,
+            "market": "ast",
+            "under": -110,
+            "over": -120
+        },
+        {
+            "player": "Jalen Brunson",
+            "team": "NYK",
+            "opp": "SAC",
+            "hoa": "home",
+            "line": 7.5,
+            "market": "ast",
+            "over": -110,
+            "under": -120
+        },
+        {
+            "player": "Domantas Sabonis",
+            "team": "SAC",
+            "opp": "NYK",
+            "hoa": "away",
+            "line": 6.5,
+            "market": "ast",
+            "under": -115,
+            "over": -115
+        },
+        {
+            "player": "Malik Monk",
+            "team": "SAC",
+            "opp": "NYK",
+            "hoa": "away",
+            "line": 6.5,
+            "market": "ast",
+            "over": 110,
+            "under": -140
+        },
+        {
+            "player": "Josh Hart",
+            "team": "NYK",
+            "opp": "SAC",
+            "hoa": "home",
+            "line": 5.5,
+            "market": "ast",
+            "over": -154,
+            "under": 120
+        },
+        {
+            "player": "De'Aaron Fox",
+            "team": "SAC",
+            "opp": "NYK",
+            "hoa": "away",
+            "line": 5.5,
+            "market": "ast",
+            "under": 114,
+            "over": -145
+        },
+        {
+            "player": "Karl-Anthony Towns",
+            "team": "NYK",
+            "opp": "SAC",
+            "hoa": "home",
+            "line": 3.5,
+            "market": "ast",
+            "over": -140,
+            "under": 110
+        },
+        {
+            "player": "DeMar DeRozan",
+            "team": "SAC",
+            "opp": "NYK",
+            "hoa": "away",
+            "line": 3.5,
+            "market": "ast",
+            "under": -140,
+            "over": 110
+        },
+        {
+            "player": "Mikal Bridges",
+            "team": "NYK",
+            "opp": "SAC",
+            "hoa": "home",
+            "line": 2.5,
+            "market": "ast",
+            "under": 135,
+            "over": -175
+        },
+        {
+            "player": "OG Anunoby",
+            "team": "NYK",
+            "opp": "SAC",
+            "hoa": "home",
+            "line": 2.5,
+            "market": "ast",
+            "under": -166,
+            "over": 130
+        },
+        {
+            "player": "Tyrese Maxey",
+            "team": "PHI",
+            "opp": "CHI",
+            "hoa": "away",
+            "line": 6.5,
+            "market": "ast",
+            "over": -130,
+            "under": 100
+        },
+        {
+            "player": "Paul George",
+            "team": "PHI",
+            "opp": "CHI",
+            "hoa": "away",
+            "line": 4.5,
+            "market": "ast",
+            "over": -140,
+            "under": 110
+        },
+        {
+            "player": "LeBron James",
+            "team": "LAL",
+            "opp": "GSW",
+            "hoa": "away",
+            "line": 8.5,
+            "market": "ast",
+            "under": -145,
+            "over": 114
+        },
+        {
+            "player": "Stephen Curry",
+            "team": "GSW",
+            "opp": "LAL",
+            "hoa": "home",
+            "line": 6.5,
+            "market": "ast",
+            "under": -105,
+            "over": -125
+        },
+        {
+            "player": "Austin Reaves",
+            "team": "LAL",
+            "opp": "GSW",
+            "hoa": "away",
+            "line": 5.5,
+            "market": "ast",
+            "over": -154,
+            "under": 120
+        },
+        {
+            "player": "Anthony Davis",
+            "team": "LAL",
+            "opp": "GSW",
+            "hoa": "away",
+            "line": 3.5,
+            "market": "ast",
+            "under": -145,
+            "over": 114
+        },
+        {
+            "player": "Trayce Jackson-Davis",
+            "team": "GSW",
+            "opp": "LAL",
+            "hoa": "home",
+            "line": 2.5,
+            "market": "ast",
+            "over": 130,
+            "under": -166
+        },
+        {
+            "player": "Andrew Wiggins",
+            "team": "GSW",
+            "opp": "LAL",
+            "hoa": "home",
+            "line": 2.5,
+            "market": "ast",
+            "over": 145,
+            "under": -188
+        },
+        {
+            "player": "Buddy Hield",
+            "team": "GSW",
+            "opp": "LAL",
+            "hoa": "home",
+            "line": 1.5,
+            "market": "ast",
+            "over": -135,
+            "under": 105
+        },
+        {
+            "player": "Max Christie",
+            "team": "LAL",
+            "opp": "GSW",
+            "hoa": "away",
+            "line": 1.5,
+            "market": "ast",
+            "under": -160,
+            "over": 124
+        },
+        {
+            "player": "Moses Moody",
+            "team": "GSW",
+            "opp": "LAL",
+            "hoa": "home",
+            "line": 1.5,
+            "market": "ast",
+            "over": 145,
+            "under": -188
+        },
+        {
+            "player": "Devin Booker",
+            "team": "PHO",
+            "opp": "WAS",
+            "hoa": "away",
+            "line": 6.5,
+            "market": "ast",
+            "over": -145,
+            "under": 114
+        },
+        {
+            "player": "Tyus Jones",
+            "team": "PHO",
+            "opp": "WAS",
+            "hoa": "away",
+            "line": 5.5,
+            "market": "ast",
+            "over": -135,
+            "under": 105
+        },
+        {
+            "player": "Kevin Durant",
+            "team": "PHO",
+            "opp": "WAS",
+            "hoa": "away",
+            "line": 4.5,
+            "market": "ast",
+            "over": -115,
+            "under": -115
+        },
+        {
+            "player": "Jordan Poole",
+            "team": "WAS",
+            "opp": "PHX",
+            "hoa": "away",
+            "line": 4.5,
+            "market": "ast",
+            "under": -130,
+            "over": 100
+        },
+        {
+            "player": "Carlton Carrington",
+            "team": "WAS",
+            "opp": "PHX",
+            "hoa": "away",
+            "line": 3.5,
+            "market": "ast",
+            "under": 124,
+            "over": -160
+        },
+        {
+            "player": "Bilal Coulibaly",
+            "team": "WAS",
+            "opp": "PHX",
+            "hoa": "away",
+            "line": 3.5,
+            "market": "ast",
+            "under": -140,
+            "over": 110
+        },
+        {
+            "player": "Kyle Kuzma",
+            "team": "WAS",
+            "opp": "PHX",
+            "hoa": "away",
+            "line": 2.5,
+            "market": "ast",
+            "under": 130,
+            "over": -166
+        },
+        {
+            "player": "Ryan Dunn",
+            "team": "PHO",
+            "opp": "WAS",
+            "hoa": "away",
+            "line": 1.5,
+            "market": "ast",
+            "over": 165,
+            "under": -215
+        },
+        {
+            "player": "Victor Wembanyama",
+            "team": "SAS",
+            "opp": "IND",
+            "hoa": "home",
+            "line": 44.5,
+            "market": "p_r_a",
+            "under": -115,
+            "over": -115
+        },
+        {
+            "player": "Pascal Siakam",
+            "team": "IND",
+            "opp": "SAS",
+            "hoa": "away",
+            "line": 31.5,
+            "market": "p_r_a",
+            "over": -115,
+            "under": -115
+        },
+        {
+            "player": "Tyrese Haliburton",
+            "team": "IND",
+            "opp": "SAS",
+            "hoa": "away",
+            "line": 30.5,
+            "market": "p_r_a",
+            "over": -105,
+            "under": -125
+        },
+        {
+            "player": "Devin Vassell",
+            "team": "SAS",
+            "opp": "IND",
+            "hoa": "home",
+            "line": 25.5,
+            "market": "p_r_a",
+            "under": -105,
+            "over": -125
+        },
+        {
+            "player": "Chris Paul",
+            "team": "SAS",
+            "opp": "IND",
+            "hoa": "home",
+            "line": 20.5,
+            "market": "p_r_a",
+            "over": -120,
+            "under": -110
+        },
+        {
+            "player": "Andrew Nembhard",
+            "team": "IND",
+            "opp": "SAS",
+            "hoa": "away",
+            "line": 19.5,
+            "market": "p_r_a",
+            "under": -120,
+            "over": -110
+        },
+        {
+            "player": "Stephon Castle",
+            "team": "SAS",
+            "opp": "IND",
+            "hoa": "home",
+            "line": 17.5,
+            "market": "p_r_a",
+            "under": -115,
+            "over": -115
+        },
+        {
+            "player": "Anthony Edwards",
+            "team": "MIN",
+            "opp": "DEN",
+            "hoa": "home",
+            "line": 38.5,
+            "market": "p_r_a",
+            "over": -105,
+            "under": -125
+        },
+        {
+            "player": "Julius Randle",
+            "team": "MIN",
+            "opp": "DEN",
+            "hoa": "home",
+            "line": 33.5,
+            "market": "p_r_a",
+            "over": -110,
+            "under": -120
+        },
+        {
+            "player": "Jamal Murray",
+            "team": "DEN",
+            "opp": "MIN",
+            "hoa": "away",
+            "line": 28.5,
+            "market": "p_r_a",
+            "under": -115,
+            "over": -115
+        },
+        {
+            "player": "Rudy Gobert",
+            "team": "MIN",
+            "opp": "DEN",
+            "hoa": "home",
+            "line": 23.5,
+            "market": "p_r_a",
+            "under": -115,
+            "over": -115
+        },
+        {
+            "player": "Russell Westbrook",
+            "team": "DEN",
+            "opp": "MIN",
+            "hoa": "away",
+            "line": 22.5,
+            "market": "p_r_a",
+            "under": -115,
+            "over": -115
+        },
+        {
+            "player": "Jaden McDaniels",
+            "team": "MIN",
+            "opp": "DEN",
+            "hoa": "home",
+            "line": 19.5,
+            "market": "p_r_a",
+            "over": -130,
+            "under": 100
+        },
+        {
+            "player": "Mike Conley",
+            "team": "MIN",
+            "opp": "DEN",
+            "hoa": "home",
+            "line": 18.5,
+            "market": "p_r_a",
+            "under": -105,
+            "over": -125
+        },
+        {
+            "player": "Christian Braun",
+            "team": "DEN",
+            "opp": "MIN",
+            "hoa": "away",
+            "line": 16.5,
+            "market": "p_r_a",
+            "over": -120,
+            "under": -110
+        },
+        {
+            "player": "Jayson Tatum",
+            "team": "BOS",
+            "opp": "DAL",
+            "hoa": "away",
+            "line": 40.5,
+            "market": "p_r_a",
+            "under": -110,
+            "over": -120
+        },
+        {
+            "player": "Kyrie Irving",
+            "team": "DAL",
+            "opp": "BOS",
+            "hoa": "home",
+            "line": 35.5,
+            "market": "p_r_a",
+            "over": -120,
+            "under": -110
+        },
+        {
+            "player": "Jaylen Brown",
+            "team": "BOS",
+            "opp": "DAL",
+            "hoa": "away",
+            "line": 31.5,
+            "market": "p_r_a",
+            "over": -115,
+            "under": -115
+        },
+        {
+            "player": "Spencer Dinwiddie",
+            "team": "DAL",
+            "opp": "BOS",
+            "hoa": "home",
+            "line": 22.5,
+            "market": "p_r_a",
+            "under": -115,
+            "over": -115
+        },
+        {
+            "player": "Derrick White",
+            "team": "BOS",
+            "opp": "DAL",
+            "hoa": "away",
+            "line": 19.5,
+            "market": "p_r_a",
+            "over": -115,
+            "under": -115
+        },
+        {
+            "player": "Jrue Holiday",
+            "team": "BOS",
+            "opp": "DAL",
+            "hoa": "away",
+            "line": 18.5,
+            "market": "p_r_a",
+            "over": -105,
+            "under": -125
+        },
+        {
+            "player": "Tyler Herro",
+            "team": "MIA",
+            "opp": "BKN",
+            "hoa": "away",
+            "line": 31.5,
+            "market": "p_r_a",
+            "over": -115,
+            "under": -115
+        },
+        {
+            "player": "Bam Adebayo",
+            "team": "MIA",
+            "opp": "BKN",
+            "hoa": "away",
+            "line": 27.5,
+            "market": "p_r_a",
+            "over": -120,
+            "under": -110
+        },
+        {
+            "player": "Ben Simmons",
+            "team": "BRK",
+            "opp": "MIA",
+            "hoa": "away",
+            "line": 20.5,
+            "market": "p_r_a",
+            "over": -115,
+            "under": -115
+        },
+        {
+            "player": "Duncan Robinson",
+            "team": "MIA",
+            "opp": "BKN",
+            "hoa": "away",
+            "line": 18.5,
+            "market": "p_r_a",
+            "under": -125,
+            "over": -105
+        },
+        {
+            "player": "LaMelo Ball",
+            "team": "CHO",
+            "opp": "NOP",
+            "hoa": "away",
+            "line": 44.5,
+            "market": "p_r_a",
+            "over": -125,
+            "under": -105
+        },
+        {
+            "player": "Miles Bridges",
+            "team": "CHO",
+            "opp": "NOP",
+            "hoa": "away",
+            "line": 31.5,
+            "market": "p_r_a",
+            "over": -125,
+            "under": -105
+        },
+        {
+            "player": "Cade Cunningham",
+            "team": "DET",
+            "opp": "ORL",
+            "hoa": "away",
+            "line": 38.5,
+            "market": "p_r_a",
+            "under": -105,
+            "over": -125
+        },
+        {
+            "player": "Paolo Banchero",
+            "team": "ORL",
+            "opp": "DET",
+            "hoa": "home",
+            "line": 36.5,
+            "market": "p_r_a",
+            "under": -115,
+            "over": -115
+        },
+        {
+            "player": "Franz Wagner",
+            "team": "ORL",
+            "opp": "DET",
+            "hoa": "home",
+            "line": 27.5,
+            "market": "p_r_a",
+            "under": -125,
+            "over": -105
+        },
+        {
+            "player": "Jalen Duren",
+            "team": "DET",
+            "opp": "ORL",
+            "hoa": "away",
+            "line": 22.5,
+            "market": "p_r_a",
+            "under": -105,
+            "over": -125
+        },
+        {
+            "player": "Tobias Harris",
+            "team": "DET",
+            "opp": "ORL",
+            "hoa": "away",
+            "line": 19.5,
+            "market": "p_r_a",
+            "over": -125,
+            "under": -105
+        },
+        {
+            "player": "Jalen Suggs",
+            "team": "ORL",
+            "opp": "DET",
+            "hoa": "home",
+            "line": 17.5,
+            "market": "p_r_a",
+            "under": -105,
+            "over": -125
+        },
+        {
+            "player": "Malik Beasley",
+            "team": "DET",
+            "opp": "ORL",
+            "hoa": "away",
+            "line": 16.5,
+            "market": "p_r_a",
+            "under": -105,
+            "over": -125
+        },
+        {
+            "player": "Ausar Thompson",
+            "team": "DET",
+            "opp": "ORL",
+            "hoa": "away",
+            "line": 14.5,
+            "market": "p_r_a",
+            "over": -125,
+            "under": -105
+        },
+        {
+            "player": "Kentavious Caldwell-Pope",
+            "team": "ORL",
+            "opp": "DET",
+            "hoa": "home",
+            "line": 14.5,
+            "market": "p_r_a",
+            "under": -125,
+            "over": -105
+        },
+        {
+            "player": "Trae Young",
+            "team": "ATL",
+            "opp": "TOR",
+            "hoa": "home",
+            "line": 39.5,
+            "market": "p_r_a",
+            "under": -105,
+            "over": -125
+        },
+        {
+            "player": "Scottie Barnes",
+            "team": "TOR",
+            "opp": "ATL",
+            "hoa": "away",
+            "line": 36.5,
+            "market": "p_r_a",
+            "under": -115,
+            "over": -115
+        },
+        {
+            "player": "Onyeka Okongwu",
+            "team": "ATL",
+            "opp": "TOR",
+            "hoa": "home",
+            "line": 27.5,
+            "market": "p_r_a",
+            "over": -110,
+            "under": -120
+        },
+        {
+            "player": "Dyson Daniels",
+            "team": "ATL",
+            "opp": "TOR",
+            "hoa": "home",
+            "line": 26.5,
+            "market": "p_r_a",
+            "under": -120,
+            "over": -110
+        },
+        {
+            "player": "Jakob Poeltl",
+            "team": "TOR",
+            "opp": "ATL",
+            "hoa": "away",
+            "line": 26.5,
+            "market": "p_r_a",
+            "under": -120,
+            "over": -110
+        },
+        {
+            "player": "Gradey Dick",
+            "team": "TOR",
+            "opp": "ATL",
+            "hoa": "away",
+            "line": 20.5,
+            "market": "p_r_a",
+            "under": -115,
+            "over": -115
+        },
+        {
+            "player": "Donovan Mitchell",
+            "team": "CLE",
+            "opp": "HOU",
+            "hoa": "home",
+            "line": 33.5,
+            "market": "p_r_a",
+            "under": -110,
+            "over": -120
+        },
+        {
+            "player": "Darius Garland",
+            "team": "CLE",
+            "opp": "HOU",
+            "hoa": "home",
+            "line": 31.5,
+            "market": "p_r_a",
+            "under": -125,
+            "over": -105
+        },
+        {
+            "player": "Evan Mobley",
+            "team": "CLE",
+            "opp": "HOU",
+            "hoa": "home",
+            "line": 29.5,
+            "market": "p_r_a",
+            "over": -110,
+            "under": -120
+        },
+        {
+            "player": "Jarrett Allen",
+            "team": "CLE",
+            "opp": "HOU",
+            "hoa": "home",
+            "line": 26.5,
+            "market": "p_r_a",
+            "over": -125,
+            "under": -105
+        },
+        {
+            "player": "Karl-Anthony Towns",
+            "team": "NYK",
+            "opp": "SAC",
+            "hoa": "home",
+            "line": 42.5,
+            "market": "p_r_a",
+            "over": -115,
+            "under": -115
+        },
+        {
+            "player": "Domantas Sabonis",
+            "team": "SAC",
+            "opp": "NYK",
+            "hoa": "away",
+            "line": 40.5,
+            "market": "p_r_a",
+            "under": -115,
+            "over": -115
+        },
+        {
+            "player": "Jalen Brunson",
+            "team": "NYK",
+            "opp": "SAC",
+            "hoa": "home",
+            "line": 37.5,
+            "market": "p_r_a",
+            "under": -120,
+            "over": -110
+        },
+        {
+            "player": "De'Aaron Fox",
+            "team": "SAC",
+            "opp": "NYK",
+            "hoa": "away",
+            "line": 32.5,
+            "market": "p_r_a",
+            "over": -125,
+            "under": -105
+        },
+        {
+            "player": "Malik Monk",
+            "team": "SAC",
+            "opp": "NYK",
+            "hoa": "away",
+            "line": 29.5,
+            "market": "p_r_a",
+            "over": -120,
+            "under": -110
+        },
+        {
+            "player": "DeMar DeRozan",
+            "team": "SAC",
+            "opp": "NYK",
+            "hoa": "away",
+            "line": 28.5,
+            "market": "p_r_a",
+            "over": -120,
+            "under": -110
+        },
+        {
+            "player": "Josh Hart",
+            "team": "NYK",
+            "opp": "SAC",
+            "hoa": "home",
+            "line": 28.5,
+            "market": "p_r_a",
+            "under": -110,
+            "over": -120
+        },
+        {
+            "player": "Mikal Bridges",
+            "team": "NYK",
+            "opp": "SAC",
+            "hoa": "home",
+            "line": 23.5,
+            "market": "p_r_a",
+            "under": -115,
+            "over": -115
+        },
+        {
+            "player": "OG Anunoby",
+            "team": "NYK",
+            "opp": "SAC",
+            "hoa": "home",
+            "line": 22.5,
+            "market": "p_r_a",
+            "under": -120,
+            "over": -110
+        },
+        {
+            "player": "Anthony Davis",
+            "team": "LAL",
+            "opp": "GSW",
+            "hoa": "away",
+            "line": 39.5,
+            "market": "p_r_a",
+            "over": -115,
+            "under": -115
+        },
+        {
+            "player": "LeBron James",
+            "team": "LAL",
+            "opp": "GSW",
+            "hoa": "away",
+            "line": 37.5,
+            "market": "p_r_a",
+            "under": -110,
+            "over": -120
+        },
+        {
+            "player": "Stephen Curry",
+            "team": "GSW",
+            "opp": "LAL",
+            "hoa": "home",
+            "line": 36.5,
+            "market": "p_r_a",
+            "over": -115,
+            "under": -115
+        },
+        {
+            "player": "Austin Reaves",
+            "team": "LAL",
+            "opp": "GSW",
+            "hoa": "away",
+            "line": 27.5,
+            "market": "p_r_a",
+            "under": -125,
+            "over": -105
+        },
+        {
+            "player": "Andrew Wiggins",
+            "team": "GSW",
+            "opp": "LAL",
+            "hoa": "home",
+            "line": 24.5,
+            "market": "p_r_a",
+            "over": -120,
+            "under": -110
+        },
+        {
+            "player": "Rui Hachimura",
+            "team": "LAL",
+            "opp": "GSW",
+            "hoa": "away",
+            "line": 16.5,
+            "market": "p_r_a",
+            "over": -125,
+            "under": -105
+        },
+        {
+            "player": "Trayce Jackson-Davis",
+            "team": "GSW",
+            "opp": "LAL",
+            "hoa": "home",
+            "line": 16.5,
+            "market": "p_r_a",
+            "over": -120,
+            "under": -110
+        },
+        {
+            "player": "Buddy Hield",
+            "team": "GSW",
+            "opp": "LAL",
+            "hoa": "home",
+            "line": 16.5,
+            "market": "p_r_a",
+            "under": -115,
+            "over": -115
+        },
+        {
+            "player": "Moses Moody",
+            "team": "GSW",
+            "opp": "LAL",
+            "hoa": "home",
+            "line": 14.5,
+            "market": "p_r_a",
+            "under": -115,
+            "over": -115
+        },
+        {
+            "player": "Max Christie",
+            "team": "LAL",
+            "opp": "GSW",
+            "hoa": "away",
+            "line": 14.5,
+            "market": "p_r_a",
+            "under": -125,
+            "over": -105
+        },
+        {
+            "player": "Kevin Durant",
+            "team": "PHO",
+            "opp": "WAS",
+            "hoa": "away",
+            "line": 38.5,
+            "market": "p_r_a",
+            "under": -115,
+            "over": -115
+        },
+        {
+            "player": "Devin Booker",
+            "team": "PHO",
+            "opp": "WAS",
+            "hoa": "away",
+            "line": 38.5,
+            "market": "p_r_a",
+            "under": -120,
+            "over": -110
+        },
+        {
+            "player": "Jordan Poole",
+            "team": "WAS",
+            "opp": "PHX",
+            "hoa": "away",
+            "line": 29.5,
+            "market": "p_r_a",
+            "under": -115,
+            "over": -115
+        },
+        {
+            "player": "Kyle Kuzma",
+            "team": "WAS",
+            "opp": "PHX",
+            "hoa": "away",
+            "line": 24.5,
+            "market": "p_r_a",
+            "over": -115,
+            "under": -115
+        },
+        {
+            "player": "Alex Sarr",
+            "team": "WAS",
+            "opp": "PHX",
+            "hoa": "away",
+            "line": 20.5,
+            "market": "p_r_a",
+            "over": -115,
+            "under": -115
+        },
+        {
+            "player": "Bilal Coulibaly",
+            "team": "WAS",
+            "opp": "PHX",
+            "hoa": "away",
+            "line": 19.5,
+            "market": "p_r_a",
+            "under": -110,
+            "over": -120
+        },
+        {
+            "player": "Tyus Jones",
+            "team": "PHO",
+            "opp": "WAS",
+            "hoa": "away",
+            "line": 17.5,
+            "market": "p_r_a",
+            "under": -115,
+            "over": -115
+        },
+        {
+            "player": "Carlton Carrington",
+            "team": "WAS",
+            "opp": "PHX",
+            "hoa": "away",
+            "line": 16.5,
+            "market": "p_r_a",
+            "over": -110,
+            "under": -120
+        }
+    ]
+}
