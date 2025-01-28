@@ -2,6 +2,7 @@ from io import StringIO
 import pandas as pd
 import psycopg2
 from psycopg2.extras import Json
+from sqlalchemy import create_engine
 from psycopg2 import sql
 
 def reset_tables(cursor):
@@ -307,6 +308,12 @@ def update_game_stats(cursor):
             VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s);
         """, (game_date, team, opponent, Json(team_stats['points']), Json(team_stats['rebounds']), Json(team_stats['assists']), Json(team_stats['pr']), Json(team_stats['pa']), Json(team_stats['ar']), Json(team_stats['pra']), Json(team_stats['blocks']), Json(team_stats['turnovers']), Json(opponent_stats['points']), Json(opponent_stats['rebounds']), Json(opponent_stats['assists']), Json(opponent_stats['pr']), Json(opponent_stats['pa']), Json(opponent_stats['ar']), Json(opponent_stats['pra']), Json(opponent_stats['blocks']), Json(opponent_stats['turnovers'])))
 
+# Function to connect to the PostgreSQL database and load data
+def load_data_csv():
+    conn = create_engine('postgresql+psycopg2://postgres:gwdb@localhost:5600/mnrj')
+    df = pd.read_sql("SELECT * FROM nba;", conn)
+    df.to_csv('CSV/sql.csv', encoding='utf-8', index=False)
+    print("Saved to sql.csv successfully.")
 
 
 
@@ -442,7 +449,10 @@ def main():
         "Wendell Moore Jr.": 'G', 
         "Zach Collins": 'F', 
         "Zach LaVine": 'G', 
-        "Zion Williamson": 'F', 
+        "Zion Williamson": 'F',
+        "Alex Ducas": 'G',
+        "Alperen Şengün": 'C',
+        "Guerschon Yabusele": 'F'
     }
     try:
         process_csv()
@@ -456,6 +466,7 @@ def main():
         update_game_stats(cursor)  # New function to update teammate details
         conn.commit()
         print("Pipeline executed successfully.")
+        load_data_csv()
     except Exception as e:
         print(f"An error occurred: {e}")
         conn.rollback()

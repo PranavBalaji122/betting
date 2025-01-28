@@ -1,7 +1,6 @@
 {
   "ATL": [
     "Jalen Johnson",
-    "Zaccharie Risacher",
     "Cody Zeller"
   ],
   "BKN": [
@@ -11,19 +10,16 @@
     "Cam Thomas",
     "Trendon Watford"
   ],
-  "CHA": [
-    "LaMelo Ball",
-    "Miles Bridges",
-    "Seth Curry",
-    "Tre Mann"
+  "BOS": [
+    "Sam Hauser",
+    "Derrick White"
   ],
   "CHI": [
     "Torrey Craig",
+    "Zach LaVine",
     "Coby White"
   ],
   "CLE": [
-    "Caris LeVert",
-    "Evan Mobley",
     "Isaac Okoro",
     "Luke Travers",
     "Dean Wade"
@@ -31,12 +27,12 @@
   "DAL": [
     "Luka Doncic",
     "Dante Exum",
-    "Dereck Lively",
-    "Naji Marshall",
-    "Dwight Powell"
+    "Maxi Kleber",
+    "Dereck Lively"
   ],
   "DEN": [
-    "Vlatko Cancar"
+    "Vlatko Cancar",
+    "Spencer Jones"
   ],
   "DET": [
     "Jaden Ivey"
@@ -46,39 +42,31 @@
     "Jonathan Kuminga"
   ],
   "HOU": [
-    "Jabari Smith"
+    "Jabari Smith",
+    "Cam Whitmore"
   ],
   "LAC": [
-    "Kris Dunn",
+    "Jordan Miller",
     "P.J. Tucker"
   ],
-  "LAL": [
-    "Jalen Hood-Schifino",
-    "Christian Wood"
-  ],
   "MEM": [
-    "Santi Aldama",
-    "Jake LaRavia",
-    "Ja Morant",
-    "Marcus Smart",
-    "Cam Spencer",
-    "Vince Williams"
+    "Cam Spencer"
   ],
   "MIA": [
-    "Jimmy Butler",
-    "Josh Richardson"
+    "Jimmy Butler"
   ],
   "MIL": [
-    "AJ Green"
+    "Liam Robbins",
+    "Tyler Smith"
   ],
   "MIN": [
     "Donte DiVincenzo",
+    "Jesse Edwards",
     "Terrence Shannon"
   ],
   "NOP": [
     "Brandon Ingram",
-    "Herbert Jones",
-    "Zion Williamson"
+    "Herbert Jones"
   ],
   "NYK": [
     "Kevin McCullar",
@@ -88,30 +76,18 @@
     "Chet Holmgren",
     "Ajay Mitchell"
   ],
-  "ORL": [
-    "Gary Harris"
-  ],
   "PHI": [
     "Andre Drummond",
     "Joel Embiid",
-    "Kyle Lowry",
+    "Paul George",
     "Caleb Martin",
     "KJ Martin"
   ],
+  "PHX": [
+    "Ryan Dunn"
+  ],
   "POR": [
-    "Matisse Thybulle",
-    "Robert Williams"
-  ],
-  "TOR": [
-    "Ochai Agbaji",
-    "Kelly Olynyk",
-    "Immanuel Quickley"
-  ],
-  "UTA": [
-    "Jordan Clarkson",
-    "John Collins",
-    "Johnny Juzang",
-    "Cody Williams"
+    "Matisse Thybulle"
   ],
   "WAS": [
     "Marvin Bagley",

@@ -5,15 +5,7 @@ from sklearn.preprocessing import MinMaxScaler
 from scipy.spatial import distance
 import numpy as np
 
-# Function to connect to the PostgreSQL database and load data
 def load_data():
-    conn = create_engine('postgresql+psycopg2://postgres:gwdb@localhost:5600/mnrj')
-    df = pd.read_sql("SELECT * FROM nba;", conn)
-    conn.close()
-    df.to_csv('CSV/sql.csv', encoding='utf-8', index=False)
-    return df
-
-def load_data1():
     df = pd.read_csv('CSV/sql.csv')
     return df
 
@@ -79,7 +71,7 @@ def predict_features(df, player_id, opponent, hoa, feature):
 
 # Main function to run the prediction
 def soft(player, opp, feat, hoa):
-    df = load_data1()
+    df = load_data()
     player_id = player
     opponent = opp
     return predict_features(df, player_id, opponent, hoa, feat)

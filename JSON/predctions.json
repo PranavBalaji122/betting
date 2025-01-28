@@ -1,102 +1,80 @@
 {
     "DraftKings": [
         {
-            "player": "Zion Williamson",
-            "game": "NOP vs CHA",
+            "player": "Giannis Antetokounmpo",
+            "game": "MIL vs POR",
             "market": "pts",
-            "line": 21.5,
-            "bet": {
-                "status": "good",
-                "predicted": 26.6,
-                "error": 5
-            }
-        },
-        {
-            "player": "Domantas Sabonis",
-            "game": "SAC vs NYK",
-            "market": "pts",
-            "line": 19.5,
-            "bet": {
-                "status": "good",
-                "predicted": 28.35,
-                "error": 7
-            }
-        },
-        {
-            "player": "Jamal Murray",
-            "game": "DEN vs MIN",
-            "market": "ast",
-            "line": 5.5,
-            "bet": {
-                "status": "good",
-                "predicted": 8.75,
-                "error": 3
-            }
-        },
-        {
-            "player": "Trae Young",
-            "game": "ATL vs TOR",
-            "market": "ast",
-            "line": 10.5,
-            "bet": {
-                "status": "good",
-                "predicted": 13.65,
-                "error": 3
-            }
-        },
-        {
-            "player": "Donovan Mitchell",
-            "game": "CLE vs HOU",
-            "market": "ast",
-            "line": 4.5,
-            "bet": {
-                "status": "good",
-                "predicted": 7.35,
-                "error": 2
-            }
-        },
-        {
-            "player": "Julius Randle",
-            "game": "MIN vs DEN",
-            "market": "p_r_a",
-            "line": 33.5,
-            "bet": {
-                "status": "good",
-                "predicted": 40.4,
-                "error": 5
-            }
-        },
-        {
-            "player": "Tyler Herro",
-            "game": "MIA vs BKN",
-            "market": "p_r_a",
             "line": 31.5,
             "bet": {
                 "status": "good",
-                "predicted": 40.3,
+                "predicted": 43.2,
+                "error": 9
+            }
+        },
+        {
+            "player": "Anthony Davis",
+            "game": "LAL vs PHI",
+            "market": "ast",
+            "line": 3.5,
+            "bet": {
+                "status": "good",
+                "predicted": 8.45,
                 "error": 3
             }
         },
         {
-            "player": "Domantas Sabonis",
-            "game": "SAC vs NYK",
+            "player": "Giannis Antetokounmpo",
+            "game": "MIL vs POR",
             "market": "p_r_a",
-            "line": 40.5,
+            "line": 50.5,
             "bet": {
                 "status": "good",
-                "predicted": 50.45,
+                "predicted": 62.35,
+                "error": 9
+            }
+        },
+        {
+            "player": "Damian Lillard",
+            "game": "MIL vs POR",
+            "market": "p_r_a",
+            "line": 38.5,
+            "bet": {
+                "status": "good",
+                "predicted": 48.05,
+                "error": 3
+            }
+        },
+        {
+            "player": "Deni Avdija",
+            "game": "POR vs MIL",
+            "market": "p_r_a",
+            "line": 28.5,
+            "bet": {
+                "status": "good",
+                "predicted": 36.3,
                 "error": 6
             }
         },
         {
-            "player": "LeBron James",
-            "game": "LAL vs GSW",
-            "market": "p_r_a",
+            "player": "Damian Lillard",
+            "game": "MIL vs POR",
+            "market": "p_r",
+            "line": 30.5,
+            "bet": {
+                "status": "good",
+                "predicted": 36.9,
+                "error": 5
+            }
+        },
+        {
+            "player": "Giannis Antetokounmpo",
+            "game": "MIL vs POR",
+            "market": "p_a",
             "line": 37.5,
             "bet": {
                 "status": "good",
-                "predicted": 45.95,
-                "error": 7
+                "predicted": 48.65,
+                "error": 6
             }
         }
     ]

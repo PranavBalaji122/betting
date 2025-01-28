@@ -40,7 +40,7 @@ def calc_player_stats(odds_data, consistent_players):
                 team = entry['team']
                 opponent = entry['opp']
                 market = entry['market']
-                line = entry['line']
+                line = float(entry['line'])  # Ensure line is treated as a float for comparison
 
                 player_data = {
                     'player': player,
@@ -53,7 +53,9 @@ def calc_player_stats(odds_data, consistent_players):
                 if player in consistent_players.get(market, []):
                     print(f"Running model on {player} for {market}")
                     stat, error = run(player, team, opponent, 0, market, 20)  # Ensure the run function is defined
-                    is_good_bet = (stat < line and stat + error < line) or (stat > line and stat - error > line)
+                    buffer = error  # or however buffer is determined
+                    
+                    is_good_bet = (stat < line and (line - (stat + buffer)) > 2.5) or (stat > line and ((stat - buffer) - line) > 2.5)
                     bet_status = 'good' if is_good_bet else 'bad'
 
                     player_data['bet'] = {
@@ -62,16 +64,13 @@ def calc_player_stats(odds_data, consistent_players):
                         'error': error
                     }
 
-                    if player_data['bet']:
-                        if(player_data['bet']['status'] == "good"):
-                            results[bookmaker_name].append(player_data)
-                    if(len(results[bookmaker_name]) == 15):
-                        break
+                    # Add to results only if it's a good bet and meets the buffer criteria
+                    if bet_status == "good":
+                        results[bookmaker_name].append(player_data)
             except Exception as e:
                 print(f"Error processing data for player {player}: {e}")
-    return results     
 
-
+    return results
 
 
 def main():

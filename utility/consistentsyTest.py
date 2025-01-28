@@ -1,7 +1,6 @@
 import psycopg2
 import pandas as pd
 
-
 def getConsistency(feature):
     try:
         conn = psycopg2.connect(
@@ -12,6 +11,16 @@ def getConsistency(feature):
             port="5600"
         )
         query = f"""
+                WITH RecentGames AS (
+                    SELECT
+                        player,
+                        team,
+                        {feature},
+                        mp,
+                        ROW_NUMBER() OVER (PARTITION BY player ORDER BY days_since DESC) AS rn
+                    FROM
+                        nba
+                )
                 SELECT
                     player,
                     team,
@@ -22,31 +31,28 @@ def getConsistency(feature):
                         ELSE (STDDEV({feature}) / AVG({feature}))
                     END AS cv_{feature}
                 FROM
-                    nba
+                    RecentGames
                 WHERE
-                    mp > 10  -- Ensure that minutes played is greater than 15
+                    rn <= 15
                 GROUP BY
-                    player, team  -- Include 'team' in the GROUP BY clause
-                HAVING AVG({feature}) > 0
+                    player, team
+                HAVING
+                    AVG({feature}) > 0 AND
+                    AVG(mp) > 5  -- Ensuring the average minutes played over the last 15 games is more than 10
                 ORDER BY
                     cv_{feature} ASC
-                OFFSET 7  -- Skip the first player to start from the second
-                FETCH NEXT 50 ROWS ONLY;  -- Fetch the next 51 players (ranked 2 to 52)
+                FETCH NEXT 75 ROWS ONLY;
         """
         player_data = pd.read_sql_query(query, conn)
-        # print("Pipeline executed successfully.")
     except Exception as e:
         print(f"An error occurred: {e}")
     finally:
         if conn:
             conn.close()
 
-    # print(player_data)
     playerNames = player_data['player'].tolist()
     teams = player_data['team'].tolist()
     return playerNames, teams
-
-
 
 def main():
     print(getConsistency('p_r_a'))

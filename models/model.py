@@ -30,7 +30,7 @@ def load_nba(player, conn):
         query = f"SELECT * FROM nba WHERE player = '{player}';"
         df = pd.read_sql(query, conn)
         return df
-    except error as e:
+    except OSError as e:
         print(f"Error occurred while connecting to the database or executing query: {e}")
         return None   
 def load_player_positions(conn):
@@ -39,7 +39,7 @@ def load_player_positions(conn):
         query = f"SELECT * FROM latest_player_teams;"
         df = pd.read_sql(query, conn)
         return df
-    except error as e:
+    except OSError as e:
         print(f"Error occurred while connecting to the database or executing query: {e}")
         return None
 def load_game_stats(player,conn):
@@ -83,7 +83,7 @@ def load_game_stats(player,conn):
 
 
         return df
-    except error as e:
+    except OSError as e:
         print(f"Error occurred while connecting to the database or executing query: {e}")
 
 def get_last_data(player, conn):
@@ -128,7 +128,8 @@ def random_forest(player, market,conn, nestimators):
         # 'opponents_pa_F', 'opponents_pa_C', 'opponents_ar_G', 'opponents_ar_F',
         # 'opponents_ar_C', 'teammates_pra_G', 'teammates_pra_F',
         # 'teammates_pra_C', 'opponents_pra_G', 'opponents_pra_F',
-        # 'opponents_pra_C', 'teammates_blocks_F', 'teammates_blocks_C','teammates_blocks_G',
+        # 'opponents_pra_C', 
+        # 'teammates_blocks_F', 'teammates_blocks_C','teammates_blocks_G',
         # 'teammates_turnovers_F','teammates_turnovers_C','teammates_turnovers_G',
         # 'opponents_blocks_F','opponents_blocks_C','opponents_blocks_G',
         # 'opponents_turnovers_F','opponents_turnovers_C','opponents_turnovers_G'
@@ -251,18 +252,18 @@ def get_soft_predictions(team, opp, player_df):
         'opponents_points': [aggregate_position_data(opp_stats['pts'], player_df)],
         'opponents_rebounds': [aggregate_position_data(opp_stats['trb'], player_df)],
         'opponents_assists': [aggregate_position_data(opp_stats['ast'], player_df)],
-        'teammates_pr': [aggregate_position_data(team_stats['p_r'], player_df)],
-        'teammates_pa': [aggregate_position_data(team_stats['p_a'], player_df)],
-        'teammates_ar': [aggregate_position_data(team_stats['a_r'], player_df)],
-        'opponents_pr': [aggregate_position_data(opp_stats['p_r'], player_df)],
-        'opponents_pa': [aggregate_position_data(opp_stats['p_a'], player_df)],
-        'opponents_ar': [aggregate_position_data(opp_stats['a_r'], player_df)],
-        'teammates_pra': [aggregate_position_data(team_stats['p_r_a'], player_df)],
-        'opponents_pra': [aggregate_position_data(opp_stats['p_r_a'], player_df)],
-        'teammates_blocks': [aggregate_position_data(team_stats['blk'], player_df)],
-        'teammates_turnovers': [aggregate_position_data(team_stats['tov'], player_df)],
-        'opponents_blocks': [aggregate_position_data(opp_stats['blk'], player_df)],
-        'opponents_turnovers': [aggregate_position_data(opp_stats['tov'], player_df)]
+        # 'teammates_pr': [aggregate_position_data(team_stats['p_r'], player_df)],
+        # 'teammates_pa': [aggregate_position_data(team_stats['p_a'], player_df)],
+        # 'teammates_ar': [aggregate_position_data(team_stats['a_r'], player_df)],
+        # 'opponents_pr': [aggregate_position_data(opp_stats['p_r'], player_df)],
+        # 'opponents_pa': [aggregate_position_data(opp_stats['p_a'], player_df)],
+        # 'opponents_ar': [aggregate_position_data(opp_stats['a_r'], player_df)],
+        # 'teammates_pra': [aggregate_position_data(team_stats['p_r_a'], player_df)],
+        # 'opponents_pra': [aggregate_position_data(opp_stats['p_r_a'], player_df)],
+        # 'teammates_blocks': [aggregate_position_data(team_stats['blk'], player_df)],
+        # 'teammates_turnovers': [aggregate_position_data(team_stats['tov'], player_df)],
+        # 'opponents_blocks': [aggregate_position_data(opp_stats['blk'], player_df)],
+        # 'opponents_turnovers': [aggregate_position_data(opp_stats['tov'], player_df)]
 
     }
 
@@ -271,10 +272,11 @@ def get_soft_predictions(team, opp, player_df):
     # Expand each dictionary into separate columns and drop the original column
     for field in ['teammates_points', 'teammates_rebounds', 'teammates_assists',
                   'opponents_points', 'opponents_rebounds', 'opponents_assists',
-                  'teammates_pr', 'teammates_pa', 'teammates_ar', 'opponents_pr',
-                  'opponents_pa', 'opponents_ar', 'teammates_pra', 'opponents_pra',
-                  'teammates_blocks', 'teammates_turnovers', 'opponents_blocks', 
-                  'opponents_turnovers']:
+                #   'teammates_pr', 'teammates_pa', 'teammates_ar', 'opponents_pr',
+                #   'opponents_pa', 'opponents_ar', 'teammates_pra', 'opponents_pra',
+                #   'teammates_blocks', 'teammates_turnovers', 'opponents_blocks', 
+                #   'opponents_turnovers'
+                  ]:
         df_field = pd.json_normalize(df[field].iloc[0])
         df_field.columns = [f"{field}_{col}" for col in df_field.columns]  # Rename columns to include stat field
         df = pd.concat([df, df_field], axis=1)
@@ -324,5 +326,5 @@ def run(player, team, opp, hoa, market, nestimators):
 
 if __name__ == "__main__":
 
-    prediction, error = run("Scottie Barnes", "TOR", "ORL", 0, 'trb',20)
+    prediction, error = run("Lauri Markkanen", "UTA", "GSW", 1, 'trb',20)
     print(f"Predicted Output: {prediction} + - {math.ceil(error)}")
