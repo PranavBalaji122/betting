@@ -1,28 +1,112 @@
 {
     "DraftKings": [
         {
-            "player": "Dyson Daniels",
-            "game": "ATL vs HOU",
-            "market": "p_r",
-            "line": 19.5,
+            "player": "Domantas Sabonis",
+            "game": "SAC vs PHI",
+            "market": "pts",
+            "line": 20.5,
             "bet": {
                 "status": "good",
-                "predicted": 25.55,
-                "error": 3
+                "predicted": 30.875,
+                "error": 6
             },
-            "odds": -115
+            "odds": -110
         },
         {
-            "player": "Giannis Antetokounmpo",
-            "game": "MIL vs POR",
-            "market": "p_r",
-            "line": 43.5,
+            "player": "Kevin Durant",
+            "game": "PHO vs MIN",
+            "market": "pts",
+            "line": 25.5,
             "bet": {
                 "status": "good",
-                "predicted": 55.9,
+                "predicted": 34.75,
+                "error": 6
+            },
+            "odds": -105
+        },
+        {
+            "player": "Domantas Sabonis",
+            "game": "SAC vs PHI",
+            "market": "p_r_a",
+            "line": 42.5,
+            "bet": {
+                "status": "good",
+                "predicted": 51.675,
+                "error": 7
+            },
+            "odds": -125
+        },
+        {
+            "player": "Zion Williamson",
+            "game": "NOP vs DAL",
+            "market": "p_r_a",
+            "line": 34.5,
+            "bet": {
+                "status": "good",
+                "predicted": 24.7,
                 "error": 8
             },
             "odds": -120
+        },
+        {
+            "player": "Devin Booker",
+            "game": "PHO vs MIN",
+            "market": "p_r_a",
+            "line": 36.5,
+            "bet": {
+                "status": "good",
+                "predicted": 51.275,
+                "error": 6
+            },
+            "odds": -110
+        },
+        {
+            "player": "Jalen Duren",
+            "game": "DET vs IND",
+            "market": "p_r",
+            "line": 23.5,
+            "bet": {
+                "status": "good",
+                "predicted": 31.5,
+                "error": 6
+            },
+            "odds": -125
+        },
+        {
+            "player": "Domantas Sabonis",
+            "game": "SAC vs PHI",
+            "market": "p_r",
+            "line": 35.5,
+            "bet": {
+                "status": "good",
+                "predicted": 43.375,
+                "error": 7
+            },
+            "odds": -120
+        },
+        {
+            "player": "Dejounte Murray",
+            "game": "NOP vs DAL",
+            "market": "p_r",
+            "line": 23.5,
+            "bet": {
+                "status": "good",
+                "predicted": 32.7,
+                "error": 8
+            },
+            "odds": -120
+        },
+        {
+            "player": "Domantas Sabonis",
+            "game": "SAC vs PHI",
+            "market": "p_a",
+            "line": 27.5,
+            "bet": {
+                "status": "good",
+                "predicted": 35.325,
+                "error": 7
+            },
+            "odds": -115
         }
     ]
 }

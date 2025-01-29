@@ -1,8 +1,5 @@
 {
   "ATL": [
-    "Bogdan Bogdanovic",
-    "Jalen Johnson",
-    "Zaccharie Risacher",
     "Cody Zeller"
   ],
   "BKN": [
@@ -24,6 +21,7 @@
     "Zach LaVine"
   ],
   "CLE": [
+    "Darius Garland",
     "Caris LeVert",
     "Isaac Okoro",
     "Luke Travers",
@@ -47,8 +45,6 @@
     "Jonathan Kuminga"
   ],
   "HOU": [
-    "Steven Adams",
-    "Tari Eason",
     "Jabari Smith"
   ],
   "LAC": [
@@ -57,11 +53,8 @@
     "P.J. Tucker"
   ],
   "LAL": [
-    "Jalen Hood-Schifino",
-    "Jarred Vanderbilt",
-    "Gabe Vincent",
-    "Christian Wood",
-    "Anthony Davis"
+    "Anthony Davis",
+    "Christian Wood"
   ],
   "MEM": [
     "Cam Spencer"
@@ -69,12 +62,6 @@
   "MIA": [
     "Jimmy Butler",
     "Josh Richardson"
-  ],
-  "MIL": [
-    "AJ Green",
-    "Bobby Portis",
-    "Liam Robbins",
-    "Tyler Smith"
   ],
   "MIN": [
     "Donte DiVincenzo",
@@ -95,14 +82,7 @@
     "Ajay Mitchell"
   ],
   "PHI": [
-    "Andre Drummond",
-    "Joel Embiid",
-    "Paul George",
-    "Caleb Martin",
-    "KJ Martin"
-  ],
-  "POR": [
-    "Matisse Thybulle"
+    "Joel Embiid"
   ],
   "SAS": [
     "Sidy Cissoko"
@@ -110,17 +90,10 @@
   "TOR": [
     "Immanuel Quickley"
   ],
-  "UTA": [
-    "Jordan Clarkson",
-    "John Collins",
-    "Johnny Juzang",
-    "Walker Kessler",
-    "Lauri Markkanen",
-    "Cody Williams"
-  ],
   "WAS": [
     "Marvin Bagley",
     "Saddiq Bey",
-    "Malcolm Brogdon"
+    "Malcolm Brogdon",
+    "Alex Sarr"
   ]
 }

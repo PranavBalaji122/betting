@@ -217,7 +217,7 @@ def get_soft_predictions(team, opp, player_df):
                         player_list.append(player)
                         predicted_value = player_df.loc[player_df['player'] == player, f"avg_{key}"].values[0]
                     stats[key][player] = predicted_value
-        # print(set(player_list))
+        #print(set(player_list))
         # print(count)
 
     # Populate stats for both teams
@@ -326,5 +326,5 @@ def run(player, team, opp, hoa, market, nestimators):
 
 if __name__ == "__main__":
 
-    prediction, error = run("Anfernee Simons", "POR", "MIL", 1, 'p_r',40)
+    prediction, error = run("LeBron James", "LAL", "PHI", 1, 'p_r',40)
     print(f"Predicted Output: {prediction} + - {math.ceil(error)}")
