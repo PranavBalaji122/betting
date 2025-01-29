@@ -160,7 +160,7 @@ def random_forest(player, market,conn, nestimators):
     target = market
 
     # Split the data into training and test sets
-    X_train, X_test, y_train, y_test = train_test_split(df[features], df[target], test_size=0.1)
+    X_train, X_test, y_train, y_test = train_test_split(df[features], df[target], test_size=0.2)
     preprocessor = ColumnTransformer(transformers=transformers)
 
     # Create Pipelines
@@ -326,5 +326,5 @@ def run(player, team, opp, hoa, market, nestimators):
 
 if __name__ == "__main__":
 
-    prediction, error = run("Lauri Markkanen", "UTA", "GSW", 1, 'trb',20)
+    prediction, error = run("Anfernee Simons", "POR", "MIL", 1, 'p_r',40)
     print(f"Predicted Output: {prediction} + - {math.ceil(error)}")

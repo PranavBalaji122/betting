@@ -55,7 +55,7 @@ def getConsistency(feature):
     return playerNames, teams
 
 def main():
-    print(getConsistency('p_r_a'))
+    print(getConsistency('p_r'))
 
 if __name__ == '__main__':
     main()

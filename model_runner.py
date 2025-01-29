@@ -54,10 +54,10 @@ def calc_player_stats(odds_data, consistent_players):
                 print(player_data)
                 if player in consistent_players.get(market, []):
                     print(f"Running model on {player} for {market}")
-                    stat, error = run(player, team, opponent, 0, market, 20)  # Ensure the run function is defined
+                    stat, error = run(player, team, opponent, 0, market, 40)  # Ensure the run function is defined
                     buffer = error  # or however buffer is determined
                     
-                    is_good_bet = (stat < line and (line - (stat + buffer)) > 1.5) or (stat > line and ((stat - buffer) - line) > 1.5)
+                    is_good_bet = (stat < line and (line - (stat + (buffer*0.8))) > 2) or (stat > line and ((stat - (buffer*0.8)) - line) > 2)
                     bet_status = 'good' if is_good_bet else 'bad'
 
                     player_data['bet'] = {
