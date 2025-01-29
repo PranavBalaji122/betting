@@ -2,115 +2,81 @@ import pandas as pd
 
 # Data provided by the user
 data = {
-        "DraftKings": [
-            {
-                "player": "Domantas Sabonis",
-                "game": "SAC vs BKN",
-                "market": "pts",
-                "line": 19.5,
-                "bet": {
-                    "status": "good",
-                    "predicted": 29.55,
-                    "error": 6
-                }
-            },
-            {
-                "player": "Domantas Sabonis",
-                "game": "SAC vs BKN",
-                "market": "p_r_a",
-                "line": 42.5,
-                "bet": {
-                    "status": "good",
-                    "predicted": 51.55,
-                    "error": 7
-                }
-            },
-            {
-                "player": "Devin Booker",
-                "game": "PHO vs LAC",
-                "market": "p_r_a",
-                "line": 35.5,
-                "bet": {
-                    "status": "good",
-                    "predicted": 48.65,
-                    "error": 11
-                }
-            },
-            {
-                "player": "Jalen Duren",
-                "game": "DET vs CLE",
-                "market": "p_r",
-                "line": 22.5,
-                "bet": {
-                    "status": "good",
-                    "predicted": 29.3,
-                    "error": 5
-                }
-            },
-            {
-                "player": "Jaylen Brown",
-                "game": "BOS vs HOU",
-                "market": "p_r",
-                "line": 26.5,
-                "bet": {
-                    "status": "good",
-                    "predicted": 36.1,
-                    "error": 7
-                }
-            },
-            {
-                "player": "Alex Sarr",
-                "game": "WAS vs DAL",
-                "market": "p_r",
-                "line": 20.5,
-                "bet": {
-                    "status": "good",
-                    "predicted": 13.5,
-                    "error": 3
-                }
-            },
-            {
-                "player": "Giannis Antetokounmpo",
-                "game": "MIL vs UTA",
-                "market": "p_r",
-                "line": 43.5,
-                "bet": {
-                    "status": "good",
-                    "predicted": 53.5,
-                    "error": 6
-                }
-            },
-            {
-                "player": "Miles Bridges",
-                "game": "CHO vs LAL",
-                "market": "p_a",
-                "line": 23.5,
-                "bet": {
-                    "status": "good",
-                    "predicted": 32.45,
-                    "error": 5
-                }
-            },
-            {
-                "player": "Devin Booker",
-                "game": "PHO vs LAC",
-                "market": "p_a",
-                "line": 31.5,
-                "bet": {
-                    "status": "good",
-                    "predicted": 45.2,
-                    "error": 9
-                }
+    "DraftKings": [
+        {
+            "player": "Giannis Antetokounmpo",
+            "game": "MIL vs POR",
+            "market": "p_r",
+            "line": 44.5,
+            "bet": {
+                "status": "good",
+                "predicted": 53.35,
+                "error": 5
             }
-        ]
-    }
+        },
+        {
+            "player": "Damian Lillard",
+            "game": "MIL vs POR",
+            "market": "p_a",
+            "line": 34.5,
+            "bet": {
+                "status": "good",
+                "predicted": 44.55,
+                "error": 8
+            }
+        },
+        {
+            "player": "Anthony Davis",
+            "game": "LAL vs PHI",
+            "market": "a_r",
+            "line": 15.5,
+            "bet": {
+                "status": "good",
+                "predicted": 19.95,
+                "error": 3
+            }
+        },
+        {
+            "player": "Anfernee Simons",
+            "game": "POR vs MIL",
+            "market": "p_r",
+            "line": 22.5,
+            "bet": {
+                "status": "good",
+                "predicted": 32.85,
+                "error": 8
+            }
+        },
+        {
+            "player": "Toumani Camara",
+            "game": "POR vs MIL",
+            "market": "p_r",
+            "line": 17.5,
+            "bet": {
+                "status": "good",
+                "predicted": 24.6,
+                "error": 5
+            }
+        },
+        {
+            "player": "Deni Avdija",
+            "game": "POR vs MIL",
+            "market": "p_r_a",
+            "line": 24.5,
+            "bet": {
+                "status": "good",
+                "predicted": 33.7,
+                "error": 8
+            }
+        },
+    ]
+}
 df = pd.DataFrame([
     {
         "Player": entry["player"],
         "Market": entry["market"],
         "Predicted": entry["bet"]["predicted"],
-        "Line": entry["line"],
-        "Odds": entry["odds"]
+        "Line": entry["line"]
     }
     for entry in data["DraftKings"]
 ])

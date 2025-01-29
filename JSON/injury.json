@@ -1,34 +1,39 @@
 {
   "ATL": [
+    "Bogdan Bogdanovic",
     "Jalen Johnson",
+    "Zaccharie Risacher",
     "Cody Zeller"
   ],
   "BKN": [
     "Bojan Bogdanovic",
+    "Noah Clowney",
     "Cameron Johnson",
     "Maxwell Lewis",
-    "Cam Thomas",
-    "Trendon Watford"
+    "Cam Thomas"
   ],
-  "BOS": [
-    "Sam Hauser",
-    "Derrick White"
+  "CHA": [
+    "LaMelo Ball",
+    "Josh Green",
+    "Tre Mann",
+    "Cody Martin",
+    "Mark Williams"
   ],
   "CHI": [
     "Torrey Craig",
-    "Zach LaVine",
-    "Coby White"
+    "Zach LaVine"
   ],
   "CLE": [
+    "Caris LeVert",
     "Isaac Okoro",
     "Luke Travers",
     "Dean Wade"
   ],
   "DAL": [
     "Luka Doncic",
-    "Dante Exum",
     "Maxi Kleber",
-    "Dereck Lively"
+    "Dereck Lively",
+    "Dwight Powell"
   ],
   "DEN": [
     "Vlatko Cancar",
@@ -42,20 +47,32 @@
     "Jonathan Kuminga"
   ],
   "HOU": [
-    "Jabari Smith",
-    "Cam Whitmore"
+    "Steven Adams",
+    "Tari Eason",
+    "Jabari Smith"
   ],
   "LAC": [
-    "Jordan Miller",
+    "Cam Christie",
+    "Kris Dunn",
     "P.J. Tucker"
+  ],
+  "LAL": [
+    "Jalen Hood-Schifino",
+    "Jarred Vanderbilt",
+    "Gabe Vincent",
+    "Christian Wood",
+    "Anthony Davis"
   ],
   "MEM": [
     "Cam Spencer"
   ],
   "MIA": [
-    "Jimmy Butler"
+    "Jimmy Butler",
+    "Josh Richardson"
   ],
   "MIL": [
+    "AJ Green",
+    "Bobby Portis",
     "Liam Robbins",
     "Tyler Smith"
   ],
@@ -69,6 +86,7 @@
     "Herbert Jones"
   ],
   "NYK": [
+    "Pacome Dadiet",
     "Kevin McCullar",
     "Mitchell Robinson"
   ],
@@ -83,11 +101,22 @@
     "Caleb Martin",
     "KJ Martin"
   ],
-  "PHX": [
-    "Ryan Dunn"
-  ],
   "POR": [
     "Matisse Thybulle"
+  ],
+  "SAS": [
+    "Sidy Cissoko"
+  ],
+  "TOR": [
+    "Immanuel Quickley"
+  ],
+  "UTA": [
+    "Jordan Clarkson",
+    "John Collins",
+    "Johnny Juzang",
+    "Walker Kessler",
+    "Lauri Markkanen",
+    "Cody Williams"
   ],
   "WAS": [
     "Marvin Bagley",

@@ -1,81 +1,28 @@
 {
     "DraftKings": [
         {
-            "player": "Giannis Antetokounmpo",
-            "game": "MIL vs POR",
-            "market": "pts",
-            "line": 31.5,
+            "player": "Dyson Daniels",
+            "game": "ATL vs HOU",
+            "market": "p_r",
+            "line": 19.5,
             "bet": {
                 "status": "good",
-                "predicted": 43.2,
-                "error": 9
-            }
-        },
-        {
-            "player": "Anthony Davis",
-            "game": "LAL vs PHI",
-            "market": "ast",
-            "line": 3.5,
-            "bet": {
-                "status": "good",
-                "predicted": 8.45,
+                "predicted": 25.55,
                 "error": 3
-            }
+            },
+            "odds": -115
         },
         {
             "player": "Giannis Antetokounmpo",
-            "game": "MIL vs POR",
-            "market": "p_r_a",
-            "line": 50.5,
-            "bet": {
-                "status": "good",
-                "predicted": 62.35,
-                "error": 9
-            }
-        },
-        {
-            "player": "Damian Lillard",
-            "game": "MIL vs POR",
-            "market": "p_r_a",
-            "line": 38.5,
-            "bet": {
-                "status": "good",
-                "predicted": 48.05,
-                "error": 3
-            }
-        },
-        {
-            "player": "Deni Avdija",
-            "game": "POR vs MIL",
-            "market": "p_r_a",
-            "line": 28.5,
-            "bet": {
-                "status": "good",
-                "predicted": 36.3,
-                "error": 6
-            }
-        },
-        {
-            "player": "Damian Lillard",
             "game": "MIL vs POR",
             "market": "p_r",
-            "line": 30.5,
+            "line": 43.5,
             "bet": {
                 "status": "good",
-                "predicted": 36.9,
-                "error": 5
-            }
-        },
-        {
-            "player": "Giannis Antetokounmpo",
-            "game": "MIL vs POR",
-            "market": "p_a",
-            "line": 37.5,
-            "bet": {
-                "status": "good",
-                "predicted": 48.65,
-                "error": 6
-            }
+                "predicted": 55.9,
+                "error": 8
+            },
+            "odds": -120
         }
     ]
 }

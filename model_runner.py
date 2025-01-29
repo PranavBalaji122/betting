@@ -41,21 +41,23 @@ def calc_player_stats(odds_data, consistent_players):
                 opponent = entry['opp']
                 market = entry['market']
                 line = float(entry['line'])  # Ensure line is treated as a float for comparison
-
+    
                 player_data = {
                     'player': player,
                     'game': f"{team} vs {opponent}",
                     'market': market,
                     'line': line,
+                    'over': entry["over"],
+                    'under': entry["under"],
                     'bet': {}
                 }
-
+                print(player_data)
                 if player in consistent_players.get(market, []):
                     print(f"Running model on {player} for {market}")
                     stat, error = run(player, team, opponent, 0, market, 20)  # Ensure the run function is defined
                     buffer = error  # or however buffer is determined
                     
-                    is_good_bet = (stat < line and (line - (stat + buffer)) > 2.5) or (stat > line and ((stat - buffer) - line) > 2.5)
+                    is_good_bet = (stat < line and (line - (stat + buffer)) > 1.5) or (stat > line and ((stat - buffer) - line) > 1.5)
                     bet_status = 'good' if is_good_bet else 'bad'
 
                     player_data['bet'] = {
@@ -63,10 +65,18 @@ def calc_player_stats(odds_data, consistent_players):
                         'predicted': stat,
                         'error': error
                     }
+                    if(stat < line):
+                        del player_data['over']
+                        player_data['odds'] = player_data.pop('under')
+                    else:
+                        del player_data['under']
+                        player_data['odds'] = player_data.pop('over')
 
                     # Add to results only if it's a good bet and meets the buffer criteria
                     if bet_status == "good":
                         results[bookmaker_name].append(player_data)
+
+
             except Exception as e:
                 print(f"Error processing data for player {player}: {e}")
 
