@@ -77,7 +77,7 @@ def soft(player, opp, feat, hoa):
     return predict_features(df, player_id, opponent, hoa, feat)
 
 def main():
-    print(soft("Anthony Davis","DET", 'p_r', 1))
+    print(soft("Domantas Sabonis","DAL", 'p_r_a', 1))
 
 if __name__ == '__main__':
     main()

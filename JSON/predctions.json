@@ -7,22 +7,58 @@
             "line": 20.5,
             "bet": {
                 "status": "good",
-                "predicted": 30.875,
+                "predicted": 27.8,
+                "error": 7
+            },
+            "odds": -110
+        },
+        {
+            "player": "Dejounte Murray",
+            "game": "NOP vs DAL",
+            "market": "pts",
+            "line": 17.5,
+            "bet": {
+                "status": "good",
+                "predicted": 25.2,
                 "error": 6
             },
             "odds": -110
         },
         {
-            "player": "Kevin Durant",
-            "game": "PHO vs MIN",
-            "market": "pts",
-            "line": 25.5,
+            "player": "Domantas Sabonis",
+            "game": "SAC vs PHI",
+            "market": "trb",
+            "line": 15.5,
             "bet": {
                 "status": "good",
-                "predicted": 34.75,
-                "error": 6
+                "predicted": 20.55,
+                "error": 4
             },
             "odds": -105
+        },
+        {
+            "player": "Jordan Poole",
+            "game": "WAS vs TOR",
+            "market": "p_r_a",
+            "line": 32.5,
+            "bet": {
+                "status": "good",
+                "predicted": 21.5,
+                "error": 9
+            },
+            "odds": -115
+        },
+        {
+            "player": "Mikal Bridges",
+            "game": "NYK vs DEN",
+            "market": "p_r_a",
+            "line": 23.5,
+            "bet": {
+                "status": "good",
+                "predicted": 32.45,
+                "error": 8
+            },
+            "odds": -125
         },
         {
             "player": "Domantas Sabonis",
@@ -31,10 +67,22 @@
             "line": 42.5,
             "bet": {
                 "status": "good",
-                "predicted": 51.675,
-                "error": 7
+                "predicted": 50.55,
+                "error": 6
             },
             "odds": -125
+        },
+        {
+            "player": "DeMar DeRozan",
+            "game": "SAC vs PHI",
+            "market": "p_r_a",
+            "line": 26.5,
+            "bet": {
+                "status": "good",
+                "predicted": 36.425,
+                "error": 7
+            },
+            "odds": -105
         },
         {
             "player": "Zion Williamson",
@@ -43,7 +91,7 @@
             "line": 34.5,
             "bet": {
                 "status": "good",
-                "predicted": 24.7,
+                "predicted": 25.3,
                 "error": 8
             },
             "odds": -120
@@ -55,22 +103,22 @@
             "line": 36.5,
             "bet": {
                 "status": "good",
-                "predicted": 51.275,
-                "error": 6
+                "predicted": 47.3,
+                "error": 11
             },
             "odds": -110
         },
         {
-            "player": "Jalen Duren",
-            "game": "DET vs IND",
-            "market": "p_r",
-            "line": 23.5,
+            "player": "Kevin Durant",
+            "game": "PHO vs MIN",
+            "market": "p_r_a",
+            "line": 35.5,
             "bet": {
                 "status": "good",
-                "predicted": 31.5,
-                "error": 6
+                "predicted": 46.2,
+                "error": 9
             },
-            "odds": -125
+            "odds": -115
         },
         {
             "player": "Domantas Sabonis",
@@ -79,10 +127,22 @@
             "line": 35.5,
             "bet": {
                 "status": "good",
-                "predicted": 43.375,
-                "error": 7
+                "predicted": 44.475,
+                "error": 8
             },
             "odds": -120
+        },
+        {
+            "player": "Zion Williamson",
+            "game": "NOP vs DAL",
+            "market": "p_r",
+            "line": 29.5,
+            "bet": {
+                "status": "good",
+                "predicted": 20.9,
+                "error": 6
+            },
+            "odds": -110
         },
         {
             "player": "Dejounte Murray",
@@ -91,8 +151,56 @@
             "line": 23.5,
             "bet": {
                 "status": "good",
-                "predicted": 32.7,
+                "predicted": 33.5,
+                "error": 7
+            },
+            "odds": -120
+        },
+        {
+            "player": "Kevin Durant",
+            "game": "PHO vs MIN",
+            "market": "p_r",
+            "line": 31.5,
+            "bet": {
+                "status": "good",
+                "predicted": 39.3,
+                "error": 7
+            },
+            "odds": -115
+        },
+        {
+            "player": "Devin Booker",
+            "game": "PHO vs MIN",
+            "market": "p_r",
+            "line": 29.5,
+            "bet": {
+                "status": "good",
+                "predicted": 45.95,
+                "error": 9
+            },
+            "odds": -125
+        },
+        {
+            "player": "Jordan Poole",
+            "game": "WAS vs TOR",
+            "market": "p_a",
+            "line": 29.5,
+            "bet": {
+                "status": "good",
+                "predicted": 18.6,
                 "error": 8
+            },
+            "odds": -125
+        },
+        {
+            "player": "Donovan Mitchell",
+            "game": "CLE vs MIA",
+            "market": "p_a",
+            "line": 32.5,
+            "bet": {
+                "status": "good",
+                "predicted": 43.625,
+                "error": 10
             },
             "odds": -120
         },
@@ -103,8 +211,44 @@
             "line": 27.5,
             "bet": {
                 "status": "good",
-                "predicted": 35.325,
+                "predicted": 33.825,
+                "error": 5
+            },
+            "odds": -115
+        },
+        {
+            "player": "Malik Monk",
+            "game": "SAC vs PHI",
+            "market": "p_a",
+            "line": 24.5,
+            "bet": {
+                "status": "good",
+                "predicted": 35.175,
                 "error": 7
+            },
+            "odds": -120
+        },
+        {
+            "player": "DeMar DeRozan",
+            "game": "SAC vs PHI",
+            "market": "p_a",
+            "line": 22.5,
+            "bet": {
+                "status": "good",
+                "predicted": 31.45,
+                "error": 7
+            },
+            "odds": -110
+        },
+        {
+            "player": "Russell Westbrook",
+            "game": "DEN vs NYK",
+            "market": "a_r",
+            "line": 11.5,
+            "bet": {
+                "status": "good",
+                "predicted": 17.175,
+                "error": 5
             },
             "odds": -115
         }
