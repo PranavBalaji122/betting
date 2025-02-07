@@ -10,7 +10,7 @@
     },
     {
       "player": "Bones Hyland",
-      "status": "Game Time Decision"
+      "status": "Out"
     },
     {
       "player": "Jalen Johnson",
@@ -27,10 +27,6 @@
     {
       "player": "Georges Niang",
       "status": "Game Time Decision"
-    },
-    {
-      "player": "Daeqwon Plowden",
-      "status": "Out"
     },
     {
       "player": "Trae Young",
@@ -61,8 +57,12 @@
   ],
   "BOS": [
     {
+      "player": "Torrey Craig",
+      "status": "Game Time Decision"
+    },
+    {
       "player": "Jrue Holiday",
-      "status": "Out"
+      "status": "Game Time Decision"
     }
   ],
   "CHA": [
@@ -96,7 +96,7 @@
     },
     {
       "player": "Cam Reddish",
-      "status": "Game Time Decision"
+      "status": "Out"
     },
     {
       "player": "Grant Williams",
@@ -162,7 +162,7 @@
   "DAL": [
     {
       "player": "Anthony Davis",
-      "status": "Out"
+      "status": "Game Time Decision"
     },
     {
       "player": "Dereck Lively",
@@ -174,21 +174,17 @@
     },
     {
       "player": "Dwight Powell",
-      "status": "Out"
+      "status": "Game Time Decision"
     },
     {
       "player": "P.J. Washington",
-      "status": "Out"
+      "status": "Game Time Decision"
     }
   ],
   "DEN": [
     {
       "player": "Vlatko Cancar",
       "status": "Out"
-    },
-    {
-      "player": "Aaron Gordon",
-      "status": "Game Time Decision"
     },
     {
       "player": "DaRon Holmes",
@@ -225,10 +221,6 @@
       "status": "Out"
     },
     {
-      "player": "Wendell Moore",
-      "status": "Out"
-    },
-    {
       "player": "Dennis Schroder",
       "status": "Game Time Decision"
     },
@@ -240,23 +232,11 @@
   "GSW": [
     {
       "player": "Jimmy Butler",
-      "status": "Out"
-    },
-    {
-      "player": "Draymond Green",
-      "status": "Game Time Decision"
-    },
-    {
-      "player": "Trayce Jackson-Davis",
       "status": "Game Time Decision"
     },
     {
       "player": "Jonathan Kuminga",
       "status": "Out"
-    },
-    {
-      "player": "Moses Moody",
-      "status": "Game Time Decision"
     },
     {
       "player": "Gui Santos",
@@ -266,10 +246,6 @@
   "HOU": [
     {
       "player": "Steven Adams",
-      "status": "Game Time Decision"
-    },
-    {
-      "player": "Tari Eason",
       "status": "Game Time Decision"
     },
     {
@@ -289,6 +265,10 @@
     {
       "player": "Isaiah Jackson",
       "status": "Out For Season"
+    },
+    {
+      "player": "Myles Turner",
+      "status": "Game Time Decision"
     }
   ],
   "LAC": [
@@ -307,16 +287,8 @@
       "status": "Out"
     },
     {
-      "player": "LeBron James",
-      "status": "Game Time Decision"
-    },
-    {
       "player": "Maxi Kleber",
       "status": "Out"
-    },
-    {
-      "player": "Gabe Vincent",
-      "status": "Game Time Decision"
     },
     {
       "player": "Mark Williams",
@@ -461,6 +433,10 @@
   ],
   "OKC": [
     {
+      "player": "Ousmane Dieng",
+      "status": "Out"
+    },
+    {
       "player": "Ajay Mitchell",
       "status": "Out"
     },
@@ -475,16 +451,12 @@
   ],
   "ORL": [
     {
-      "player": "Kentavious Caldwell-Pope",
-      "status": "Game Time Decision"
-    },
-    {
       "player": "Gary Harris",
       "status": "Game Time Decision"
     },
     {
       "player": "Mac McClung",
-      "status": "Out"
+      "status": "Game Time Decision"
     },
     {
       "player": "Jalen Suggs",
@@ -515,30 +487,22 @@
   ],
   "PHX": [
     {
+      "player": "Bradley Beal",
+      "status": "Game Time Decision"
+    },
+    {
       "player": "Ryan Dunn",
       "status": "Game Time Decision"
     },
     {
       "player": "Kevin Durant",
       "status": "Game Time Decision"
-    },
-    {
-      "player": "Cody Martin",
-      "status": "Game Time Decision"
-    },
-    {
-      "player": "Vasilije Micic",
-      "status": "Game Time Decision"
-    },
-    {
-      "player": "TyTy Washington",
-      "status": "Game Time Decision"
     }
   ],
   "POR": [
     {
       "player": "Matisse Thybulle",
-      "status": "Out"
+      "status": "Game Time Decision"
     }
   ],
   "SAC": [
@@ -576,25 +540,17 @@
     },
     {
       "player": "P.J. Tucker",
-      "status": "Game Time Decision"
-    },
-    {
-      "player": "James Wiseman",
-      "status": "Out For Season"
+      "status": "Out"
     }
   ],
   "UTA": [
     {
+      "player": "Jordan Clarkson",
+      "status": "Out"
+    },
+    {
       "player": "Taylor Hendricks",
       "status": "Out For Season"
-    },
-    {
-      "player": "Lauri Markkanen",
-      "status": "Game Time Decision"
-    },
-    {
-      "player": "KJ Martin",
-      "status": "Game Time Decision"
     },
     {
       "player": "Collin Sexton",
