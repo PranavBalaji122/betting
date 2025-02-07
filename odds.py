@@ -5,7 +5,7 @@ from utility.load_injuries import load_injuries
 import json
 
 #your odds-api key
-api_key = 'a84fd2b2ffb360a0a568368830dc5295'
+api_key = 'bcc5ec16403b4a472cf239fab07cdd3b'
 
 nba_teams = {
     "Atlanta Hawks": "ATL",

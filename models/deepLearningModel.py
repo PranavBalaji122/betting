@@ -15,6 +15,7 @@ from io import StringIO
 import json
 import psycopg2
 from sqlalchemy import create_engine
+import psycopg2.extras
 from psycopg2.extras import Json
 from psycopg2 import sql
 from sklearn import datasets
@@ -27,7 +28,7 @@ from sklearn.metrics import mean_squared_error
 from sklearn.impute import SimpleImputer
 from sklearn.ensemble import RandomForestRegressor
 import math, statistics
-from softPredictor import soft
+from models.soft_predictor import soft
 
 class FeedforwardNN(nn.Module):
     def __init__(self, input_size):
@@ -88,8 +89,8 @@ def load_game_stats(player,conn):
             return position_totals
         
         stats_fields = ['teammates_points', 'teammates_rebounds', 'teammates_assists', 'opponents_points', 'opponents_rebounds', 'opponents_assists',
-                        'teammates_pr','teammates_pa','teammates_ar','opponents_pr','opponents_pa','opponents_ar','teammates_pra','opponents_pra',
-                        'teammates_blocks', 'teammates_turnovers', 'opponents_blocks', 'opponents_turnovers']
+                        # 'teammates_pr','teammates_pa','teammates_ar','opponents_pr','opponents_pa','opponents_ar','teammates_pra','opponents_pra','teammates_blocks',
+                         'teammates_turnovers', 'opponents_blocks', 'opponents_turnovers']
         # Applying the transformation for each stats field
         for stat_field in stats_fields:
             df[stat_field] = df[stat_field].apply(lambda x: aggregate_position_data(x, player))
@@ -126,8 +127,14 @@ def get_last_data(player, conn):
 
 def get_soft_predictions(team, opp, player_df):
     # Load injured players from JSON file
+    injuries = {}
     with open('JSON/injury.json', 'r') as file:
-        injuries = json.load(file)
+        rosters = json.load(file)
+        for team_players in rosters.values():
+            for player_info in team_players:
+                player_name = player_info['player']
+                status = player_info['status']
+                injuries[player_name] = status
 
     # Filter the players by team and opponent
     team_players = player_df[player_df['team'] == team]['player'].tolist()
@@ -136,34 +143,38 @@ def get_soft_predictions(team, opp, player_df):
     # Initialize dictionaries to hold individual player data
     team_stats = {
         'pts': {}, 'trb': {}, 'ast': {}, 
-        'p_r': {}, 'p_a': {}, 'a_r': {}, 'p_r_a': {}, 'blk': {}, 'tov': {}
+        # 'p_r': {}, 'p_a': {}, 'a_r': {}, 'p_r_a': {}, 'blk': {}, 
+        'tov': {}
     }
     opp_stats = {
         'pts': {}, 'trb': {}, 'ast': {}, 
-        'p_r': {}, 'p_a': {}, 'a_r': {}, 'p_r_a': {}, 'blk': {}, 'tov': {}
+        # 'p_r': {}, 'p_a': {}, 'a_r': {}, 'p_r_a': {}, 
+        'blk': {}, 'tov': {}
     }
 
-    # Function to populate player stats
     def populate_player_stats(players, stats, team_of_player):
         count = 0
         player_list = []
         for player in players:
-            if player in injuries:  # If player is injured, set all their predicted stats to 0
-                for key in stats:
-                    stats[key][player] = 0
-            else:
+            status = "None"
+            if player in injuries:  # i.e., player_dict from the JSON
+                status = injuries[player]
 
-                for key in stats:
-                    # Assuming soft function returns a predicted value or NaN for each stat
-                    predicted_value = soft(player, opp if team_of_player == team else team, key, 1)
-                    # Check if the predicted value is NaN and if so, use the average market value
-                    if pd.isna(predicted_value):
-                        count = count +1
-                        player_list.append(player)
-                        predicted_value = player_df.loc[player_df['player'] == player, f"avg_{key}"].values[0]
-                    stats[key][player] = predicted_value
-        print(set(player_list))
-        print(count)
+            for key in stats:
+                # Assuming soft function returns a predicted value or NaN for each stat
+                predicted_value = soft(player, opp if team_of_player == team else team, key, 1)
+                # Check if the predicted value is NaN and if so, use the average market value
+                if pd.isna(predicted_value):
+                    count = count +1
+                    player_list.append(player)
+                    predicted_value = player_df.loc[player_df['player'] == player, f"avg_{key}"].values[0]
+                stats[key][player] = predicted_value
+                if status == "Out" or status == "Out For Season":
+                    stats[key][player] = 0
+                elif(status == "Game Time Decision"):
+                    stats[key][player] *= 0.85
+        #print(set(player_list))
+        # print(count)
 
     # Populate stats for both teams
     populate_player_stats(team_players, team_stats, team)
@@ -197,15 +208,15 @@ def get_soft_predictions(team, opp, player_df):
         'opponents_points': [aggregate_position_data(opp_stats['pts'], player_df)],
         'opponents_rebounds': [aggregate_position_data(opp_stats['trb'], player_df)],
         'opponents_assists': [aggregate_position_data(opp_stats['ast'], player_df)],
-        'teammates_pr': [aggregate_position_data(team_stats['p_r'], player_df)],
-        'teammates_pa': [aggregate_position_data(team_stats['p_a'], player_df)],
-        'teammates_ar': [aggregate_position_data(team_stats['a_r'], player_df)],
-        'opponents_pr': [aggregate_position_data(opp_stats['p_r'], player_df)],
-        'opponents_pa': [aggregate_position_data(opp_stats['p_a'], player_df)],
-        'opponents_ar': [aggregate_position_data(opp_stats['a_r'], player_df)],
-        'teammates_pra': [aggregate_position_data(team_stats['p_r_a'], player_df)],
-        'opponents_pra': [aggregate_position_data(opp_stats['p_r_a'], player_df)],
-        'teammates_blocks': [aggregate_position_data(team_stats['blk'], player_df)],
+        # 'teammates_pr': [aggregate_position_data(team_stats['p_r'], player_df)],
+        # 'teammates_pa': [aggregate_position_data(team_stats['p_a'], player_df)],
+        # 'teammates_ar': [aggregate_position_data(team_stats['a_r'], player_df)],
+        # 'opponents_pr': [aggregate_position_data(opp_stats['p_r'], player_df)],
+        # 'opponents_pa': [aggregate_position_data(opp_stats['p_a'], player_df)],
+        # 'opponents_ar': [aggregate_position_data(opp_stats['a_r'], player_df)],
+        # 'teammates_pra': [aggregate_position_data(team_stats['p_r_a'], player_df)],
+        # 'opponents_pra': [aggregate_position_data(opp_stats['p_r_a'], player_df)],
+        # 'teammates_blocks': [aggregate_position_data(team_stats['blk'], player_df)],
         'teammates_turnovers': [aggregate_position_data(team_stats['tov'], player_df)],
         'opponents_blocks': [aggregate_position_data(opp_stats['blk'], player_df)],
         'opponents_turnovers': [aggregate_position_data(opp_stats['tov'], player_df)]
@@ -217,10 +228,11 @@ def get_soft_predictions(team, opp, player_df):
     # Expand each dictionary into separate columns and drop the original column
     for field in ['teammates_points', 'teammates_rebounds', 'teammates_assists',
                   'opponents_points', 'opponents_rebounds', 'opponents_assists',
-                  'teammates_pr', 'teammates_pa', 'teammates_ar', 'opponents_pr',
-                  'opponents_pa', 'opponents_ar', 'teammates_pra', 'opponents_pra',
-                  'teammates_blocks', 'teammates_turnovers', 'opponents_blocks', 
-                  'opponents_turnovers']:
+                #   'teammates_pr', 'teammates_pa', 'teammates_ar', 'opponents_pr',
+                #   'opponents_pa', 'opponents_ar', 'teammates_pra', 'opponents_pra', 'teammates_blocks',
+                  'teammates_turnovers', 
+                  'opponents_blocks', 'opponents_turnovers'
+                  ]:
         df_field = pd.json_normalize(df[field].iloc[0])
         df_field.columns = [f"{field}_{col}" for col in df_field.columns]  # Rename columns to include stat field
         df = pd.concat([df, df_field], axis=1)
@@ -234,18 +246,19 @@ def preprocess_data(df, market, transformers):
         'teammates_assists_F', 'teammates_assists_C', 'opponents_points_G',
         'opponents_points_F', 'opponents_points_C', 'opponents_rebounds_G',
         'opponents_rebounds_F', 'opponents_rebounds_C', 'opponents_assists_G',
-        'opponents_assists_F', 'opponents_assists_C', 'teammates_pr_G',
-        'teammates_pr_F', 'teammates_pr_C', 'teammates_pa_G', 'teammates_pa_F',
-        'teammates_pa_C', 'teammates_ar_G', 'teammates_ar_F', 'teammates_ar_C',
-        'opponents_pr_G', 'opponents_pr_F', 'opponents_pr_C', 'opponents_pa_G',
-        'opponents_pa_F', 'opponents_pa_C', 'opponents_ar_G', 'opponents_ar_F',
-        'opponents_ar_C', 'teammates_pra_G', 'teammates_pra_F',
-        'teammates_pra_C', 'opponents_pra_G', 'opponents_pra_F',
-        'opponents_pra_C','teammates_blocks_F', 'teammates_blocks_C',
-        'teammates_blocks_G','teammates_turnovers_F','teammates_turnovers_C',
+        'opponents_assists_F', 'opponents_assists_C', 
+        # 'teammates_pr_G','teammates_pr_F', 'teammates_pr_C', 'teammates_pa_G', 'teammates_pa_F',
+        # 'teammates_pa_C', 'teammates_ar_G', 'teammates_ar_F', 'teammates_ar_C',
+        # 'opponents_pr_G', 'opponents_pr_F', 'opponents_pr_C', 'opponents_pa_G',
+        # 'opponents_pa_F', 'opponents_pa_C', 'opponents_ar_G', 'opponents_ar_F',
+        # 'opponents_ar_C', 'teammates_pra_G', 'teammates_pra_F',
+        # 'teammates_pra_C', 'opponents_pra_G', 'opponents_pra_F',
+        # 'opponents_pra_C',
+        # 'teammates_blocks_F', 'teammates_blocks_C','teammates_blocks_G',
+        'teammates_turnovers_F','teammates_turnovers_C',
         'teammates_turnovers_G','opponents_blocks_F','opponents_blocks_C',
-        'opponents_blocks_G','opponents_turnovers_F','opponents_turnovers_C',
-        'opponents_turnovers_G']
+        'opponents_blocks_G','opponents_turnovers_F','opponents_turnovers_C','opponents_turnovers_G'
+        ]
     
     target = market
     X, y = df[features], df[target]
@@ -256,13 +269,13 @@ def preprocess_data(df, market, transformers):
 
     return X_tensor, y_tensor
 
-def train_nn(model, X_train, y_train, X_test, y_test, epochs=20000, batch_size=35):
+def train_nn(model, X_train, y_train, X_test, y_test, epochs=10000, batch_size=35):
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     model.to(device)
     
     criterion = nn.MSELoss()
     optimizer = optim.Adam(model.parameters(), lr=0.01, weight_decay=1e-5)  # Adding L2 regularization
-    
+    final_test_loss = None    
     train_dataset = TensorDataset(X_train, y_train)
     train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True)
     
@@ -281,16 +294,19 @@ def train_nn(model, X_train, y_train, X_test, y_test, epochs=20000, batch_size=3
             X_test, y_test = X_test.to(device), y_test.to(device)
             predictions = model(X_test)
             test_loss = torch.sqrt(criterion(predictions, y_test))
+            
         
-        if epoch % 10 == 0:
-            print(f'Epoch {epoch}: Train Loss {loss.item()} Test Loss {test_loss.item()}')
+        # if epoch % 100 == 0:
+        #     print(f'Epoch {epoch}: Train Loss {loss.item()} Test Loss {test_loss.item()}')
 
-    return model
+        if epoch == epochs-1:
+            final_test_loss = test_loss.item()
 
-if __name__ == "__main__":
+    return model, final_test_loss
+
+def run_deep(player, team, opp, hoa, market):
     conn = create_engine('postgresql+psycopg2://postgres:gwdb@localhost:5600/mnrj')
-    player = "Jayson Tatum"
-    market = 'ast'
+
     nba_data = load_nba(player,conn)
     game_stats = load_game_stats(player,conn)
     df = nba_data.merge(
@@ -304,25 +320,76 @@ if __name__ == "__main__":
         'teammates_assists_F', 'teammates_assists_C', 'opponents_points_G',
         'opponents_points_F', 'opponents_points_C', 'opponents_rebounds_G',
         'opponents_rebounds_F', 'opponents_rebounds_C', 'opponents_assists_G',
-        'opponents_assists_F', 'opponents_assists_C', 'teammates_pr_G',
-        'teammates_pr_F', 'teammates_pr_C', 'teammates_pa_G', 'teammates_pa_F',
-        'teammates_pa_C', 'teammates_ar_G', 'teammates_ar_F', 'teammates_ar_C',
-        'opponents_pr_G', 'opponents_pr_F', 'opponents_pr_C', 'opponents_pa_G',
-        'opponents_pa_F', 'opponents_pa_C', 'opponents_ar_G', 'opponents_ar_F',
-        'opponents_ar_C', 'teammates_pra_G', 'teammates_pra_F',
-        'teammates_pra_C', 'opponents_pra_G', 'opponents_pra_F',
-        'opponents_pra_C', 'teammates_blocks_F', 'teammates_blocks_C','teammates_blocks_G',
+        'opponents_assists_F', 'opponents_assists_C', 
+        # 'teammates_pr_G','teammates_pr_F', 'teammates_pr_C', 'teammates_pa_G', 'teammates_pa_F',
+        # 'teammates_pa_C', 'teammates_ar_G', 'teammates_ar_F', 'teammates_ar_C',
+        # 'opponents_pr_G', 'opponents_pr_F', 'opponents_pr_C', 'opponents_pa_G',
+        # 'opponents_pa_F', 'opponents_pa_C', 'opponents_ar_G', 'opponents_ar_F',
+        # 'opponents_ar_C', 'teammates_pra_G', 'teammates_pra_F',
+        # 'teammates_pra_C', 'opponents_pra_G', 'opponents_pra_F',
+        # 'opponents_pra_C', 'teammates_blocks_F', 'teammates_blocks_C','teammates_blocks_G',
         'teammates_turnovers_F','teammates_turnovers_C','teammates_turnovers_G',
         'opponents_blocks_F','opponents_blocks_C','opponents_blocks_G',
-        'opponents_turnovers_F','opponents_turnovers_C','opponents_turnovers_G']),  # Example features
+        'opponents_turnovers_F','opponents_turnovers_C','opponents_turnovers_G'
+        ]),  # Example features
         ('cat', OneHotEncoder(handle_unknown='ignore'), ['opp'])
     ], remainder='passthrough')
 
 
     X, y = preprocess_data(df, market, transformers)
-
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.1, random_state=2)
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
     model = FeedforwardNN(X_train.shape[1])  # Create the model with the correct input size
-    trained_model = train_nn(model, X_train, y_train, X_test, y_test)
+    trained_model, loss = train_nn(model, X_train, y_train, X_test, y_test,10000)
+
+    avg_mp, avg_plus_minus = get_last_data(player, conn)
+    player_df = load_player_positions(conn)
+    df = get_soft_predictions(team, opp, player_df)
+
+    # Create a new DataFrame for prediction that includes additional metrics
+    df['plus_minus'] = avg_plus_minus
+    df['opp'] = opp
+    df['mp'] = avg_mp
+    df['hoa'] = hoa
+
+    # Reorder and select columns as expected by the model
+    expected_columns = ['plus_minus','opp','hoa','mp','teammates_points_G','teammates_points_F', 'teammates_points_C', 'teammates_rebounds_G',
+        'teammates_rebounds_F', 'teammates_rebounds_C', 'teammates_assists_G',
+        'teammates_assists_F', 'teammates_assists_C', 'opponents_points_G',
+        'opponents_points_F', 'opponents_points_C', 'opponents_rebounds_G',
+        'opponents_rebounds_F', 'opponents_rebounds_C', 'opponents_assists_G',
+        'opponents_assists_F', 'opponents_assists_C', 
+        # 'teammates_pr_G','teammates_pr_F', 'teammates_pr_C', 'teammates_pa_G', 'teammates_pa_F',
+        # 'teammates_pa_C', 'teammates_ar_G', 'teammates_ar_F', 'teammates_ar_C',
+        # 'opponents_pr_G', 'opponents_pr_F', 'opponents_pr_C', 'opponents_pa_G',
+        # 'opponents_pa_F', 'opponents_pa_C', 'opponents_ar_G', 'opponents_ar_F',
+        # 'opponents_ar_C', 'teammates_pra_G', 'teammates_pra_F',
+        # 'teammates_pra_C', 'opponents_pra_G', 'opponents_pra_F',
+        # 'opponents_pra_C',
+        # 'teammates_blocks_F', 'teammates_blocks_C','teammates_blocks_G',
+        'teammates_turnovers_F','teammates_turnovers_C',
+        'teammates_turnovers_G','opponents_blocks_F','opponents_blocks_C',
+        'opponents_blocks_G','opponents_turnovers_F','opponents_turnovers_C','opponents_turnovers_G'
+        ]
+
+    pred_vector_df = df[expected_columns].iloc[0:1]  # Select the first row as a DataFrame
+        # Use the transformers to transform the prediction vector
+    pred_vector_transformed = transformers.transform(pred_vector_df)
+
+    # Convert the transformed data into a tensor
+    pred_vector_tensor = torch.tensor(pred_vector_transformed, dtype=torch.float32)
+
+    # Ensure the model is in evaluation mode
+    trained_model.eval()
+
+    # Make the prediction using the model
+    with torch.no_grad():
+        prediction = trained_model(pred_vector_tensor)
+
+    return (round(prediction.item()) / 2), (round(loss * 2) / 2)
+
+
+if __name__ == "__main__":
+    print(run_deep("Daniel Gafford","DAL","BOS",1,"trb"))
+
 
     print("Model trained successfully!")

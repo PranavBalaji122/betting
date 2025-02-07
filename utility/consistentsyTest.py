@@ -33,7 +33,7 @@ def getConsistency(feature):
                 FROM
                     RecentGames
                 WHERE
-                    rn <= 15
+                    rn <= 20
                 GROUP BY
                     player, team
                 HAVING

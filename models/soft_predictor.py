@@ -29,7 +29,7 @@ def predict_features(df, player_id, opponent, hoa, feature):
 
     # Filter the data for the specific player
     player_data = df[df['player'] == player_id].copy()
-    decay_rate = 0.001 # Increase or decrease this to tune the time relevance
+    decay_rate = 0.0025 # Increase or decrease this to tune the time relevance
     if player_data.empty:
         # print("No data available for this player.")
         return None
@@ -77,7 +77,7 @@ def soft(player, opp, feat, hoa):
     return predict_features(df, player_id, opponent, hoa, feat)
 
 def main():
-    print(soft("Domantas Sabonis","DAL", 'p_r_a', 1))
+    print(soft("Keyonte George","ORL", 'p_a', 1))
 
 if __name__ == '__main__':
     main()

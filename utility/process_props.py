@@ -20,7 +20,7 @@ def fetch_player_details(cursor, description, home_team, away_team):
     result = cursor.fetchone()
     if result:
         player_team, player_position = result
-        hoa = "home" if player_team == home_team else "away"
+        hoa = 0 if player_team == home_team else 1
         opp_team = home_team if player_team == away_team else away_team
 
         # Query for top 8 teammates based on average minutes played, excluding the player

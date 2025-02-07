@@ -2,9 +2,10 @@ import json
 from collections import defaultdict
 from utility.consistentsyTest import getConsistency
 from models.model import run
+from models.deepLearningModel import run_deep
+from utility.pred_table import write_table
 import pandas as pd
 import psycopg2
-import json
 
 def load_odds(input_path):
     try:
@@ -17,10 +18,14 @@ def load_odds(input_path):
 def load_injury_report():
     with open('JSON/injury.json', 'r') as file:
         rosters = json.load(file)
+    
     player_set = set()
     for team_players in rosters.values():
-        player_set.update(team_players)
-    return player_set 
+        # team_players is a list of dicts like {"player": "...", "status": "..."}
+        for player_info in team_players:
+            player_set.add(player_info["player"])
+    
+    return player_set
 
 def get_consistent_players(features):
     consistent_players = {}
@@ -31,7 +36,7 @@ def get_consistent_players(features):
 
 
     
-def calc_player_stats(odds_data, consistent_players):
+def calc_player_stats(odds_data, consistent_players,injuries):
     results = defaultdict(list)
     for bookmaker_name, entries in odds_data.items():  # This will give you each bookmaker's name and their entries
         for entry in entries:
@@ -40,6 +45,7 @@ def calc_player_stats(odds_data, consistent_players):
                 team = entry['team']
                 opponent = entry['opp']
                 market = entry['market']
+                hoa = entry['hoa']
                 line = float(entry['line'])  # Ensure line is treated as a float for comparison
     
                 player_data = {
@@ -52,28 +58,30 @@ def calc_player_stats(odds_data, consistent_players):
                     'bet': {}
                 }
                 if player in consistent_players.get(market, []):
-                    print(f"Running model on {player} for {market}")
-                    stat, error = run(player, team, opponent, 0, market, 40)  # Ensure the run function is defined
-                    buffer = error  # or however buffer is determined
-                    
-                    is_good_bet = (stat < line and (line - (stat + (buffer*0.8))) > 1.5) or (stat > line and ((stat - (buffer*0.8)) - line) > 1.5)
-                    bet_status = 'good' if is_good_bet else 'bad'
+                    if(player not in injuries):
+                        print(f"Running model on {player} for {market}")
+                        # stat, error = run(player, team, opponent, hoa, market,20)  # Ensure the run function is defined
+                        stat, error = run_deep(player, team, opponent, hoa, market)  # Ensure the run function is defined
+                        buffer = error  # or however buffer is determined
+                        
+                        is_good_bet = ((stat < line and (line > (stat + (buffer*0.8)))) or (stat > line and ((stat - (buffer*0.8)) > line))) or (market in ['pts','p_r_a', 'p_r', 'p_a'] and buffer < 4)
+                        bet_status = 'good' if is_good_bet else 'bad'
 
-                    player_data['bet'] = {
-                        'status': bet_status,
-                        'predicted': stat,
-                        'error': error
-                    }
-                    if(stat < line):
-                        del player_data['over']
-                        player_data['odds'] = player_data.pop('under')
-                    else:
-                        del player_data['under']
-                        player_data['odds'] = player_data.pop('over')
+                        player_data['bet'] = {
+                            'status': bet_status,
+                            'predicted': stat,
+                            'error': error
+                        }
+                        if(stat < line):
+                            del player_data['over']
+                            player_data['odds'] = player_data.pop('under')
+                        else:
+                            del player_data['under']
+                            player_data['odds'] = player_data.pop('over')
 
-                    # Add to results only if it's a good bet and meets the buffer criteria
-                    if bet_status == "good":
-                        results[bookmaker_name].append(player_data)
+                        # Add to results only if it's a good bet and meets the buffer criteria
+                        if bet_status == "good":
+                            results[bookmaker_name].append(player_data)
 
 
             except Exception as e:
@@ -85,14 +93,15 @@ def calc_player_stats(odds_data, consistent_players):
 def main():
     odds = load_odds('JSON/processed_odds.json')
     consitnent_players = get_consistent_players(['pts', 'trb', 'ast','p_r','p_a','a_r','p_r_a'])
-    injurys = load_injury_report()
-    jsonData = calc_player_stats(odds, consitnent_players)
+    injuries = load_injury_report()
+    jsonData = calc_player_stats(odds, consitnent_players, injuries)
    
 
-    filename = 'JSON/predctions.json'
+    filename = 'JSON/predictions.json'
     with open(filename, 'w') as file:
         json.dump(jsonData, file, indent=4)
-    print(f"Data has been written to {filename}")   
+    print(f"Data has been written to {filename}") 
+    write_table() 
 
 
 if __name__ == '__main__':

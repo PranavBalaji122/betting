@@ -12,15 +12,29 @@ def load_injuries():
 
     # Create a DataFrame from the response data
     df = pd.DataFrame(data)
+    
+    # Select the columns we care about: player, team, and status
+    df_final = df[['player', 'team', 'status']]
 
-    # Filter the DataFrame to include only rows where the status is 'Out'
-    df_filtered = df[df['status'] == 'Out']
-
-    # Select only the 'player' and 'team' columns
-    df_final = df_filtered[['player', 'team']]
-
-    # Create a dictionary grouping players by team
-    team_grouped = df_final.groupby('team')['player'].apply(list).to_dict()
+    # Group by 'team' and collect each row as a dictionary of {player, status}
+    # This will result in a structure like:
+    # {
+    #   "ATL": [
+    #       {"player": "Player A", "status": "Out"},
+    #       {"player": "Player B", "status": "Day-To-Day"}
+    #       ...
+    #   ],
+    #   "BOS": [
+    #       ...
+    #   ],
+    #   ...
+    # }
+    team_grouped = (
+        df_final
+        .groupby('team')
+        .apply(lambda group: group[['player', 'status']].to_dict(orient='records'))
+        .to_dict()
+    )
 
     # Serialize the dictionary to JSON and write to a file
     with open('JSON/injury.json', 'w') as file:

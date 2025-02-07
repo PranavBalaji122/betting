@@ -68,8 +68,8 @@ def load_game_stats(player,conn):
             return position_totals
         
         stats_fields = ['teammates_points', 'teammates_rebounds', 'teammates_assists', 'opponents_points', 'opponents_rebounds', 'opponents_assists',
-                        'teammates_pr','teammates_pa','teammates_ar','opponents_pr','opponents_pa','opponents_ar','teammates_pra','opponents_pra',
-                        'teammates_blocks', 'teammates_turnovers', 'opponents_blocks', 'opponents_turnovers']
+                        # 'teammates_pr','teammates_pa','teammates_ar','opponents_pr','opponents_pa','opponents_ar','teammates_pra','opponents_pra', 'teammates_blocks', 
+                        'teammates_turnovers', 'opponents_blocks', 'opponents_turnovers']
         # Applying the transformation for each stats field
         for stat_field in stats_fields:
             df[stat_field] = df[stat_field].apply(lambda x: aggregate_position_data(x, player))
@@ -130,9 +130,9 @@ def random_forest(player, market,conn, nestimators):
         # 'teammates_pra_C', 'opponents_pra_G', 'opponents_pra_F',
         # 'opponents_pra_C', 
         # 'teammates_blocks_F', 'teammates_blocks_C','teammates_blocks_G',
-        # 'teammates_turnovers_F','teammates_turnovers_C','teammates_turnovers_G',
-        # 'opponents_blocks_F','opponents_blocks_C','opponents_blocks_G',
-        # 'opponents_turnovers_F','opponents_turnovers_C','opponents_turnovers_G'
+        'teammates_turnovers_F','teammates_turnovers_C','teammates_turnovers_G',
+        'opponents_blocks_F','opponents_blocks_C','opponents_blocks_G',
+        'opponents_turnovers_F','opponents_turnovers_C','opponents_turnovers_G'
         ]),  # Example features
         ('categorical', OneHotEncoder(handle_unknown='ignore'), ['opp'])
     ]
@@ -150,11 +150,12 @@ def random_forest(player, market,conn, nestimators):
         # 'opponents_pa_F', 'opponents_pa_C', 'opponents_ar_G', 'opponents_ar_F',
         # 'opponents_ar_C', 'teammates_pra_G', 'teammates_pra_F',
         # 'teammates_pra_C', 'opponents_pra_G', 'opponents_pra_F',
-        # 'opponents_pra_C','teammates_blocks_F', 'teammates_blocks_C',
-        # 'teammates_blocks_G','teammates_turnovers_F','teammates_turnovers_C',
-        # 'teammates_turnovers_G','opponents_blocks_F','opponents_blocks_C',
-        # 'opponents_blocks_G','opponents_turnovers_F','opponents_turnovers_C',
-        # 'opponents_turnovers_G'
+        # 'opponents_pra_C',
+        # 'teammates_blocks_F', 'teammates_blocks_C','teammates_blocks_G',
+        'teammates_turnovers_F','teammates_turnovers_C',
+        'teammates_turnovers_G','opponents_blocks_F','opponents_blocks_C',
+        'opponents_blocks_G','opponents_turnovers_F','opponents_turnovers_C',
+        'opponents_turnovers_G'
         ]
     
     target = market
@@ -181,8 +182,16 @@ def random_forest(player, market,conn, nestimators):
  
 def get_soft_predictions(team, opp, player_df):
     # Load injured players from JSON file
+    injuries = {}
     with open('JSON/injury.json', 'r') as file:
-        injuries = json.load(file)
+        rosters = json.load(file)
+        for team_players in rosters.values():
+            for player_info in team_players:
+                player_name = player_info['player']
+                status = player_info['status']
+                injuries[player_name] = status
+        
+    
 
     # Filter the players by team and opponent
     team_players = player_df[player_df['team'] == team]['player'].tolist()
@@ -191,11 +200,13 @@ def get_soft_predictions(team, opp, player_df):
     # Initialize dictionaries to hold individual player data
     team_stats = {
         'pts': {}, 'trb': {}, 'ast': {}, 
-        'p_r': {}, 'p_a': {}, 'a_r': {}, 'p_r_a': {}, 'blk': {}, 'tov': {}
+        # 'p_r': {}, 'p_a': {}, 'a_r': {}, 'p_r_a': {}, 'blk': {}, 
+        'tov': {}
     }
     opp_stats = {
         'pts': {}, 'trb': {}, 'ast': {}, 
-        'p_r': {}, 'p_a': {}, 'a_r': {}, 'p_r_a': {}, 'blk': {}, 'tov': {}
+        # 'p_r': {}, 'p_a': {}, 'a_r': {}, 'p_r_a': {}, 
+        'blk': {}, 'tov': {}
     }
 
     # Function to populate player stats
@@ -203,20 +214,23 @@ def get_soft_predictions(team, opp, player_df):
         count = 0
         player_list = []
         for player in players:
-            if player in injuries:  # If player is injured, set all their predicted stats to 0
-                for key in stats:
-                    stats[key][player] = 0
-            else:
+            status = "None"
+            if player in injuries:  # i.e., player_dict from the JSON
+                status = injuries[player]
 
-                for key in stats:
-                    # Assuming soft function returns a predicted value or NaN for each stat
-                    predicted_value = soft(player, opp if team_of_player == team else team, key, 1)
-                    # Check if the predicted value is NaN and if so, use the average market value
-                    if pd.isna(predicted_value):
-                        count = count +1
-                        player_list.append(player)
-                        predicted_value = player_df.loc[player_df['player'] == player, f"avg_{key}"].values[0]
-                    stats[key][player] = predicted_value
+            for key in stats:
+                # Assuming soft function returns a predicted value or NaN for each stat
+                predicted_value = soft(player, opp if team_of_player == team else team, key, 1)
+                # Check if the predicted value is NaN and if so, use the average market value
+                if pd.isna(predicted_value):
+                    count = count +1
+                    player_list.append(player)
+                    predicted_value = player_df.loc[player_df['player'] == player, f"avg_{key}"].values[0]
+                stats[key][player] = predicted_value
+                if status == "Out" or status == "Out For Season":
+                    stats[key][player] = 0
+                elif(status == "Game Time Decision"):
+                    stats[key][player] *= 0.85
         #print(set(player_list))
         # print(count)
 
@@ -261,9 +275,9 @@ def get_soft_predictions(team, opp, player_df):
         # 'teammates_pra': [aggregate_position_data(team_stats['p_r_a'], player_df)],
         # 'opponents_pra': [aggregate_position_data(opp_stats['p_r_a'], player_df)],
         # 'teammates_blocks': [aggregate_position_data(team_stats['blk'], player_df)],
-        # 'teammates_turnovers': [aggregate_position_data(team_stats['tov'], player_df)],
-        # 'opponents_blocks': [aggregate_position_data(opp_stats['blk'], player_df)],
-        # 'opponents_turnovers': [aggregate_position_data(opp_stats['tov'], player_df)]
+        'teammates_turnovers': [aggregate_position_data(team_stats['tov'], player_df)],
+        'opponents_blocks': [aggregate_position_data(opp_stats['blk'], player_df)],
+        'opponents_turnovers': [aggregate_position_data(opp_stats['tov'], player_df)]
 
     }
 
@@ -274,8 +288,9 @@ def get_soft_predictions(team, opp, player_df):
                   'opponents_points', 'opponents_rebounds', 'opponents_assists',
                 #   'teammates_pr', 'teammates_pa', 'teammates_ar', 'opponents_pr',
                 #   'opponents_pa', 'opponents_ar', 'teammates_pra', 'opponents_pra',
-                #   'teammates_blocks', 'teammates_turnovers', 'opponents_blocks', 
-                #   'opponents_turnovers'
+                #   'teammates_blocks', 
+                  'teammates_turnovers', 'opponents_blocks', 
+                  'opponents_turnovers'
                   ]:
         df_field = pd.json_normalize(df[field].iloc[0])
         df_field.columns = [f"{field}_{col}" for col in df_field.columns]  # Rename columns to include stat field
@@ -312,9 +327,9 @@ def run(player, team, opp, hoa, market, nestimators):
         # 'opponents_ar_F', 'opponents_ar_C', 'teammates_pra_G', 'teammates_pra_F', 
         # 'teammates_pra_C', 'opponents_pra_G', 'opponents_pra_F', 'opponents_pra_C',
         # 'teammates_blocks_F', 'teammates_blocks_C', 'teammates_blocks_G',
-        # 'teammates_turnovers_F', 'teammates_turnovers_C', 'teammates_turnovers_G',
-        # 'opponents_blocks_F', 'opponents_blocks_C', 'opponents_blocks_G',
-        # 'opponents_turnovers_F', 'opponents_turnovers_C', 'opponents_turnovers_G'
+        'teammates_turnovers_F', 'teammates_turnovers_C', 'teammates_turnovers_G',
+        'opponents_blocks_F', 'opponents_blocks_C', 'opponents_blocks_G',
+        'opponents_turnovers_F', 'opponents_turnovers_C', 'opponents_turnovers_G'
     ]
 
     pred_vector_df = df[expected_columns].iloc[0:1]  # Select the first row as a DataFrame
@@ -326,5 +341,5 @@ def run(player, team, opp, hoa, market, nestimators):
 
 if __name__ == "__main__":
 
-    prediction, error = run("LeBron James", "LAL", "PHI", 1, 'p_r',40)
+    prediction, error = run("Daniel Gafford","DAL","BOS",1,"trb",20)
     print(f"Predicted Output: {prediction} + - {math.ceil(error)}")
