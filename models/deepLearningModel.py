@@ -28,7 +28,7 @@ from sklearn.metrics import mean_squared_error
 from sklearn.impute import SimpleImputer
 from sklearn.ensemble import RandomForestRegressor
 import math, statistics
-from models.soft_predictor import soft
+from soft_predictor import soft
 
 class FeedforwardNN(nn.Module):
     def __init__(self, input_size):
@@ -389,7 +389,7 @@ def run_deep(player, team, opp, hoa, market):
 
 
 if __name__ == "__main__":
-    print(run_deep("Daniel Gafford","DAL","BOS",1,"trb"))
+    print(run_deep("Jaylen Brown","BOS","DAL",1,"pts"))
 
 
     print("Model trained successfully!")
