@@ -2,6 +2,8 @@ import requests
 from datetime import datetime, timedelta, timezone
 from utility.process_props import main
 from utility.load_injuries import load_injuries
+from utility.get_new_data import get_new_Data
+from utility.pipeline import run_pipeline
 import json
 
 #your odds-api key
@@ -99,23 +101,30 @@ def collect_all_odds(base_url, api_key, game_ids):
                 all_bookmakers_data[bookmaker][market_type].extend(data)
     return all_bookmakers_data
 
-from datetime import datetime, timedelta
+def updates():
+
+    get_new_Data()
+    run_pipeline()
+
+    from datetime import datetime, timedelta
 
 
-today = datetime.now()
-tomorrow = today + timedelta(days=1)
-tomorrow_at_5am = tomorrow.replace(hour=5, minute=0, second=0, microsecond=0)
-iso_format_with_z = tomorrow_at_5am.isoformat() + 'Z'
+    today = datetime.now()
+    tomorrow = today + timedelta(days=1)
+    tomorrow_at_5am = tomorrow.replace(hour=5, minute=0, second=0, microsecond=0)
+    iso_format_with_z = tomorrow_at_5am.isoformat() + 'Z'
 
-commence_time_to = tomorrow_at_5am.isoformat() + 'Z'
-base_url = "https://api.the-odds-api.com/v4/sports/basketball_nba/events"
-ids = game_ids(base_url, api_key, commence_time_to)
-props = collect_all_odds(base_url, api_key, ids)
+    commence_time_to = tomorrow_at_5am.isoformat() + 'Z'
+    base_url = "https://api.the-odds-api.com/v4/sports/basketball_nba/events"
+    ids = game_ids(base_url, api_key, commence_time_to)
+    props = collect_all_odds(base_url, api_key, ids)
+    
+    with open('JSON/props.json', 'w') as file:
+        json.dump(props, file, indent=4)
 
- 
-with open('JSON/props.json', 'w') as file:
-    json.dump(props, file, indent=4)
+    print("Data saved to props.json")
+    main()
+    load_injuries()
 
-print("Data saved to props.json")
-main()
-load_injuries()
+if __name__ == "__main__":
+    updates()

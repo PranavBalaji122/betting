@@ -1,218 +1,242 @@
 {
     "DraftKings": [
         {
-            "player": "Jaxson Hayes",
-            "game": "LAL vs GSW",
+            "player": "Cameron Johnson",
+            "game": "BRK vs MIA",
             "market": "pts",
-            "line": 8.5,
+            "line": 18.5,
             "bet": {
                 "status": "good",
-                "predicted": 7.7,
-                "error": 3
+                "predicted": 23.2,
+                "error": 5
             },
-            "odds": -110
+            "odds": -105
         },
         {
-            "player": "Zach LaVine",
-            "game": "SAC vs POR",
-            "market": "pts",
-            "line": 20.5,
-            "bet": {
-                "status": "good",
-                "predicted": 30.925,
-                "error": 7
-            },
-            "odds": -120
-        },
-        {
-            "player": "Domantas Sabonis",
-            "game": "SAC vs POR",
-            "market": "pts",
-            "line": 17.5,
-            "bet": {
-                "status": "good",
-                "predicted": 28.55,
-                "error": 6
-            },
-            "odds": -115
-        },
-        {
-            "player": "Keegan Murray",
-            "game": "SAC vs POR",
+            "player": "Jalen Duren",
+            "game": "DET vs PHI",
             "market": "pts",
             "line": 11.5,
             "bet": {
                 "status": "good",
-                "predicted": 23.9,
+                "predicted": 15.55,
+                "error": 4
+            },
+            "odds": -130
+        },
+        {
+            "player": "Chet Holmgren",
+            "game": "OKC vs TOR",
+            "market": "pts",
+            "line": 11.5,
+            "bet": {
+                "status": "good",
+                "predicted": 19.7,
+                "error": 8
+            },
+            "odds": -115
+        },
+        {
+            "player": "Lauri Markkanen",
+            "game": "UTA vs PHX",
+            "market": "pts",
+            "line": 19.5,
+            "bet": {
+                "status": "good",
+                "predicted": 27.15,
+                "error": 7
+            },
+            "odds": -115
+        },
+        {
+            "player": "John Collins",
+            "game": "UTA vs PHX",
+            "market": "pts",
+            "line": 17.5,
+            "bet": {
+                "status": "good",
+                "predicted": 23.2,
+                "error": 6
+            },
+            "odds": -125
+        },
+        {
+            "player": "Victor Wembanyama",
+            "game": "SAS vs CHA",
+            "market": "trb",
+            "line": 11.5,
+            "bet": {
+                "status": "good",
+                "predicted": 15.1,
+                "error": 4
+            },
+            "odds": -130
+        },
+        {
+            "player": "Evan Mobley",
+            "game": "CLE vs WAS",
+            "market": "trb",
+            "line": 9.5,
+            "bet": {
+                "status": "good",
+                "predicted": 12.85,
+                "error": 4
+            },
+            "odds": -125
+        },
+        {
+            "player": "Miles Bridges",
+            "game": "CHO vs SAS",
+            "market": "ast",
+            "line": 4.5,
+            "bet": {
+                "status": "good",
+                "predicted": 6.55,
+                "error": 2
+            },
+            "odds": 124
+        },
+        {
+            "player": "Max Strus",
+            "game": "CLE vs WAS",
+            "market": "ast",
+            "line": 2.5,
+            "bet": {
+                "status": "good",
+                "predicted": 4.6,
+                "error": 2
+            },
+            "odds": -154
+        },
+        {
+            "player": "Isaiah Hartenstein",
+            "game": "OKC vs TOR",
+            "market": "ast",
+            "line": 4.5,
+            "bet": {
+                "status": "good",
+                "predicted": 2.3,
+                "error": 2
+            },
+            "odds": -154
+        },
+        {
+            "player": "Chris Paul",
+            "game": "SAS vs CHA",
+            "market": "p_r_a",
+            "line": 18.5,
+            "bet": {
+                "status": "good",
+                "predicted": 24.65,
                 "error": 7
             },
             "odds": -120
         },
         {
-            "player": "Toumani Camara",
-            "game": "POR vs SAC",
-            "market": "pts",
-            "line": 10.5,
+            "player": "Jalen Duren",
+            "game": "DET vs PHI",
+            "market": "p_r_a",
+            "line": 23.5,
             "bet": {
                 "status": "good",
-                "predicted": 17.175,
+                "predicted": 31.8,
+                "error": 7
+            },
+            "odds": -125
+        },
+        {
+            "player": "Chet Holmgren",
+            "game": "OKC vs TOR",
+            "market": "p_r_a",
+            "line": 18.5,
+            "bet": {
+                "status": "good",
+                "predicted": 32.8,
+                "error": 8
+            },
+            "odds": -115
+        },
+        {
+            "player": "Scottie Barnes",
+            "game": "TOR vs OKC",
+            "market": "p_r",
+            "line": 27.5,
+            "bet": {
+                "status": "good",
+                "predicted": 34.85,
+                "error": 9
+            },
+            "odds": -110
+        },
+        {
+            "player": "Jalen Williams",
+            "game": "OKC vs TOR",
+            "market": "p_r",
+            "line": 24.5,
+            "bet": {
+                "status": "good",
+                "predicted": 32.1,
+                "error": 7
+            },
+            "odds": -120
+        },
+        {
+            "player": "Chet Holmgren",
+            "game": "OKC vs TOR",
+            "market": "p_r",
+            "line": 16.5,
+            "bet": {
+                "status": "good",
+                "predicted": 29.4,
+                "error": 8
+            },
+            "odds": -125
+        },
+        {
+            "player": "John Collins",
+            "game": "UTA vs PHX",
+            "market": "p_r",
+            "line": 25.5,
+            "bet": {
+                "status": "good",
+                "predicted": 32.05,
+                "error": 6
+            },
+            "odds": -110
+        },
+        {
+            "player": "Chris Paul",
+            "game": "SAS vs CHA",
+            "market": "p_a",
+            "line": 14.5,
+            "bet": {
+                "status": "good",
+                "predicted": 21.15,
                 "error": 5
             },
             "odds": -130
         },
         {
-            "player": "Andrew Nembhard",
-            "game": "IND vs LAC",
-            "market": "pts",
-            "line": 10.5,
-            "bet": {
-                "status": "good",
-                "predicted": 14.825,
-                "error": 4
-            },
-            "odds": -125
-        },
-        {
-            "player": "Aaron Nesmith",
-            "game": "IND vs LAC",
-            "market": "pts",
-            "line": 7.5,
-            "bet": {
-                "status": "good",
-                "predicted": 16.95,
-                "error": 6
-            },
-            "odds": -120
-        },
-        {
-            "player": "Alperen Sengun",
-            "game": "HOU vs MIN",
-            "market": "trb",
-            "line": 9.5,
-            "bet": {
-                "status": "good",
-                "predicted": 13.475,
-                "error": 3
-            },
-            "odds": -125
-        },
-        {
-            "player": "Pascal Siakam",
-            "game": "IND vs LAC",
-            "market": "ast",
-            "line": 3.5,
-            "bet": {
-                "status": "good",
-                "predicted": 6.65,
-                "error": 3
-            },
-            "odds": 130
-        },
-        {
-            "player": "Domantas Sabonis",
-            "game": "SAC vs POR",
-            "market": "p_r_a",
-            "line": 37.5,
-            "bet": {
-                "status": "good",
-                "predicted": 52.925,
-                "error": 8
-            },
-            "odds": -110
-        },
-        {
-            "player": "DeMar DeRozan",
-            "game": "SAC vs POR",
-            "market": "p_r_a",
-            "line": 27.5,
-            "bet": {
-                "status": "good",
-                "predicted": 33.525,
-                "error": 6
-            },
-            "odds": -120
-        },
-        {
-            "player": "Toumani Camara",
-            "game": "POR vs SAC",
-            "market": "p_r_a",
-            "line": 19.5,
-            "bet": {
-                "status": "good",
-                "predicted": 28.275,
-                "error": 5
-            },
-            "odds": -115
-        },
-        {
-            "player": "Domantas Sabonis",
-            "game": "SAC vs POR",
-            "market": "p_r",
-            "line": 30.5,
-            "bet": {
-                "status": "good",
-                "predicted": 41.0,
-                "error": 8
-            },
-            "odds": -125
-        },
-        {
-            "player": "Austin Reaves",
-            "game": "LAL vs GSW",
+            "player": "Jarrett Allen",
+            "game": "CLE vs WAS",
             "market": "p_a",
-            "line": 28.5,
+            "line": 14.5,
             "bet": {
                 "status": "good",
-                "predicted": 20.55,
-                "error": 6
+                "predicted": 20.2,
+                "error": 7
             },
-            "odds": -120
+            "odds": -130
         },
         {
-            "player": "Domantas Sabonis",
-            "game": "SAC vs POR",
-            "market": "p_a",
-            "line": 23.5,
-            "bet": {
-                "status": "good",
-                "predicted": 34.35,
-                "error": 6
-            },
-            "odds": -115
-        },
-        {
-            "player": "Tyrese Haliburton",
-            "game": "IND vs LAC",
-            "market": "p_a",
-            "line": 24.5,
-            "bet": {
-                "status": "good",
-                "predicted": 30.65,
-                "error": 6
-            },
-            "odds": -120
-        },
-        {
-            "player": "T.J. McConnell",
-            "game": "IND vs LAC",
-            "market": "p_a",
-            "line": 11.5,
-            "bet": {
-                "status": "good",
-                "predicted": 15.7,
-                "error": 4
-            },
-            "odds": -110
-        },
-        {
-            "player": "Derrick White",
-            "game": "BOS vs DAL",
+            "player": "Max Strus",
+            "game": "CLE vs WAS",
             "market": "a_r",
             "line": 7.5,
             "bet": {
                 "status": "good",
-                "predicted": 13.575,
-                "error": 3
+                "predicted": 10.85,
+                "error": 4
             },
             "odds": -135
         }

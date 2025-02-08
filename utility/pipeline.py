@@ -89,7 +89,6 @@ def load_data(cursor):
         next(f)  # This skips the header line to prevent it from being read as data
         cursor.copy_from(f, 'nba', sep=',', null='None', columns=('player', 'date', 'age', 'team', 'hoa', 'opp', 'result', 'gs', 'mp', 'fg', 'fga', 'fg_percent', 'twop', 'twopa', 'twop_percent', 'threep', 'threepa', 'threep_percent', 'ft', 'fta', 'ft_percent', 'ts_percent', 'orb', 'drb', 'trb', 'ast', 'stl', 'blk', 'tov', 'pf', 'pts', 'gmsc', 'bpm', 'plus_minus', 'pos', 'player_additional'))
 
-
 def perform_updates(cursor):
     # List of SQL updates and modifications to perform
     updates = [
@@ -228,8 +227,6 @@ def create_most_recent_player_team_table(cursor, positions):
     print("Most recent player-team table created successfully with updated positions and statistical averages from the last 15 games, including blocks and turnovers.")
 
 
-
-
 def create_game_stats_table(cursor):
     cursor.execute("""
         CREATE TABLE IF NOT EXISTS game_stats
@@ -316,8 +313,7 @@ def load_data_csv():
     print("Saved to sql.csv successfully.")
 
 
-
-def main():
+def run_pipeline():
     conn = psycopg2.connect(
         host="localhost", 
         dbname="mnrj", 
@@ -475,4 +471,4 @@ def main():
         conn.close()
 
 if __name__ == '__main__':
-    main()
+    run_pipeline()

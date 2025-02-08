@@ -2,7 +2,6 @@ import json
 from collections import defaultdict
 from utility.consistentsyTest import getConsistency
 from models.model import run
-from models.deepLearningModel import run_deep
 from utility.pred_table import write_table
 import pandas as pd
 import psycopg2
@@ -60,8 +59,8 @@ def calc_player_stats(odds_data, consistent_players,injuries):
                 if player in consistent_players.get(market, []):
                     if(player not in injuries):
                         print(f"Running model on {player} for {market}")
-                        # stat, error = run(player, team, opponent, hoa, market,20)  # Ensure the run function is defined
-                        stat, error = run_deep(player, team, opponent, hoa, market)  # Ensure the run function is defined
+                        stat, error = run(player, team, opponent, hoa, market,20)  # Ensure the run function is defined
+                        # stat, error = run_deep(player, team, opponent, hoa, market)  # Ensure the run function is defined
                         buffer = error  # or however buffer is determined
                         
                         is_good_bet = ((stat < line and (line > (stat + (buffer*0.8)))) or (stat > line and ((stat - (buffer*0.8)) > line))) or (market in ['pts','p_r_a', 'p_r', 'p_a'] and buffer < 4)
@@ -91,6 +90,7 @@ def calc_player_stats(odds_data, consistent_players,injuries):
 
 
 def main():
+
     odds = load_odds('JSON/processed_odds.json')
     consitnent_players = get_consistent_players(['pts', 'trb', 'ast','p_r','p_a','a_r','p_r_a'])
     injuries = load_injury_report()
