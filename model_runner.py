@@ -57,7 +57,7 @@ def calc_player_stats(odds_data, consistent_players,injuries):
                     'bet': {}
                 }
                 if player in consistent_players.get(market, []):
-                    if(player not in injuries):
+                    if player not in injuries:
                         print(f"Running model on {player} for {market}")
                         stat, error = run(player, team, opponent, hoa, market,20)  # Ensure the run function is defined
                         # stat, error = run_deep(player, team, opponent, hoa, market)  # Ensure the run function is defined

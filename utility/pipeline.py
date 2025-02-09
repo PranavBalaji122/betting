@@ -116,6 +116,7 @@ def perform_updates(cursor):
         "ALTER TABLE public.nba RENAME COLUMN resultChar TO result;",
         "UPDATE public.nba SET result = CASE WHEN result = 'L' THEN 0 WHEN result = 'W' THEN 1 END;",
         "ALTER TABLE public.nba ALTER COLUMN result TYPE INTEGER USING CAST(result AS INTEGER);"
+        "UPDATE public.nba SET team = REPLACE(team, 'CHO', 'CHA'), opp = REPLACE(opp, 'CHO', 'CHA');"
     ]
 
     for command in updates:

@@ -1,244 +1,232 @@
 {
     "DraftKings": [
         {
-            "player": "Cameron Johnson",
-            "game": "BRK vs MIA",
+            "player": "Brook Lopez",
+            "game": "MIL vs PHI",
             "market": "pts",
-            "line": 18.5,
+            "line": 12.5,
             "bet": {
                 "status": "good",
-                "predicted": 23.2,
-                "error": 5
-            },
-            "odds": -105
-        },
-        {
-            "player": "Jalen Duren",
-            "game": "DET vs PHI",
-            "market": "pts",
-            "line": 11.5,
-            "bet": {
-                "status": "good",
-                "predicted": 15.55,
-                "error": 4
-            },
-            "odds": -130
-        },
-        {
-            "player": "Chet Holmgren",
-            "game": "OKC vs TOR",
-            "market": "pts",
-            "line": 11.5,
-            "bet": {
-                "status": "good",
-                "predicted": 19.7,
-                "error": 8
-            },
-            "odds": -115
-        },
-        {
-            "player": "Lauri Markkanen",
-            "game": "UTA vs PHX",
-            "market": "pts",
-            "line": 19.5,
-            "bet": {
-                "status": "good",
-                "predicted": 27.15,
-                "error": 7
-            },
-            "odds": -115
-        },
-        {
-            "player": "John Collins",
-            "game": "UTA vs PHX",
-            "market": "pts",
-            "line": 17.5,
-            "bet": {
-                "status": "good",
-                "predicted": 23.2,
+                "predicted": 17.85,
                 "error": 6
             },
             "odds": -125
         },
         {
-            "player": "Victor Wembanyama",
-            "game": "SAS vs CHA",
-            "market": "trb",
-            "line": 11.5,
-            "bet": {
-                "status": "good",
-                "predicted": 15.1,
-                "error": 4
-            },
-            "odds": -130
-        },
-        {
-            "player": "Evan Mobley",
-            "game": "CLE vs WAS",
+            "player": "Jalen Duren",
+            "game": "DET vs CHA",
             "market": "trb",
             "line": 9.5,
             "bet": {
                 "status": "good",
-                "predicted": 12.85,
+                "predicted": 16.95,
                 "error": 4
+            },
+            "odds": 100
+        },
+        {
+            "player": "Bobby Portis",
+            "game": "MIL vs PHI",
+            "market": "trb",
+            "line": 11.5,
+            "bet": {
+                "status": "good",
+                "predicted": 7.45,
+                "error": 4
+            },
+            "odds": -125
+        },
+        {
+            "player": "Cade Cunningham",
+            "game": "DET vs CHA",
+            "market": "ast",
+            "line": 11.5,
+            "bet": {
+                "status": "good",
+                "predicted": 5.2,
+                "error": 3
+            },
+            "odds": -142
+        },
+        {
+            "player": "Miles Bridges",
+            "game": "CHA vs DET",
+            "market": "ast",
+            "line": 3.5,
+            "bet": {
+                "status": "good",
+                "predicted": 6.45,
+                "error": 3
+            },
+            "odds": -154
+        },
+        {
+            "player": "Kyle Kuzma",
+            "game": "MIL vs PHI",
+            "market": "ast",
+            "line": 2.5,
+            "bet": {
+                "status": "good",
+                "predicted": 5.15,
+                "error": 3
+            },
+            "odds": -120
+        },
+        {
+            "player": "Jalen Duren",
+            "game": "DET vs CHA",
+            "market": "p_r_a",
+            "line": 23.5,
+            "bet": {
+                "status": "good",
+                "predicted": 32.7,
+                "error": 5
+            },
+            "odds": -110
+        },
+        {
+            "player": "Scottie Barnes",
+            "game": "TOR vs HOU",
+            "market": "p_r_a",
+            "line": 32.5,
+            "bet": {
+                "status": "good",
+                "predicted": 39.85,
+                "error": 8
+            },
+            "odds": -115
+        },
+        {
+            "player": "Joel Embiid",
+            "game": "PHI vs MIL",
+            "market": "p_r_a",
+            "line": 42.5,
+            "bet": {
+                "status": "good",
+                "predicted": 62.8,
+                "error": 9
+            },
+            "odds": -120
+        },
+        {
+            "player": "Brook Lopez",
+            "game": "MIL vs PHI",
+            "market": "p_r_a",
+            "line": 19.5,
+            "bet": {
+                "status": "good",
+                "predicted": 27.95,
+                "error": 8
+            },
+            "odds": -105
+        },
+        {
+            "player": "Guerschon Yabusele",
+            "game": "PHI vs MIL",
+            "market": "p_r_a",
+            "line": 17.5,
+            "bet": {
+                "status": "good",
+                "predicted": 24.7,
+                "error": 5
             },
             "odds": -125
         },
         {
             "player": "Miles Bridges",
-            "game": "CHO vs SAS",
-            "market": "ast",
-            "line": 4.5,
+            "game": "CHA vs DET",
+            "market": "p_r",
+            "line": 27.5,
             "bet": {
                 "status": "good",
-                "predicted": 6.55,
-                "error": 2
-            },
-            "odds": 124
-        },
-        {
-            "player": "Max Strus",
-            "game": "CLE vs WAS",
-            "market": "ast",
-            "line": 2.5,
-            "bet": {
-                "status": "good",
-                "predicted": 4.6,
-                "error": 2
-            },
-            "odds": -154
-        },
-        {
-            "player": "Isaiah Hartenstein",
-            "game": "OKC vs TOR",
-            "market": "ast",
-            "line": 4.5,
-            "bet": {
-                "status": "good",
-                "predicted": 2.3,
-                "error": 2
-            },
-            "odds": -154
-        },
-        {
-            "player": "Chris Paul",
-            "game": "SAS vs CHA",
-            "market": "p_r_a",
-            "line": 18.5,
-            "bet": {
-                "status": "good",
-                "predicted": 24.65,
-                "error": 7
-            },
-            "odds": -120
-        },
-        {
-            "player": "Jalen Duren",
-            "game": "DET vs PHI",
-            "market": "p_r_a",
-            "line": 23.5,
-            "bet": {
-                "status": "good",
-                "predicted": 31.8,
-                "error": 7
+                "predicted": 33.95,
+                "error": 8
             },
             "odds": -125
         },
         {
-            "player": "Chet Holmgren",
-            "game": "OKC vs TOR",
-            "market": "p_r_a",
-            "line": 18.5,
+            "player": "Jalen Duren",
+            "game": "DET vs CHA",
+            "market": "p_r",
+            "line": 19.5,
             "bet": {
                 "status": "good",
-                "predicted": 32.8,
-                "error": 8
+                "predicted": 32.6,
+                "error": 5
             },
             "odds": -115
         },
         {
             "player": "Scottie Barnes",
-            "game": "TOR vs OKC",
+            "game": "TOR vs HOU",
             "market": "p_r",
             "line": 27.5,
             "bet": {
                 "status": "good",
-                "predicted": 34.85,
-                "error": 9
+                "predicted": 33.2,
+                "error": 7
             },
-            "odds": -110
+            "odds": -105
         },
         {
-            "player": "Jalen Williams",
-            "game": "OKC vs TOR",
+            "player": "Brook Lopez",
+            "game": "MIL vs PHI",
             "market": "p_r",
-            "line": 24.5,
+            "line": 17.5,
             "bet": {
                 "status": "good",
-                "predicted": 32.1,
-                "error": 7
+                "predicted": 22.65,
+                "error": 6
             },
             "odds": -120
         },
         {
-            "player": "Chet Holmgren",
-            "game": "OKC vs TOR",
+            "player": "Guerschon Yabusele",
+            "game": "PHI vs MIL",
             "market": "p_r",
-            "line": 16.5,
+            "line": 15.5,
             "bet": {
                 "status": "good",
-                "predicted": 29.4,
-                "error": 8
+                "predicted": 21.85,
+                "error": 6
             },
             "odds": -125
         },
         {
-            "player": "John Collins",
-            "game": "UTA vs PHX",
-            "market": "p_r",
-            "line": 25.5,
-            "bet": {
-                "status": "good",
-                "predicted": 32.05,
-                "error": 6
-            },
-            "odds": -110
-        },
-        {
-            "player": "Chris Paul",
-            "game": "SAS vs CHA",
+            "player": "Jalen Duren",
+            "game": "DET vs CHA",
             "market": "p_a",
-            "line": 14.5,
+            "line": 13.5,
             "bet": {
                 "status": "good",
-                "predicted": 21.15,
+                "predicted": 17.9,
                 "error": 5
             },
             "odds": -130
         },
         {
-            "player": "Jarrett Allen",
-            "game": "CLE vs WAS",
-            "market": "p_a",
-            "line": 14.5,
-            "bet": {
-                "status": "good",
-                "predicted": 20.2,
-                "error": 7
-            },
-            "odds": -130
-        },
-        {
-            "player": "Max Strus",
-            "game": "CLE vs WAS",
+            "player": "Cade Cunningham",
+            "game": "DET vs CHA",
             "market": "a_r",
-            "line": 7.5,
+            "line": 17.5,
             "bet": {
                 "status": "good",
-                "predicted": 10.85,
+                "predicted": 13.9,
                 "error": 4
             },
-            "odds": -135
+            "odds": 100
+        },
+        {
+            "player": "Jalen Duren",
+            "game": "DET vs CHA",
+            "market": "a_r",
+            "line": 13.5,
+            "bet": {
+                "status": "good",
+                "predicted": 18.45,
+                "error": 4
+            },
+            "odds": 100
         }
     ]
 }
