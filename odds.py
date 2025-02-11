@@ -7,7 +7,8 @@ from utility.pipeline import run_pipeline
 import json
 
 #your odds-api key
-api_key = 'bcc5ec16403b4a472cf239fab07cdd3b'
+# api_key = 'bcc5ec16403b4a472cf239fab07cdd3b'
+api_key = '00818dd5e805e576c42713cf9a5ef458'
 
 nba_teams = {
     "Atlanta Hawks": "ATL",
@@ -112,7 +113,6 @@ def updates():
     today = datetime.now()
     tomorrow = today + timedelta(days=1)
     tomorrow_at_5am = tomorrow.replace(hour=5, minute=0, second=0, microsecond=0)
-    iso_format_with_z = tomorrow_at_5am.isoformat() + 'Z'
 
     commence_time_to = tomorrow_at_5am.isoformat() + 'Z'
     base_url = "https://api.the-odds-api.com/v4/sports/basketball_nba/events"

@@ -1,17 +1,2 @@
-Player,Market,Predicted,Line,Odds
-Brook Lopez,pts,17.85,12.5,-125
-Jalen Duren,trb,16.95,9.5,100
-Miles Bridges,ast,6.45,3.5,-154
-Kyle Kuzma,ast,5.15,2.5,-120
-Jalen Duren,p_r_a,32.7,23.5,-110
-Scottie Barnes,p_r_a,39.85,32.5,-115
-Joel Embiid,p_r_a,62.8,42.5,-120
-Brook Lopez,p_r_a,27.95,19.5,-105
-Guerschon Yabusele,p_r_a,24.7,17.5,-125
-Miles Bridges,p_r,33.95,27.5,-125
-Jalen Duren,p_r,32.6,19.5,-115
-Scottie Barnes,p_r,33.2,27.5,-105
-Brook Lopez,p_r,22.65,17.5,-120
-Guerschon Yabusele,p_r,21.85,15.5,-125
-Jalen Duren,p_a,17.9,13.5,-130
-Jalen Duren,a_r,18.45,13.5,100
+Player,Market,Predicted,Line,Last Ten,Game
+Scottie Barnes,pts,22.5,17.5,7/10,TOR vs PHI

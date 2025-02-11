@@ -12,7 +12,9 @@ def write_table():
             "Market": entry["market"],
             "Predicted": entry["bet"]["predicted"],
             "Line": entry["line"],
-            "Odds": entry["odds"]
+            #"Odds": entry["odds"],
+            "Last Ten": entry["last_ten"],
+            "Game": entry["game"]
         }
         for entry in data["DraftKings"]
     ])
