@@ -29,6 +29,8 @@ from sklearn.impute import SimpleImputer
 from sklearn.ensemble import RandomForestRegressor
 import math, statistics
 from models.soft_predictor import soft
+from dotenv import load_dotenv
+import os
 
 class FeedforwardNN(nn.Module):
     def __init__(self, input_size):
@@ -305,7 +307,7 @@ def train_nn(model, X_train, y_train, X_test, y_test, epochs=10000, batch_size=3
     return model, final_test_loss
 
 def run_deep(player, team, opp, hoa, market):
-    conn = create_engine('postgresql+psycopg2://postgres:gwdb@localhost:5600/mnrj')
+    conn = create_engine(os.getenv("SQL_ENGINE"))
 
     nba_data = load_nba(player,conn)
     game_stats = load_game_stats(player,conn)

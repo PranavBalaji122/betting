@@ -23,6 +23,8 @@ from sklearn.impute import SimpleImputer
 from sklearn.ensemble import GradientBoostingRegressor
 import math, statistics
 from models.soft_predictor import soft
+from dotenv import load_dotenv
+import os
 
 def load_nba(player, conn):
     try:
@@ -303,7 +305,7 @@ def get_soft_predictions(team, opp, player_df):
 
 
 def run_gb(player, team, opp, hoa, market, nestimators):
-    conn = create_engine('postgresql+psycopg2://postgres:gwdb@localhost:5600/mnrj')
+    conn = create_engine(os.getenv("SQL_ENGINE"))
     pipeline, error = gradient_boost(player, market, conn, nestimators)
     avg_mp, avg_plus_minus = get_last_data(player, conn)
     player_df = load_player_positions(conn)

@@ -1,14 +1,16 @@
 import psycopg2
 import pandas as pd
+from dotenv import load_dotenv
+import os
 
 def getConsistency(feature):
     try:
         conn = psycopg2.connect(
-            host="localhost", 
-            dbname="mnrj", 
-            user="postgres", 
-            password="gwdb", 
-            port="5600"
+            host = os.getenv("DB_HOST"), 
+            dbname = os.getenv("DB_NAME"), 
+            user= os.getenv("DB_USER"), 
+            password = os.getenv("DB_PASS"), 
+            port = os.getenv("DB_PORT")
         )
         query = f"""
                 WITH RecentGames AS (

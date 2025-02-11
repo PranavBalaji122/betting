@@ -8,11 +8,15 @@ import time
 import undetected_chromedriver as uc  #  Undetected ChromeDriver for stealth mode
 
 import csv
+from dotenv import load_dotenv
 import os
 
 
 
 def get_new_Data():
+
+    username = os.getenv("STATHEAD_USERNAME")
+    password = os.getenv("STATHEAD_PASSWORD")
 
     #  Setup Undetected ChromeDriver
     chrome_driver_path = "/opt/homebrew/bin/chromedriver"  # Ensure correct path
@@ -49,11 +53,11 @@ def get_new_Data():
         )
         
         #  Simulate Human Typing
-        for char in "singhsumair":
+        for char in username:
             username_field.send_keys(char)
             time.sleep(0.05)  # Small delay between key presses
 
-        for char in "Derp1234(*":
+        for char in password:
             password_field.send_keys(char)
             time.sleep(0.05)  # Small delay between key presses
 

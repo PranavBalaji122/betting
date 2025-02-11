@@ -4,6 +4,8 @@ import psycopg2
 from psycopg2.extras import Json
 from sqlalchemy import create_engine
 from psycopg2 import sql
+from dotenv import load_dotenv
+import os
 
 def reset_tables(cursor):
     cursor.execute("DROP TABLE IF EXISTS public.nba;")
@@ -308,7 +310,7 @@ def update_game_stats(cursor):
 
 # Function to connect to the PostgreSQL database and load data
 def load_data_csv():
-    conn = create_engine('postgresql+psycopg2://postgres:gwdb@localhost:5600/mnrj')
+    conn = create_engine(os.getenv("SQL_ENGINE"))
     df = pd.read_sql("SELECT * FROM nba;", conn)
     df.to_csv('CSV/sql.csv', encoding='utf-8', index=False)
     print("Saved to sql.csv successfully.")
@@ -316,11 +318,11 @@ def load_data_csv():
 
 def run_pipeline():
     conn = psycopg2.connect(
-        host="localhost", 
-        dbname="mnrj", 
-        user="postgres", 
-        password="gwdb", 
-        port="5600"
+            host = os.getenv("DB_HOST"), 
+            dbname = os.getenv("DB_NAME"), 
+            user= os.getenv("DB_USER"), 
+            password = os.getenv("DB_PASS"), 
+            port = os.getenv("DB_PORT")
     )
     cursor = conn.cursor()
     positions = {

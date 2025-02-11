@@ -1,5 +1,7 @@
 import json
 import psycopg2
+from dotenv import load_dotenv
+import os
 
 def read_json_file(file_path):
     """
@@ -114,11 +116,11 @@ def main():
     Main function to execute the whole process.
     """
     conn = psycopg2.connect(
-        host = "localhost", 
-        dbname = "mnrj", 
-        user= "postgres", 
-        password = "gwdb", 
-        port = 5600
+        host = os.getenv("DB_HOST"), 
+        dbname = os.getenv("DB_NAME"), 
+        user= os.getenv("DB_USER"), 
+        password = os.getenv("DB_PASS"), 
+        port = os.getenv("DB_PORT")
     )
     cursor = conn.cursor()
 

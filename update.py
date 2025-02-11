@@ -5,10 +5,10 @@ from utility.load_injuries import load_injuries
 from utility.get_new_data import get_new_Data
 from utility.pipeline import run_pipeline
 import json
+from dotenv import load_dotenv
+import os
 
-#your odds-api key
-# api_key = 'bcc5ec16403b4a472cf239fab07cdd3b'
-api_key = '00818dd5e805e576c42713cf9a5ef458'
+api_key = os.getenv("ODDS_KEY")
 
 nba_teams = {
     "Atlanta Hawks": "ATL",

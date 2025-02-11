@@ -8,6 +8,8 @@ import pandas as pd
 import psycopg2
 from sqlalchemy import create_engine
 from sqlalchemy import text
+from dotenv import load_dotenv
+import os
 
 def load_odds(input_path):
     try:
@@ -55,7 +57,7 @@ def get_player_last(player, market, line):
     return f"{int(over_count)}/10"
 
 def calc_player_stats(odds_data, consistent_players,injuries):
-    conn = create_engine('postgresql+psycopg2://postgres:gwdb@localhost:5600/mnrj')
+    conn = create_engine(os.getenv("SQL_ENGINE"))
     results = defaultdict(list)
     for bookmaker_name, entries in odds_data.items():  # This will give you each bookmaker's name and their entries
         for entry in entries:
