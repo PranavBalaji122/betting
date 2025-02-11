@@ -4,7 +4,6 @@ import psycopg2
 from psycopg2.extras import Json
 from sqlalchemy import create_engine
 from psycopg2 import sql
-from dotenv import load_dotenv
 import os
 
 def reset_tables(cursor):
@@ -29,7 +28,7 @@ def process_csv():
     ]
 
     column_mapping = dict(zip(csv_columns, sql_columns))
-    df = pd.read_csv('CSV/data.csv', keep_default_na=False)
+    df = pd.read_csv('csv/data.csv', keep_default_na=False)
     df = df.drop(['Rk'], axis=1)
     df.rename(columns=column_mapping, inplace=True)
 
@@ -38,7 +37,7 @@ def process_csv():
     for column in numeric_columns:
         df[column] = df[column].apply(lambda x: "None" if x.strip() == "" else float(x))
 
-    df.to_csv('CSV/modified_data.csv', index=False)
+    df.to_csv('csv/modified_data.csv', index=False)
     print("CSV has been rewritten with SQL-compatible column names and corrected numeric fields.")
 
 
@@ -87,7 +86,7 @@ def create_table(cursor):
     """)
 
 def load_data(cursor):
-    with open('CSV/modified_data.csv', 'r') as f:
+    with open('csv/modified_data.csv', 'r') as f:
         next(f)  # This skips the header line to prevent it from being read as data
         cursor.copy_from(f, 'nba', sep=',', null='None', columns=('player', 'date', 'age', 'team', 'hoa', 'opp', 'result', 'gs', 'mp', 'fg', 'fga', 'fg_percent', 'twop', 'twopa', 'twop_percent', 'threep', 'threepa', 'threep_percent', 'ft', 'fta', 'ft_percent', 'ts_percent', 'orb', 'drb', 'trb', 'ast', 'stl', 'blk', 'tov', 'pf', 'pts', 'gmsc', 'bpm', 'plus_minus', 'pos', 'player_additional'))
 
@@ -312,7 +311,7 @@ def update_game_stats(cursor):
 def load_data_csv():
     conn = create_engine(os.getenv("SQL_ENGINE"))
     df = pd.read_sql("SELECT * FROM nba;", conn)
-    df.to_csv('CSV/sql.csv', encoding='utf-8', index=False)
+    df.to_csv('csv/sql.csv', encoding='utf-8', index=False)
     print("Saved to sql.csv successfully.")
 
 

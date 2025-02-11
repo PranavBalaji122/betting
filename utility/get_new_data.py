@@ -8,7 +8,6 @@ import time
 import undetected_chromedriver as uc  #  Undetected ChromeDriver for stealth mode
 
 import csv
-from dotenv import load_dotenv
 import os
 
 
@@ -128,7 +127,7 @@ def get_new_Data():
                 ])
 
         #  Save Data as CSV
-        filename = "CSV/data.csv"
+        filename = "csv/data.csv"
         with open(filename, "a", newline="") as file:
             writer = csv.writer(file)
             writer.writerows(data)

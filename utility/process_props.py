@@ -1,6 +1,5 @@
 import json
 import psycopg2
-from dotenv import load_dotenv
 import os
 
 def read_json_file(file_path):
@@ -111,7 +110,7 @@ def write_json_file(data, file_path):
         json.dump(data, file, ensure_ascii=False, indent=4)
     print(f"Data written to {file_path} successfully.")
 
-def main():
+def process_props():
     """
     Main function to execute the whole process.
     """
@@ -125,9 +124,9 @@ def main():
     cursor = conn.cursor()
 
     try:
-        data = read_json_file('JSON/props.json')
+        data = read_json_file('json/props.json')
         detailed_player_props = process_props_and_output(cursor, data)
-        write_json_file(detailed_player_props, 'JSON/processed_odds.json')
+        write_json_file(detailed_player_props, 'json/processed_odds.json')
         conn.commit()
     except Exception as e:
         print(f"An error occurred: {e}")
@@ -137,4 +136,4 @@ def main():
         conn.close()
 
 if __name__ == '__main__':
-    main()
+    process_props()

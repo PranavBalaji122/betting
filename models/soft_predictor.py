@@ -4,7 +4,7 @@ from scipy.spatial import distance
 import numpy as np
 
 def load_data():
-    df = pd.read_csv('CSV/sql.csv')
+    df = pd.read_csv('csv/sql.csv')
     return df
 
 

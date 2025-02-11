@@ -1,11 +1,10 @@
 import requests
 from datetime import datetime, timedelta, timezone
-from utility.process_props import main
+from utility.process_props import process_props
 from utility.load_injuries import load_injuries
 from utility.get_new_data import get_new_Data
 from utility.pipeline import run_pipeline
 import json
-from dotenv import load_dotenv
 import os
 
 api_key = os.getenv("ODDS_KEY")
@@ -119,11 +118,10 @@ def updates():
     ids = game_ids(base_url, api_key, commence_time_to)
     props = collect_all_odds(base_url, api_key, ids)
     
-    with open('JSON/props.json', 'w') as file:
+    with open('json/props.json', 'w') as file:
         json.dump(props, file, indent=4)
 
-    print("Data saved to props.json")
-    main()
+    process_props()
     load_injuries()
 
 if __name__ == "__main__":

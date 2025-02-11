@@ -8,7 +8,6 @@ import pandas as pd
 import psycopg2
 from sqlalchemy import create_engine
 from sqlalchemy import text
-from dotenv import load_dotenv
 import os
 
 def load_odds(input_path):
@@ -21,7 +20,7 @@ def load_odds(input_path):
         return  
 
 def load_injury_report():
-    with open('JSON/injury.json', 'r') as file:
+    with open('json/injury.json', 'r') as file:
         rosters = json.load(file)
     
     player_set = set()
@@ -41,7 +40,7 @@ def get_consistent_players(features):
 
 def get_player_last(player, market, line):
     # Load the CSV into a DataFrame
-    df = pd.read_csv('CSV/sql.csv')
+    df = pd.read_csv('csv/sql.csv')
     
     # Filter rows for the specified player
     # Adjust 'player_name' if your CSV column is named differently
@@ -119,13 +118,13 @@ def calc_player_stats(odds_data, consistent_players,injuries):
 
 def main():
 
-    odds = load_odds('JSON/processed_odds.json')
+    odds = load_odds('json/processed_odds.json')
     consitnent_players = get_consistent_players(['pts', 'trb', 'ast','p_r','p_a','a_r','p_r_a'])
     injuries = load_injury_report()
     jsonData = calc_player_stats(odds, consitnent_players, injuries)
 
 
-    filename = 'JSON/predictions.json'
+    filename = 'json/predictions.json'
     with open(filename, 'w') as file:
         json.dump(jsonData, file, indent=4)
     print(f"Data has been written to {filename}") 

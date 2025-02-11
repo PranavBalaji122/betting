@@ -37,7 +37,7 @@ def load_injuries():
     )
 
     # Serialize the dictionary to JSON and write to a file
-    with open('JSON/injury.json', 'w') as file:
+    with open('json/injury.json', 'w') as file:
         json.dump(team_grouped, file, indent=2)
 
 if __name__ == '__main__':

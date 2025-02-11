@@ -29,7 +29,6 @@ from sklearn.impute import SimpleImputer
 from sklearn.ensemble import RandomForestRegressor
 import math, statistics
 from models.soft_predictor import soft
-from dotenv import load_dotenv
 import os
 
 class FeedforwardNN(nn.Module):
@@ -130,7 +129,7 @@ def get_last_data(player, conn):
 def get_soft_predictions(team, opp, player_df):
     # Load injured players from JSON file
     injuries = {}
-    with open('JSON/injury.json', 'r') as file:
+    with open('json/injury.json', 'r') as file:
         rosters = json.load(file)
         for team_players in rosters.values():
             for player_info in team_players:

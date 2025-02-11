@@ -3,7 +3,7 @@ import json
 # Data provided by the user
 def write_table():
     data = {}
-    with open('JSON/predictions.json', 'r') as file:
+    with open('json/predictions.json', 'r') as file:
         data = json.load(file)
 
     df = pd.DataFrame([
@@ -20,7 +20,7 @@ def write_table():
     ])
 
     # Save the DataFrame to a CSV file
-    df.to_csv('CSV/table.csv', encoding='utf-8', index=False)
+    df.to_csv('csv/table.csv', encoding='utf-8', index=False)
 
 
 if __name__ == '__main__':
