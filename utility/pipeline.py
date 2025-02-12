@@ -5,6 +5,9 @@ from psycopg2.extras import Json
 from sqlalchemy import create_engine
 from psycopg2 import sql
 import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 def reset_tables(cursor):
     cursor.execute("DROP TABLE IF EXISTS public.nba;")

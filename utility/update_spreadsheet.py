@@ -3,7 +3,10 @@ import json
 import gspread
 import json
 from oauth2client.service_account import ServiceAccountCredentials
+import os
 
+from dotenv import load_dotenv
+load_dotenv()
 
 def safe_int(value):
     """Parses value to int, returns None if parsing fails or if value is 'N/A'."""
@@ -111,7 +114,7 @@ def updateGoogleSheet(column_range):
     """
     SHEET_ID = "1lbNo8exL_KWPb05pVXKD5IhZuWbirjSup3XQTtW4HBU"
     JSON_FILE = "JSON/nba_stats.json"       # The file with your players & stats
-    CREDENTIALS_FILE = "JSON/nba_creds.json"  # Service account credentials
+    CREDENTIALS_FILE = os.getenv("GOOGLE_API")  # Service account credentials
 
     # Define the Google API scopes
     scope = [
