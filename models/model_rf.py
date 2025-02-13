@@ -28,14 +28,16 @@ import os
 from dotenv import load_dotenv
 load_dotenv()
 
-def load_nba(player, conn):
+def load_nba(player):
     try:
-        query = f"SELECT * FROM nba WHERE player = '{player}';"
-        df = pd.read_sql(query, conn)
-        return df
-    except OSError as e:
-        print(f"Error occurred while connecting to the database or executing query: {e}")
-        return None   
+        df = pd.read_csv('csv/sql.csv')
+        df['date'] = pd.to_datetime(df['date'])  # Convert date to datetime format
+        player_df = df[df['player'] == player]
+        return player_df
+    except Exception as e:
+        print(f"Error occurred while reading the file or filtering data: {e}")
+        return None
+    
 def load_player_positions(conn):
     try:
         # Use the connection to execute the query
@@ -51,12 +53,12 @@ def load_game_stats(player,conn):
         return pd.DataFrame()
 
     try:
-        query = f"""
-        SELECT *
-        FROM game_stats
-        WHERE teammates_points::jsonb ? '{player}';  -- Checking if player key exists in JSON
-        """
-        df = pd.read_sql(query, conn)
+        query = """
+            SELECT *
+            FROM game_stats
+            WHERE teammates_points::jsonb ? %s;
+            """
+        df = pd.read_sql(query, conn, params=(player,))
     
         def aggregate_position_data(json_data, exclude_player):
             if exclude_player in json_data:
@@ -84,22 +86,23 @@ def load_game_stats(player,conn):
             df = pd.concat([df, df_field], axis=1)
             df.drop(field, axis=1, inplace=True)  # Drop the original column
 
+        df['date'] = pd.to_datetime(df['date'])  # Convert date to datetime format
 
         return df
     except OSError as e:
         print(f"Error occurred while connecting to the database or executing query: {e}")
 
 def get_last_data(player, conn):
-    # SQL query to fetch the last 10 games for 'mp' and 'plus_minus' for a specified player
-    query = f"""
+    # Parameterized SQL query to fetch the last 10 games for 'mp' and 'plus_minus'
+    query = """
     SELECT mp, plus_minus
-    FROM nba  
-    WHERE player = '{player}'
-    ORDER BY date DESC 
+    FROM nba
+    WHERE player = %s
+    ORDER BY date DESC
     LIMIT 10
     """
-    # Execute the query and read the data into a DataFrame
-    df = pd.read_sql(query, conn)
+    # Pass parameters through the params argument
+    df = pd.read_sql(query, conn, params=(player,))
 
     # Calculate the average of 'mp' and 'plus_minus'
     avg_mp = df['mp'].mean()
@@ -107,10 +110,11 @@ def get_last_data(player, conn):
 
     return avg_mp, avg_plus_minus
 
+
 # Function to train the random forest model
 def random_forest(player, market,conn, nestimators):
     
-    nba_data = load_nba(player,conn)
+    nba_data = load_nba(player)
     game_stats = load_game_stats(player,conn)
     df = nba_data.merge(
         game_stats,
@@ -344,5 +348,5 @@ def run_rf(player, team, opp, hoa, market, nestimators):
 
 if __name__ == "__main__":
 
-    prediction, error = run_rf("Jaren Jackson Jr.","MEM","OKC",0,"pts",20)
+    prediction, error = run_rf("De'Aaron Fox","SAC","OKC",0,"pts",20)
     print(f"Predicted Output: {prediction} + - {math.ceil(error)}")
