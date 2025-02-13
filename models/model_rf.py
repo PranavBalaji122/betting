@@ -25,6 +25,8 @@ from sklearn.ensemble import RandomForestRegressor
 import math, statistics
 from models.soft_predictor import soft
 import os
+from dotenv import load_dotenv
+load_dotenv()
 
 def load_nba(player, conn):
     try:

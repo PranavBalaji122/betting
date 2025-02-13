@@ -1,6 +1,8 @@
 import psycopg2
 import pandas as pd
 import os
+from dotenv import load_dotenv
+load_dotenv()
 
 def getConsistency(feature):
     try:

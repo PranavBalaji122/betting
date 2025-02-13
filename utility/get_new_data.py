@@ -9,6 +9,8 @@ import undetected_chromedriver as uc  #  Undetected ChromeDriver for stealth mod
 
 import csv
 import os
+from dotenv import load_dotenv
+load_dotenv()
 
 
 

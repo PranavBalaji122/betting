@@ -30,6 +30,8 @@ from sklearn.ensemble import RandomForestRegressor
 import math, statistics
 from models.soft_predictor import soft
 import os
+from dotenv import load_dotenv
+load_dotenv()
 
 class FeedforwardNN(nn.Module):
     def __init__(self, input_size):
