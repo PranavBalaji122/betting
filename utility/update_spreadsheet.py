@@ -5,7 +5,7 @@ import json
 from oauth2client.service_account import ServiceAccountCredentials
 import os
 from dotenv import load_dotenv
-load_dotenv()
+# load_dotenv()
 from datetime import datetime, timedelta
 
 
@@ -108,14 +108,15 @@ def get_nba_game_summary(event_id):
 def format_date(date_string):
     return f"{int(date_string[4:6])}/{int(date_string[6:])}/{date_string[2:4]}"
 
+
+
+
 def updateGoogleSheet(column_range, date):
     """
-    column_range: A tuple (start_row, end_row) for the Google Sheet rows
-                  you want to process, inclusive or exclusive depending on usage.
-                  For example, (1, 10) means "read from row 1 to row 10".
+    Updates Google Sheets using batch update to avoid hitting API limits.
     """
     SHEET_ID = "1lbNo8exL_KWPb05pVXKD5IhZuWbirjSup3XQTtW4HBU"
-    JSON_FILE = "json/nba_stats.json"       # The file with your players & stats
+    JSON_FILE = "json/nba_stats.json"  # The file with your players & stats
     CREDENTIALS_FILE = os.getenv("GOOGLE_API")  # Service account credentials
 
     # Define the Google API scopes
@@ -131,70 +132,55 @@ def updateGoogleSheet(column_range, date):
     client = gspread.authorize(creds)
 
     sheet_name = format_date(date)
-
-    # Open the sheet (worksheet named "table")
     sheet = client.open_by_key(SHEET_ID).worksheet(sheet_name)
 
     # Load NBA stats from JSON file
     with open(JSON_FILE, "r") as file:
         nba_data = json.load(file)
 
-    # Fetch the rows from the sheet
-    # For example, if column_range = (2, 10), it fetches rows 2 to 10 (columns A to G).
+    # Fetch headers and sheet data
+    headers = sheet.get_values(f"A1:K1")[0]
+    player_index = headers.index('Player')
+    market_index = headers.index('Market')
+    actual_column_letter = chr(64 + (headers.index('Actual') + 1))  # Convert index to column letter
+
     data = sheet.get_values(f"A{column_range[0]}:G{column_range[1]}")
+    
+    update_values = []  # List to collect values for batch update
 
-    print("Retrieved Data from Google Sheets:")
-    # Let's list the rows we just fetched
     for i, row in enumerate(data):
-        # The actual row in Google Sheets is offset from `column_range[0]`
-        sheet_row_number = column_range[0] + i
-        if row:
-            print(f"Sheet row {sheet_row_number}: {row}")
-        else:
-            print(f"Sheet row {sheet_row_number}: EMPTY")
-
-    # Now, go through each row and update the sheet if there's a matching stat
-    for i, row in enumerate(data):
-        sheet_row_number = column_range[0] + i
-
-        # We expect at least 2 columns: [Player, Market]
         if len(row) < 2:
+            update_values.append([""])  # If data is missing, append empty value
             continue
 
-        # Extract player name and stat market (e.g., "Points", "Assists", etc.)
-        player = row[1].strip()
-        market = row[2].strip()
+        player = row[player_index].strip()
+        market = row[market_index].strip()
 
-        # Debug: show what we're trying to match
-        print(f"\nChecking row {sheet_row_number} => Player: '{player}', Market: '{market}'")
-
-        # Attempt to find the player's Stats dict in the JSON
-        # Each element in nba_data is expected to be:
-        # {
-        #   "Team": "<team name>",
-        #   "Player": "<player name>",
-        #   "Stats": { "Points": "10", "Assists": "2", ... }
-        # }
+        # Find player stats
         player_dict = next((item for item in nba_data if item.get("Player") == player), None)
-        
-        if player_dict is None:
-            print("  -> No player match found in JSON.")
+        if not player_dict:
+            update_values.append([""])  # If no match, append empty value
             continue
 
         player_stats = player_dict.get("Stats", {})
-        if not player_stats:
-            print("  -> 'Stats' key not found or empty for this player in JSON.")
-            continue
-
-        # Now we see if the requested market is in that player's stats
         if market in player_stats:
-            stat_value = player_stats[market]
-            print(f"  -> Updating row {sheet_row_number}, column G with value: {stat_value}")
-            sheet.update_cell(sheet_row_number, 9, stat_value)
+            update_values.append([player_stats[market]])  # Append value as a list
         else:
-            print(f"  -> Market '{market}' not found in player_stats keys: {list(player_stats.keys())}")
+            update_values.append([""])  # If no stat available, append empty value
 
-    print("\nGoogle Sheet updated successfully!")
+    # Construct range in proper format (e.g., "H2:H75")
+    update_range = f"{actual_column_letter}{column_range[0]}:{actual_column_letter}{column_range[1]}"
+
+    # Batch update using a **single** API call
+    if update_values:
+        sheet.update(update_values, update_range, value_input_option="USER_ENTERED")
+        print(f"Updated {len(update_values)} rows in range {update_range} in one batch request!")
+    else:
+        print("No matching stats found to update.")
+
+
+
+
 
 
 def run(date, range_row):
@@ -220,6 +206,6 @@ def run(date, range_row):
 
 
 if __name__ == "__main__":
-    range_row = (2,) # range of rows to update
+    range_row = (2,75) # range of rows to update
     date = (datetime.now() - timedelta(hours=4)).strftime("%Y%m%d")
     run(date, range_row)
