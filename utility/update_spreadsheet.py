@@ -115,7 +115,7 @@ def updateGoogleSheet(column_range, date):
     """
     Updates Google Sheets using batch update to avoid hitting API limits.
     """
-    SHEET_ID = "1lbNo8exL_KWPb05pVXKD5IhZuWbirjSup3XQTtW4HBU"
+    SHEET_ID = os.getenv("SHEET_ID")  # The ID of your Google Sheet
     JSON_FILE = "json/nba_stats.json"  # The file with your players & stats
     CREDENTIALS_FILE = os.getenv("GOOGLE_API")  # Service account credentials
 
