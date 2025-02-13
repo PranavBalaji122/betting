@@ -103,8 +103,8 @@ def collect_all_odds(base_url, api_key, game_ids):
 
 def updates():
 
-    get_new_Data()
-    run_pipeline()
+    # get_new_Data()
+    # run_pipeline()
 
     from datetime import datetime, timedelta
 

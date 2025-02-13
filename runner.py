@@ -50,10 +50,9 @@ def get_player_last(player, market, line):
         return 0
     player_df.sort_values(by='date', ascending=False, inplace=True)
     last_ten = player_df.head(10)
+    count = (last_ten[market] > line).sum()
     
-    over_count = (last_ten[market] > line).sum()
-    
-    return f"{int(over_count)}/10"
+    return f"{int(count)}/10"
 
 def calc_player_stats(odds_data, consistent_players,injuries):
     conn = create_engine(os.getenv("SQL_ENGINE"))
@@ -69,7 +68,10 @@ def calc_player_stats(odds_data, consistent_players,injuries):
                 line = float(entry['line'])  # Ensure line is treated as a float for comparison
                 
                 if(market in ['pts','p_r_a', 'p_r', 'p_a']):
-                    line = line - 3
+                    if(line>15):
+                        line = line - 2
+                    else:
+                        line = line - 3
                 elif (market != 'a_r'):
                     line = line - 1
 
@@ -86,11 +88,11 @@ def calc_player_stats(odds_data, consistent_players,injuries):
                 if player in consistent_players.get(market, []):
                     if player not in injuries:
                         print(f"Running model on {player} for {market}")
-                        # stat, error = run_rf(player, team, opponent, hoa, market,20) 
-                        stat, error = run_gb(player, team, opponent, hoa, market,20)
+                        stat, error = run_rf(player, team, opponent, hoa, market,20) 
+                        # stat, error = run_gb(player, team, opponent, hoa, market,20)
                         buffer = error  # or however buffer is determined
 
-                        is_good_bet = ((stat < line and (line > (stat + (buffer*0.8)))) or (stat > line and ((stat - (buffer*0.8)) > line))) or (market in ['pts','p_r_a', 'p_r', 'p_a'] and buffer < 4)
+                        is_good_bet = (stat > line and ((stat - (buffer*0.8)) > line)) or (market in ['pts','p_r_a', 'p_r', 'p_a'] and buffer < 4)
                         is_good_bet = True
                         bet_status = 'good' if is_good_bet else 'bad'
 

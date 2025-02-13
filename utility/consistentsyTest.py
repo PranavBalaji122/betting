@@ -42,7 +42,7 @@ def getConsistency(feature):
                     AVG(mp) > 10  -- Ensuring the average minutes played over the last 15 games is more than 10
                 ORDER BY
                     cv_{feature} ASC
-                FETCH NEXT 100 ROWS ONLY;
+                FETCH NEXT 200 ROWS ONLY;
         """
         player_data = pd.read_sql_query(query, conn)
     except Exception as e:

@@ -11,6 +11,7 @@ def write_table():
             "Player": entry["player"],
             "Market": entry["market"],
             "Predicted": entry["bet"]["predicted"],
+            "Buffer": entry["bet"]["error"],
             "Line": entry["line"],
             #"Odds": entry["odds"],
             "Last Ten": entry["last_ten"],

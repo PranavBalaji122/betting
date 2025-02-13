@@ -1,17 +1,992 @@
 {
     "DraftKings": [
         {
-            "player": "Scottie Barnes",
-            "game": "TOR vs PHI",
+            "player": "Miles Bridges",
+            "game": "CHA vs ORL",
+            "market": "pts",
+            "line": 19.5,
+            "bet": {
+                "status": "good",
+                "predicted": 28.95,
+                "error": 8
+            },
+            "odds": -115,
+            "last_ten": "8/10"
+        },
+        {
+            "player": "Tyrese Maxey",
+            "game": "PHI vs BKN",
+            "market": "pts",
+            "line": 25.5,
+            "bet": {
+                "status": "good",
+                "predicted": 32.3,
+                "error": 8
+            },
+            "odds": -120,
+            "last_ten": "9/10"
+        },
+        {
+            "player": "Cameron Johnson",
+            "game": "BRK vs PHI",
+            "market": "pts",
+            "line": 15.5,
+            "bet": {
+                "status": "good",
+                "predicted": 18.95,
+                "error": 4
+            },
+            "odds": -115,
+            "last_ten": "7/10"
+        },
+        {
+            "player": "Donovan Mitchell",
+            "game": "CLE vs TOR",
+            "market": "pts",
+            "line": 22.5,
+            "bet": {
+                "status": "good",
+                "predicted": 32.45,
+                "error": 7
+            },
+            "odds": -120,
+            "last_ten": "8/10"
+        },
+        {
+            "player": "Gradey Dick",
+            "game": "TOR vs CLE",
+            "market": "pts",
+            "line": 11.5,
+            "bet": {
+                "status": "good",
+                "predicted": 17.9,
+                "error": 5
+            },
+            "odds": -110,
+            "last_ten": "8/10"
+        },
+        {
+            "player": "Jarrett Allen",
+            "game": "CLE vs TOR",
+            "market": "pts",
+            "line": 10.5,
+            "bet": {
+                "status": "good",
+                "predicted": 15.35,
+                "error": 6
+            },
+            "odds": -110,
+            "last_ten": "6/10"
+        },
+        {
+            "player": "Jalen Duren",
+            "game": "DET vs CHI",
+            "market": "pts",
+            "line": 10.5,
+            "bet": {
+                "status": "good",
+                "predicted": 14.75,
+                "error": 5
+            },
+            "odds": -115,
+            "last_ten": "7/10"
+        },
+        {
+            "player": "Shai Gilgeous-Alexander",
+            "game": "OKC vs MIA",
+            "market": "pts",
+            "line": 30.5,
+            "bet": {
+                "status": "good",
+                "predicted": 40.4,
+                "error": 7
+            },
+            "odds": -110,
+            "last_ten": "8/10"
+        },
+        {
+            "player": "Zach LaVine",
+            "game": "SAC vs NOP",
+            "market": "pts",
+            "line": 19.5,
+            "bet": {
+                "status": "good",
+                "predicted": 29.9,
+                "error": 9
+            },
+            "odds": -120,
+            "last_ten": "7/10"
+        },
+        {
+            "player": "Domantas Sabonis",
+            "game": "SAC vs NOP",
             "market": "pts",
             "line": 17.5,
             "bet": {
                 "status": "good",
-                "predicted": 22.5,
+                "predicted": 23.1,
+                "error": 5
+            },
+            "odds": -120,
+            "last_ten": "5/10"
+        },
+        {
+            "player": "Jalen Green",
+            "game": "HOU vs PHX",
+            "market": "pts",
+            "line": 21.5,
+            "bet": {
+                "status": "good",
+                "predicted": 29.75,
                 "error": 8
+            },
+            "odds": -125,
+            "last_ten": "6/10"
+        },
+        {
+            "player": "Deni Avdija",
+            "game": "POR vs DEN",
+            "market": "pts",
+            "line": 14.5,
+            "bet": {
+                "status": "good",
+                "predicted": 20.9,
+                "error": 7
+            },
+            "odds": -125,
+            "last_ten": "5/10"
+        },
+        {
+            "player": "Lauri Markkanen",
+            "game": "UTA vs LAL",
+            "market": "pts",
+            "line": 16.5,
+            "bet": {
+                "status": "good",
+                "predicted": 22.6,
+                "error": 6
+            },
+            "odds": -125,
+            "last_ten": "6/10"
+        },
+        {
+            "player": "John Collins",
+            "game": "UTA vs LAL",
+            "market": "pts",
+            "line": 16.5,
+            "bet": {
+                "status": "good",
+                "predicted": 20.75,
+                "error": 5
             },
             "odds": -110,
             "last_ten": "7/10"
+        },
+        {
+            "player": "Harrison Barnes",
+            "game": "SAS vs BOS",
+            "market": "trb",
+            "line": 2.5,
+            "bet": {
+                "status": "good",
+                "predicted": 5.1,
+                "error": 2
+            },
+            "odds": -140,
+            "last_ten": "9/10"
+        },
+        {
+            "player": "Paolo Banchero",
+            "game": "ORL vs CHA",
+            "market": "trb",
+            "line": 6.5,
+            "bet": {
+                "status": "good",
+                "predicted": 8.95,
+                "error": 3
+            },
+            "odds": 100,
+            "last_ten": "4/10"
+        },
+        {
+            "player": "Pascal Siakam",
+            "game": "IND vs WAS",
+            "market": "trb",
+            "line": 6.5,
+            "bet": {
+                "status": "good",
+                "predicted": 9.4,
+                "error": 3
+            },
+            "odds": -140,
+            "last_ten": "4/10"
+        },
+        {
+            "player": "Onyeka Okongwu",
+            "game": "ATL vs NYK",
+            "market": "trb",
+            "line": 7.5,
+            "bet": {
+                "status": "good",
+                "predicted": 10.15,
+                "error": 3
+            },
+            "odds": -125,
+            "last_ten": "5/10"
+        },
+        {
+            "player": "Ziaire Williams",
+            "game": "BRK vs PHI",
+            "market": "trb",
+            "line": 4.5,
+            "bet": {
+                "status": "good",
+                "predicted": 6.3,
+                "error": 2
+            },
+            "odds": 110,
+            "last_ten": "5/10"
+        },
+        {
+            "player": "Evan Mobley",
+            "game": "CLE vs TOR",
+            "market": "trb",
+            "line": 8.5,
+            "bet": {
+                "status": "good",
+                "predicted": 12.65,
+                "error": 3
+            },
+            "odds": -125,
+            "last_ten": "6/10"
+        },
+        {
+            "player": "Jalen Duren",
+            "game": "DET vs CHI",
+            "market": "trb",
+            "line": 10.5,
+            "bet": {
+                "status": "good",
+                "predicted": 14.8,
+                "error": 4
+            },
+            "odds": -105,
+            "last_ten": "6/10"
+        },
+        {
+            "player": "Josh Giddey",
+            "game": "CHI vs DET",
+            "market": "trb",
+            "line": 5.5,
+            "bet": {
+                "status": "good",
+                "predicted": 8.55,
+                "error": 3
+            },
+            "odds": -130,
+            "last_ten": "6/10"
+        },
+        {
+            "player": "Rudy Gobert",
+            "game": "MIN vs MIL",
+            "market": "trb",
+            "line": 10.5,
+            "bet": {
+                "status": "good",
+                "predicted": 16.5,
+                "error": 4
+            },
+            "odds": -105,
+            "last_ten": "5/10"
+        },
+        {
+            "player": "Trey Murphy III",
+            "game": "NOP vs SAC",
+            "market": "trb",
+            "line": 4.5,
+            "bet": {
+                "status": "good",
+                "predicted": 7.1,
+                "error": 3
+            },
+            "odds": -105,
+            "last_ten": "8/10"
+        },
+        {
+            "player": "John Collins",
+            "game": "UTA vs LAL",
+            "market": "trb",
+            "line": 6.5,
+            "bet": {
+                "status": "good",
+                "predicted": 10.35,
+                "error": 4
+            },
+            "odds": -140,
+            "last_ten": "6/10"
+        },
+        {
+            "player": "Andrew Nembhard",
+            "game": "IND vs WAS",
+            "market": "ast",
+            "line": 3.5,
+            "bet": {
+                "status": "good",
+                "predicted": 6.25,
+                "error": 3
+            },
+            "odds": -125,
+            "last_ten": "6/10"
+        },
+        {
+            "player": "Pascal Siakam",
+            "game": "IND vs WAS",
+            "market": "ast",
+            "line": 2.5,
+            "bet": {
+                "status": "good",
+                "predicted": 5.05,
+                "error": 2
+            },
+            "odds": -110,
+            "last_ten": "7/10"
+        },
+        {
+            "player": "Trae Young",
+            "game": "ATL vs NYK",
+            "market": "ast",
+            "line": 9.5,
+            "bet": {
+                "status": "good",
+                "predicted": 12.85,
+                "error": 4
+            },
+            "odds": 105,
+            "last_ten": "5/10"
+        },
+        {
+            "player": "Caris LeVert",
+            "game": "ATL vs NYK",
+            "market": "ast",
+            "line": 2.5,
+            "bet": {
+                "status": "good",
+                "predicted": 6.25,
+                "error": 3
+            },
+            "odds": -140,
+            "last_ten": "6/10"
+        },
+        {
+            "player": "Donovan Mitchell",
+            "game": "CLE vs TOR",
+            "market": "ast",
+            "line": 4.5,
+            "bet": {
+                "status": "good",
+                "predicted": 6.6,
+                "error": 2
+            },
+            "odds": 120,
+            "last_ten": "10/10"
+        },
+        {
+            "player": "Josh Giddey",
+            "game": "CHI vs DET",
+            "market": "ast",
+            "line": 4.5,
+            "bet": {
+                "status": "good",
+                "predicted": 7.15,
+                "error": 3
+            },
+            "odds": -154,
+            "last_ten": "5/10"
+        },
+        {
+            "player": "Shai Gilgeous-Alexander",
+            "game": "OKC vs MIA",
+            "market": "ast",
+            "line": 4.5,
+            "bet": {
+                "status": "good",
+                "predicted": 7.25,
+                "error": 3
+            },
+            "odds": -145,
+            "last_ten": "7/10"
+        },
+        {
+            "player": "Jalen Williams",
+            "game": "OKC vs MIA",
+            "market": "ast",
+            "line": 3.5,
+            "bet": {
+                "status": "good",
+                "predicted": 8.6,
+                "error": 3
+            },
+            "odds": -140,
+            "last_ten": "8/10"
+        },
+        {
+            "player": "Domantas Sabonis",
+            "game": "SAC vs NOP",
+            "market": "ast",
+            "line": 4.5,
+            "bet": {
+                "status": "good",
+                "predicted": 7.65,
+                "error": 3
+            },
+            "odds": -140,
+            "last_ten": "6/10"
+        },
+        {
+            "player": "Kyrie Irving",
+            "game": "DAL vs GSW",
+            "market": "ast",
+            "line": 4.5,
+            "bet": {
+                "status": "good",
+                "predicted": 6.2,
+                "error": 2
+            },
+            "odds": -130,
+            "last_ten": "6/10"
+        },
+        {
+            "player": "Devin Vassell",
+            "game": "SAS vs BOS",
+            "market": "p_r_a",
+            "line": 19.5,
+            "bet": {
+                "status": "good",
+                "predicted": 24.8,
+                "error": 6
+            },
+            "odds": -120,
+            "last_ten": "6/10"
+        },
+        {
+            "player": "Alex Sarr",
+            "game": "WAS vs IND",
+            "market": "p_r_a",
+            "line": 18.5,
+            "bet": {
+                "status": "good",
+                "predicted": 23.6,
+                "error": 4
+            },
+            "odds": -120,
+            "last_ten": "6/10"
+        },
+        {
+            "player": "Trae Young",
+            "game": "ATL vs NYK",
+            "market": "p_r_a",
+            "line": 36.5,
+            "bet": {
+                "status": "good",
+                "predicted": 43.4,
+                "error": 7
+            },
+            "odds": -125,
+            "last_ten": "4/10"
+        },
+        {
+            "player": "Mikal Bridges",
+            "game": "NYK vs ATL",
+            "market": "p_r_a",
+            "line": 21.5,
+            "bet": {
+                "status": "good",
+                "predicted": 30.9,
+                "error": 9
+            },
+            "odds": -115,
+            "last_ten": "5/10"
+        },
+        {
+            "player": "Scottie Barnes",
+            "game": "TOR vs CLE",
+            "market": "p_r_a",
+            "line": 31.5,
+            "bet": {
+                "status": "good",
+                "predicted": 41.35,
+                "error": 7
+            },
+            "odds": -110,
+            "last_ten": "5/10"
+        },
+        {
+            "player": "Gradey Dick",
+            "game": "TOR vs CLE",
+            "market": "p_r_a",
+            "line": 16.5,
+            "bet": {
+                "status": "good",
+                "predicted": 22.35,
+                "error": 7
+            },
+            "odds": -115,
+            "last_ten": "7/10"
+        },
+        {
+            "player": "Jalen Duren",
+            "game": "DET vs CHI",
+            "market": "p_r_a",
+            "line": 24.5,
+            "bet": {
+                "status": "good",
+                "predicted": 31.9,
+                "error": 8
+            },
+            "odds": -125,
+            "last_ten": "7/10"
+        },
+        {
+            "player": "Shai Gilgeous-Alexander",
+            "game": "OKC vs MIA",
+            "market": "p_r_a",
+            "line": 41.5,
+            "bet": {
+                "status": "good",
+                "predicted": 47.95,
+                "error": 8
+            },
+            "odds": -110,
+            "last_ten": "5/10"
+        },
+        {
+            "player": "Domantas Sabonis",
+            "game": "SAC vs NOP",
+            "market": "p_r_a",
+            "line": 38.5,
+            "bet": {
+                "status": "good",
+                "predicted": 46.3,
+                "error": 9
+            },
+            "odds": -110,
+            "last_ten": "5/10"
+        },
+        {
+            "player": "Zach LaVine",
+            "game": "SAC vs NOP",
+            "market": "p_r_a",
+            "line": 27.5,
+            "bet": {
+                "status": "good",
+                "predicted": 37.05,
+                "error": 10
+            },
+            "odds": -125,
+            "last_ten": "7/10"
+        },
+        {
+            "player": "Yves Missi",
+            "game": "NOP vs SAC",
+            "market": "p_r_a",
+            "line": 17.5,
+            "bet": {
+                "status": "good",
+                "predicted": 18.6,
+                "error": 3
+            },
+            "odds": -105,
+            "last_ten": "8/10"
+        },
+        {
+            "player": "Toumani Camara",
+            "game": "POR vs DEN",
+            "market": "p_r_a",
+            "line": 16.5,
+            "bet": {
+                "status": "good",
+                "predicted": 27.65,
+                "error": 5
+            },
+            "odds": -105,
+            "last_ten": "8/10"
+        },
+        {
+            "player": "John Collins",
+            "game": "UTA vs LAL",
+            "market": "p_r_a",
+            "line": 26.5,
+            "bet": {
+                "status": "good",
+                "predicted": 32.65,
+                "error": 7
+            },
+            "odds": -105,
+            "last_ten": "5/10"
+        },
+        {
+            "player": "Scottie Barnes",
+            "game": "TOR vs CLE",
+            "market": "p_r",
+            "line": 26.5,
+            "bet": {
+                "status": "good",
+                "predicted": 32.75,
+                "error": 7
+            },
+            "odds": -105,
+            "last_ten": "5/10"
+        },
+        {
+            "player": "Gradey Dick",
+            "game": "TOR vs CLE",
+            "market": "p_r",
+            "line": 14.5,
+            "bet": {
+                "status": "good",
+                "predicted": 21.2,
+                "error": 7
+            },
+            "odds": -125,
+            "last_ten": "9/10"
+        },
+        {
+            "player": "Jalen Duren",
+            "game": "DET vs CHI",
+            "market": "p_r",
+            "line": 22.5,
+            "bet": {
+                "status": "good",
+                "predicted": 30.7,
+                "error": 7
+            },
+            "odds": -110,
+            "last_ten": "7/10"
+        },
+        {
+            "player": "Jalen Smith",
+            "game": "CHI vs DET",
+            "market": "p_r",
+            "line": 10.5,
+            "bet": {
+                "status": "good",
+                "predicted": 15.55,
+                "error": 5
+            },
+            "odds": -115,
+            "last_ten": "9/10"
+        },
+        {
+            "player": "Rudy Gobert",
+            "game": "MIN vs MIL",
+            "market": "p_r",
+            "line": 21.5,
+            "bet": {
+                "status": "good",
+                "predicted": 26.55,
+                "error": 6
+            },
+            "odds": -120,
+            "last_ten": "8/10"
+        },
+        {
+            "player": "Domantas Sabonis",
+            "game": "SAC vs NOP",
+            "market": "p_r",
+            "line": 32.5,
+            "bet": {
+                "status": "good",
+                "predicted": 40.85,
+                "error": 6
+            },
+            "odds": -110,
+            "last_ten": "5/10"
+        },
+        {
+            "player": "Zach LaVine",
+            "game": "SAC vs NOP",
+            "market": "p_r",
+            "line": 23.5,
+            "bet": {
+                "status": "good",
+                "predicted": 37.35,
+                "error": 10
+            },
+            "odds": -125,
+            "last_ten": "8/10"
+        },
+        {
+            "player": "Yves Missi",
+            "game": "NOP vs SAC",
+            "market": "p_r",
+            "line": 15.5,
+            "bet": {
+                "status": "good",
+                "predicted": 14.4,
+                "error": 3
+            },
+            "odds": -120,
+            "last_ten": "6/10"
+        },
+        {
+            "player": "Jalen Green",
+            "game": "HOU vs PHX",
+            "market": "p_r",
+            "line": 26.5,
+            "bet": {
+                "status": "good",
+                "predicted": 34.3,
+                "error": 8
+            },
+            "odds": -120,
+            "last_ten": "7/10"
+        },
+        {
+            "player": "Toumani Camara",
+            "game": "POR vs DEN",
+            "market": "p_r",
+            "line": 14.5,
+            "bet": {
+                "status": "good",
+                "predicted": 22.85,
+                "error": 6
+            },
+            "odds": -105,
+            "last_ten": "8/10"
+        },
+        {
+            "player": "John Collins",
+            "game": "UTA vs LAL",
+            "market": "p_r",
+            "line": 24.5,
+            "bet": {
+                "status": "good",
+                "predicted": 28.65,
+                "error": 5
+            },
+            "odds": -110,
+            "last_ten": "7/10"
+        },
+        {
+            "player": "Lauri Markkanen",
+            "game": "UTA vs LAL",
+            "market": "p_r",
+            "line": 22.5,
+            "bet": {
+                "status": "good",
+                "predicted": 28.15,
+                "error": 7
+            },
+            "odds": -115,
+            "last_ten": "7/10"
+        },
+        {
+            "player": "Walker Kessler",
+            "game": "UTA vs LAL",
+            "market": "p_r",
+            "line": 21.5,
+            "bet": {
+                "status": "good",
+                "predicted": 28.65,
+                "error": 5
+            },
+            "odds": -110,
+            "last_ten": "7/10"
+        },
+        {
+            "player": "Chris Paul",
+            "game": "SAS vs BOS",
+            "market": "p_a",
+            "line": 11.5,
+            "bet": {
+                "status": "good",
+                "predicted": 19.7,
+                "error": 6
+            },
+            "odds": -120,
+            "last_ten": "7/10"
+        },
+        {
+            "player": "Dyson Daniels",
+            "game": "ATL vs NYK",
+            "market": "p_a",
+            "line": 16.5,
+            "bet": {
+                "status": "good",
+                "predicted": 21.9,
+                "error": 5
+            },
+            "odds": -125,
+            "last_ten": "7/10"
+        },
+        {
+            "player": "Cameron Johnson",
+            "game": "BRK vs PHI",
+            "market": "p_a",
+            "line": 18.5,
+            "bet": {
+                "status": "good",
+                "predicted": 25.55,
+                "error": 6
+            },
+            "odds": -110,
+            "last_ten": "6/10"
+        },
+        {
+            "player": "Gradey Dick",
+            "game": "TOR vs CLE",
+            "market": "p_a",
+            "line": 13.5,
+            "bet": {
+                "status": "good",
+                "predicted": 20.0,
+                "error": 6
+            },
+            "odds": -105,
+            "last_ten": "7/10"
+        },
+        {
+            "player": "Josh Giddey",
+            "game": "CHI vs DET",
+            "market": "p_a",
+            "line": 17.5,
+            "bet": {
+                "status": "good",
+                "predicted": 23.7,
+                "error": 7
+            },
+            "odds": -125,
+            "last_ten": "6/10"
+        },
+        {
+            "player": "Jalen Duren",
+            "game": "DET vs CHI",
+            "market": "p_a",
+            "line": 13.5,
+            "bet": {
+                "status": "good",
+                "predicted": 18.35,
+                "error": 4
+            },
+            "odds": -115,
+            "last_ten": "6/10"
+        },
+        {
+            "player": "Domantas Sabonis",
+            "game": "SAC vs NOP",
+            "market": "p_a",
+            "line": 23.5,
+            "bet": {
+                "status": "good",
+                "predicted": 28.45,
+                "error": 6
+            },
+            "odds": -120,
+            "last_ten": "7/10"
+        },
+        {
+            "player": "Stephen Curry",
+            "game": "GSW vs DAL",
+            "market": "p_a",
+            "line": 30.5,
+            "bet": {
+                "status": "good",
+                "predicted": 40.3,
+                "error": 6
+            },
+            "odds": -120,
+            "last_ten": "4/10"
+        },
+        {
+            "player": "Malcolm Brogdon",
+            "game": "WAS vs IND",
+            "market": "a_r",
+            "line": 7.5,
+            "bet": {
+                "status": "good",
+                "predicted": 11.3,
+                "error": 3
+            },
+            "odds": -105,
+            "last_ten": "8/10"
+        },
+        {
+            "player": "Onyeka Okongwu",
+            "game": "ATL vs NYK",
+            "market": "a_r",
+            "line": 10.5,
+            "bet": {
+                "status": "good",
+                "predicted": 16.35,
+                "error": 4
+            },
+            "odds": -135,
+            "last_ten": "5/10"
+        },
+        {
+            "player": "Tyrese Maxey",
+            "game": "PHI vs BKN",
+            "market": "a_r",
+            "line": 9.5,
+            "bet": {
+                "status": "good",
+                "predicted": 15.45,
+                "error": 4
+            },
+            "odds": -120,
+            "last_ten": "5/10"
+        },
+        {
+            "player": "Scottie Barnes",
+            "game": "TOR vs CLE",
+            "market": "a_r",
+            "line": 12.5,
+            "bet": {
+                "status": "good",
+                "predicted": 16.8,
+                "error": 5
+            },
+            "odds": -125,
+            "last_ten": "5/10"
+        },
+        {
+            "player": "Josh Giddey",
+            "game": "CHI vs DET",
+            "market": "a_r",
+            "line": 12.5,
+            "bet": {
+                "status": "good",
+                "predicted": 16.55,
+                "error": 5
+            },
+            "odds": -130,
+            "last_ten": "5/10"
+        },
+        {
+            "player": "Jalen Green",
+            "game": "HOU vs PHX",
+            "market": "a_r",
+            "line": 8.5,
+            "bet": {
+                "status": "good",
+                "predicted": 12.2,
+                "error": 4
+            },
+            "odds": -130,
+            "last_ten": "6/10"
+        },
+        {
+            "player": "Desmond Bane",
+            "game": "MEM vs LAC",
+            "market": "a_r",
+            "line": 11.5,
+            "bet": {
+                "status": "good",
+                "predicted": 15.65,
+                "error": 4
+            },
+            "odds": -135,
+            "last_ten": "6/10"
         }
     ]
 }

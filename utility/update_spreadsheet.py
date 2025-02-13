@@ -4,9 +4,8 @@ import gspread
 import json
 from oauth2client.service_account import ServiceAccountCredentials
 import os
+from datetime import datetime, timedelta
 
-from dotenv import load_dotenv
-load_dotenv()
 
 def safe_int(value):
     """Parses value to int, returns None if parsing fails or if value is 'N/A'."""
@@ -104,16 +103,17 @@ def get_nba_game_summary(event_id):
         return response.json()
     return None
 
+def format_date(date_string):
+    return f"{int(date_string[4:6])}/{int(date_string[6:])}/{date_string[2:4]}"
 
-
-def updateGoogleSheet(column_range):
+def updateGoogleSheet(column_range, date):
     """
     column_range: A tuple (start_row, end_row) for the Google Sheet rows
                   you want to process, inclusive or exclusive depending on usage.
                   For example, (1, 10) means "read from row 1 to row 10".
     """
     SHEET_ID = "1lbNo8exL_KWPb05pVXKD5IhZuWbirjSup3XQTtW4HBU"
-    JSON_FILE = "JSON/nba_stats.json"       # The file with your players & stats
+    JSON_FILE = "json/nba_stats.json"       # The file with your players & stats
     CREDENTIALS_FILE = os.getenv("GOOGLE_API")  # Service account credentials
 
     # Define the Google API scopes
@@ -128,8 +128,10 @@ def updateGoogleSheet(column_range):
     creds = ServiceAccountCredentials.from_json_keyfile_name(CREDENTIALS_FILE, scope)
     client = gspread.authorize(creds)
 
+    sheet_name = format_date(date)
+
     # Open the sheet (worksheet named "table")
-    sheet = client.open_by_key(SHEET_ID).worksheet("Sheet4")
+    sheet = client.open_by_key(SHEET_ID).worksheet(sheet_name)
 
     # Load NBA stats from JSON file
     with open(JSON_FILE, "r") as file:
@@ -212,10 +214,10 @@ def run(date, range_row):
     else:
         print("No games found for the given date.")
 
-    updateGoogleSheet(range_row)
+    updateGoogleSheet(range_row, date)
 
 
 if __name__ == "__main__":
-    range_row = (2,40) # range of rows to update
-    date = "20250211" # Change this to the desired date (YYYYMMDD)
+    range_row = (2,) # range of rows to update
+    date = (datetime.now() - timedelta(hours=4)).strftime("%Y%m%d")
     run(date, range_row)

@@ -5,9 +5,6 @@ from psycopg2.extras import Json
 from sqlalchemy import create_engine
 from psycopg2 import sql
 import os
-from dotenv import load_dotenv
-
-load_dotenv()
 
 def reset_tables(cursor):
     cursor.execute("DROP TABLE IF EXISTS public.nba;")
@@ -121,6 +118,7 @@ def perform_updates(cursor):
         "UPDATE public.nba SET result = CASE WHEN result = 'L' THEN 0 WHEN result = 'W' THEN 1 END;",
         "ALTER TABLE public.nba ALTER COLUMN result TYPE INTEGER USING CAST(result AS INTEGER);"
         "UPDATE public.nba SET team = REPLACE(team, 'CHO', 'CHA'), opp = REPLACE(opp, 'CHO', 'CHA');"
+        "UPDATE public.nba SET team = REPLACE(team, 'PHO', 'PHX'), opp = REPLACE(opp, 'PHO', 'PHX');"
     ]
 
     for command in updates:
