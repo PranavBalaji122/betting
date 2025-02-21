@@ -11,7 +11,7 @@ from sqlalchemy import text
 import os
 from dotenv import load_dotenv
 load_dotenv()
-
+banned_list = ["Joel Embiid", "Luka Dončić", "Brandon Clarke", "Russell Westbrook", "Tyrese Maxey", "Ty Jerome", "Giannis Antetokounmpo"]
 def load_odds(input_path):
     try:
         with open(input_path, 'r') as file:
@@ -44,8 +44,6 @@ def get_player_last(player, market, line):
     # Load the CSV into a DataFrame
     df = pd.read_csv('csv/sql.csv')
     
-    # Filter rows for the specified player
-    # Adjust 'player_name' if your CSV column is named differently
     player_df = df[df['player'] == player].copy()
     
     if player_df.empty:
@@ -53,8 +51,7 @@ def get_player_last(player, market, line):
     player_df.sort_values(by='date', ascending=False, inplace=True)
     last_ten = player_df.head(10)
     count = (last_ten[market] > line).sum()
-    
-    return f"{int(count)}/10"
+    return count
 
 def calc_player_stats(odds_data, consistent_players,injuries):
     conn = create_engine(os.getenv("SQL_ENGINE"))
@@ -67,15 +64,12 @@ def calc_player_stats(odds_data, consistent_players,injuries):
                 opponent = entry['opp']
                 market = entry['market']
                 hoa = entry['hoa']
-                line = float(entry['line'])  # Ensure line is treated as a float for comparison
+                line = float(entry['line'])
                 
                 if(market in ['pts','p_r_a', 'p_r', 'p_a']):
-                    if(line>15):
-                        line = line - 2
-                    else:
-                        line = line - 3
+                    line = line 
                 elif (market != 'a_r'):
-                    line = line - 1
+                    line = line
 
 
                 player_data = {
@@ -87,15 +81,17 @@ def calc_player_stats(odds_data, consistent_players,injuries):
                     'under': entry["under"],
                     'bet': {}
                 }
-                if player in consistent_players.get(market, []):
+                last_ten = get_player_last(player,market,line-1)
+                #if last_ten > 6 and player in consistent_players.get(market, []) and player not in banned_list:
+                if last_ten > 6 and player not in banned_list:
                     if player not in injuries:
                         print(f"Running model on {player} for {market}")
-                        stat, error = run_rf(player, team, opponent, hoa, market,20) 
-                        # stat, error = run_gb(player, team, opponent, hoa, market,20)
+                        # stat, error = run_rf(player, team, opponent, hoa, market,20) 
+                        stat, error = run_gb(player, team, opponent, hoa, market,20)
                         buffer = error  # or however buffer is determined
 
-                        is_good_bet = (stat > line and ((stat - (buffer*0.8)) > line)) or (market in ['pts','p_r_a', 'p_r', 'p_a'] and buffer < 4)
-                        is_good_bet = True
+                        is_good_bet = (stat > line + (buffer*0.8))
+                        # is_good_bet = ((stat > line and ((stat - (buffer*0.35)) > line)) or (stat < line and ((stat + (buffer*0.35)) < line))) or (market in ['pts','p_r_a', 'p_r', 'p_a'] and buffer < 4)
                         bet_status = 'good' if is_good_bet else 'bad'
 
                         player_data['bet'] = {
@@ -109,7 +105,7 @@ def calc_player_stats(odds_data, consistent_players,injuries):
                         else:
                             del player_data['under']
                             player_data['odds'] = player_data.pop('over')
-                        player_data['last_ten']= get_player_last(player,market,line)
+                        player_data['last_ten']= f"{int(last_ten)}/10"
                         # Add to results only if it's a good bet and meets the buffer criteria
                         if bet_status == "good":
                             results[bookmaker_name].append(player_data)

@@ -3,13 +3,13 @@ import pandas as pd
 import json
 
 def load_injuries():
-    # Replace 'api_endpoint_url' with the actual URL of the API endpoint
+    # # Replace 'api_endpoint_url' with the actual URL of the API endpoint
     api_endpoint_url = "https://www.rotowire.com/basketball/tables/injury-report.php?team=ALL&pos=ALL"
     response = requests.get(api_endpoint_url)
 
     # Convert the JSON response to a Python dictionary
     data = response.json()
-
+    
     # Create a DataFrame from the response data
     df = pd.DataFrame(data)
     

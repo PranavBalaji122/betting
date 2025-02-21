@@ -13,6 +13,22 @@ def read_json_file(file_path):
         return data
 
 def fetch_player_details(cursor, description, home_team, away_team):
+    #euro names
+    if(description in ('Nikola Jokic','Luka Doncic','Nikola Vucevic','Jonas Valanciunas','Bojan Bogdanovic','Dario Saric','Bogdan Bogdanovic','Karlo Matkovic','Boban Marjanovic', 'Boban Marjanovic', 'Jusuf Nurkic','Luka Samanic','Nikola Jovic','Vasilije Micic')):
+        if(description=='Luka Doncic'): description = 'Luka Dončić'
+        elif(description=='Nikola Jokic'): description = 'Nikola Jokić'
+        elif(description=='Nikola Vucevic'): description = 'Nikola Vučević'
+        elif(description=='Jonas Valanciunas'): description = 'Jonas Valančiūnas'
+        elif(description== 'Bojan Bogdanovic'): description = 'Bojan Bogdanović'
+        elif(description== 'Dario Saric'): description = 'Dario Šarić'
+        elif(description== 'Bogdan Bogdanovic'): description = 'Bogdan Bogdanović'
+        elif(description== 'Karlo Matkovic'): description = 'Karlo Matković'
+        elif(description== 'Boban Marjanovic'): description = 'Boban Marjanović'
+        elif(description== 'Boban Marjanovic'): description = 'Bojan Bogdanović'
+        elif(description== 'Jusuf Nurkic'): description = 'Jusuf Nurkić'
+        elif(description== 'Luka Samanic'): description = 'Luka Šamanić'
+        elif(description== 'Nikola Jovic'): description = 'Nikola Jović'
+        elif(description== 'Vasilije Micic'): description = 'Vasilije Micić'
     """
     Fetches the most recent team information for the player, details of top 8 teammates by average minutes played
     (excluding the player themselves), and top 8 opposing players by average minutes played.

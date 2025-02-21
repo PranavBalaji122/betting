@@ -9,7 +9,7 @@ import os
 from dotenv import load_dotenv
 load_dotenv()
 
-api_key = os.getenv("ODDS_KEY")
+api_key = 'f62ad77d807ae5fdbde41f1f3e3c95cb'
 
 nba_teams = {
     "Atlanta Hawks": "ATL",
@@ -105,26 +105,26 @@ def collect_all_odds(base_url, api_key, game_ids):
 
 def updates():
 
-    # get_new_Data()
-    run_pipeline()
+    #get_new_Data()
+    #run_pipeline()
 
-    # from datetime import datetime, timedelta
+    from datetime import datetime, timedelta
 
 
-    # today = datetime.now()
-    # tomorrow = today + timedelta(days=1)
-    # tomorrow_at_5am = tomorrow.replace(hour=5, minute=0, second=0, microsecond=0)
+    today = datetime.now()
+    tomorrow = today + timedelta(days=1)
+    tomorrow_at_5am = tomorrow.replace(hour=5, minute=0, second=0, microsecond=0)
 
-    # commence_time_to = tomorrow_at_5am.isoformat() + 'Z'
-    # base_url = "https://api.the-odds-api.com/v4/sports/basketball_nba/events"
-    # ids = game_ids(base_url, api_key, commence_time_to)
-    # props = collect_all_odds(base_url, api_key, ids)
+    commence_time_to = tomorrow_at_5am.isoformat() + 'Z'
+    base_url = "https://api.the-odds-api.com/v4/sports/basketball_nba/events"
+    ids = game_ids(base_url, api_key, commence_time_to)
+    props = collect_all_odds(base_url, api_key, ids)
     
-    # with open('json/props.json', 'w') as file:
-    #     json.dump(props, file, indent=4)
+    with open('json/props.json', 'w') as file:
+        json.dump(props, file, indent=4)
 
-    # process_props()
-    # load_injuries()
+    process_props()
+    load_injuries()
 
 if __name__ == "__main__":
     updates()
