@@ -20,8 +20,8 @@ from sklearn.compose import ColumnTransformer
 from sklearn.pipeline import Pipeline
 from sklearn.neighbors import KNeighborsRegressor
 from sklearn.metrics import mean_squared_error
+from sklearn.metrics import mean_absolute_error
 from sklearn.impute import SimpleImputer
-from sklearn.ensemble import RandomForestRegressor
 import math, statistics
 from models.soft_predictor import soft
 import os
@@ -168,13 +168,13 @@ def random_forest(player, market,conn, nestimators):
     target = market
 
     # Split the data into training and test sets
-    X_train, X_test, y_train, y_test = train_test_split(df[features], df[target], test_size=0.2)
+    X_train, X_test, y_train, y_test = train_test_split(df[features], df[market], test_size=0.2, random_state=42)
     preprocessor = ColumnTransformer(transformers=transformers)
 
     # Create Pipelines
     pipeline = Pipeline([
         ('preprocessor', preprocessor),
-        ('regressor', RandomForestRegressor(n_estimators= nestimators))
+        ('regressor', RandomForestRegressor(n_estimators= nestimators, n_jobs= -1))
     ])
 
     # Fit the model
@@ -182,8 +182,8 @@ def random_forest(player, market,conn, nestimators):
 
     # Predict and evaluate the model
     y_pred = pipeline.predict(X_test)
-    mse = mean_squared_error(y_test, y_pred)
-    error = (math.sqrt(mse))
+    mae = mean_absolute_error(y_test, y_pred)
+    error = mae
     
     return pipeline, error
  
@@ -342,11 +342,11 @@ def run_rf(player, team, opp, hoa, market, nestimators):
     pred_vector_df = df[expected_columns].iloc[0:1]  # Select the first row as a DataFrame
     # Use the DataFrame to predict
     prediction = pipeline.predict(pred_vector_df)[0]
-    return prediction, math.ceil(error)
+    return float(prediction), float(error)
 
 
 
 if __name__ == "__main__":
 
-    prediction, error = run_rf("De'Aaron Fox","SAC","OKC",0,"pts",20)
+    prediction, error = run_rf("Amen Thompson","HOU","SAS",0,"p_r_a",20)
     print(f"Predicted Output: {prediction} + - {math.ceil(error)}")

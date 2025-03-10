@@ -121,6 +121,7 @@ def perform_updates(cursor):
         "ALTER TABLE public.nba ALTER COLUMN result TYPE INTEGER USING CAST(result AS INTEGER);"
         "UPDATE public.nba SET team = REPLACE(team, 'CHO', 'CHA'), opp = REPLACE(opp, 'CHO', 'CHA');"
         "UPDATE public.nba SET team = REPLACE(team, 'PHO', 'PHX'), opp = REPLACE(opp, 'PHO', 'PHX');"
+        "UPDATE public.nba SET team = REPLACE(team, 'BRK', 'BKN'), opp = REPLACE(opp, 'BRK', 'BKN');"
     ]
 
     for command in updates:

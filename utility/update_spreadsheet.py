@@ -7,6 +7,7 @@ import os
 from dotenv import load_dotenv
 # load_dotenv()
 from datetime import datetime, timedelta
+import time
 
 
 def safe_int(value):
@@ -79,7 +80,6 @@ def extract_player_stats(summary_data):
                 })
     
     return player_stats
-
 
 def get_nba_game_event_id(date):
     """
@@ -206,6 +206,6 @@ def run(date, range_row):
 
 
 if __name__ == "__main__":
-    range_row = (2,29) # range of rows to update
-    date = (datetime.now() - timedelta(hours=20)).strftime("%Y%m%d")
+    range_row = (2,120) # range of rows to update
+    date = (datetime.now() - timedelta(hours=6)).strftime("%Y%m%d")
     run(date, range_row)

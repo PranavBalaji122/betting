@@ -9,7 +9,7 @@ import os
 from dotenv import load_dotenv
 load_dotenv()
 
-api_key = 'f62ad77d807ae5fdbde41f1f3e3c95cb'
+api_key = 'a84fd2b2ffb360a0a568368830dc5295'
 
 nba_teams = {
     "Atlanta Hawks": "ATL",
@@ -90,6 +90,7 @@ def get_odds(base_url, game_id, api_key, market_types):
 
 def collect_all_odds(base_url, api_key, game_ids):
     market_types = ["player_points", "player_rebounds", "player_assists", "player_points_rebounds_assists", "player_points_rebounds", "player_points_assists", "player_rebounds_assists"]
+    #market_types = ["player_points_alternate"]
     # market_types = ["player_points", "player_rebounds","player_assists", "player_points_rebounds_assists"]
     # market_types = ["player_points", "player_rebounds", "player_assists"]
     all_bookmakers_data = {}

@@ -22,7 +22,7 @@ from sklearn.metrics import mean_squared_error
 from sklearn.impute import SimpleImputer
 from sklearn.ensemble import GradientBoostingRegressor
 import math, statistics
-from models.soft_predictor import soft
+from soft_predictor import soft
 import os
 from dotenv import load_dotenv
 load_dotenv()
@@ -32,6 +32,16 @@ def load_nba(player):
         df = pd.read_csv('csv/sql.csv')
         df['date'] = pd.to_datetime(df['date'])  # Convert date to datetime format
         player_df = df[df['player'] == player]
+         # --- Exponential Time Decay Section ---
+        # Make sure that your DataFrame has a 'days_since' column. If it doesn't, you might need to compute it.
+        # For example, you can compute it as the difference between the most recent game and the current game:
+        # df['days_since'] = (df['date'].max() - df['date']).dt.days
+
+        # Set your decay parameter (lambda). You can adjust this value based on how quickly you want the weight to decrease.
+        decay_lambda = 0.01  # For instance, 0.1 means the weight decays by about 10% per day.
+        # Calculate the exponential decay weight for each game.
+        player_df['decay_weight'] = 1 - np.exp(-decay_lambda * player_df['days_since'])
+        # --- End Exponential Time Decay Section ---
         return player_df
     except Exception as e:
         print(f"Error occurred while reading the file or filtering data: {e}")
@@ -46,7 +56,8 @@ def load_player_positions(conn):
     except OSError as e:
         print(f"Error occurred while connecting to the database or executing query: {e}")
         return None
-def load_game_stats(player,conn):
+
+def load_game_stats(player, conn):
     positions_df = load_player_positions(conn)
     if positions_df is None:
         return pd.DataFrame()
@@ -58,7 +69,6 @@ def load_game_stats(player,conn):
             WHERE teammates_points::jsonb ? %s;
             """
         df = pd.read_sql(query, conn, params=(player,))
-    
         def aggregate_position_data(json_data, exclude_player):
             if exclude_player in json_data:
                 del json_data[exclude_player]  # Remove the player from the data
@@ -86,6 +96,7 @@ def load_game_stats(player,conn):
             df.drop(field, axis=1, inplace=True)  # Drop the original column
 
         df['date'] = pd.to_datetime(df['date'])  # Convert date to datetime format
+
 
         return df
     except OSError as e:
@@ -166,27 +177,34 @@ def gradient_boost(player, market,conn, nestimators):
     target = market
 
     # Split the data into training and test sets
-    X_train, X_test, y_train, y_test = train_test_split(df[features], df[target], test_size=0.2)
-    preprocessor = ColumnTransformer(transformers=transformers)
+    X = df[features]  # features should NOT include 'decay_weight'
+    y = df[target]
 
-   # Create Pipelines
+    # Extract sample weights from the DataFrame
+    sample_weights = df['decay_weight']
+
+    # Split the data (ensuring the weights correspond to the training split)
+    X_train, X_test, y_train, y_test, sw_train, sw_test = train_test_split(
+        X, y, sample_weights, test_size=0.2, random_state=42
+    )
+    preprocessor = ColumnTransformer(transformers=transformers)
+    # Create your pipeline (assuming it is defined as in your code)
     pipeline = Pipeline([
         ('preprocessor', preprocessor),
-        ('regressor',  GradientBoostingRegressor(
-            n_estimators=nestimators,  # number of boosting stages
-            learning_rate=0.1,  # learning rate shrinks the contribution of each tree
-            max_depth=3,       # maximum depth of individual regression trees
-            random_state=42    # for reproducibility
-        ))])
+        ('regressor', GradientBoostingRegressor(
+            n_estimators=nestimators,
+            learning_rate=0.1,
+            max_depth=3,
+        ))
+    ])
 
-    # Fit the model
-    pipeline.fit(X_train, y_train)
+    # Fit the pipeline using the training sample weights
+    pipeline.fit(X_train, y_train, regressor__sample_weight=sw_train)
 
-    # Predict and evaluate the model
+    # Now, when predicting, the model is trained with emphasis on more recent data.
     y_pred = pipeline.predict(X_test)
     mse = mean_squared_error(y_test, y_pred)
-    error = (math.sqrt(mse))
-    
+    error = math.sqrt(mse)
     return pipeline, error
  
 def get_soft_predictions(team, opp, player_df):
@@ -350,5 +368,5 @@ def run_gb(player, team, opp, hoa, market, nestimators):
 
 if __name__ == "__main__":
 
-    prediction, error = run_gb("Jaren Jackson Jr.","MEM","OKC",0,"pts",20)
-    print(f"Predicted Output: {prediction} + - {math.ceil(error)}")
+    prediction, error = run_gb("Stephen Curry","GSW", "DET",0,"pts",60)
+    print(f"Predicted Output: {prediction} + - {(error)}")

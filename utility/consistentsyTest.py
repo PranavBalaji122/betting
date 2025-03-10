@@ -20,7 +20,7 @@ def getConsistency(feature):
                         team,
                         {feature},
                         mp,
-                        ROW_NUMBER() OVER (PARTITION BY player ORDER BY days_since DESC) AS rn
+                        ROW_NUMBER() OVER (PARTITION BY player ORDER BY date DESC) AS rn
                     FROM
                         nba
                 )
@@ -41,10 +41,10 @@ def getConsistency(feature):
                     player, team
                 HAVING
                     AVG({feature}) > 0 AND
-                    AVG(mp) > 10  -- Ensuring the average minutes played over the last 15 games is more than 10
+                    AVG(mp) > 15  -- Ensuring the average minutes played over the last 15 games is more than 10
                 ORDER BY
                     cv_{feature} ASC
-                FETCH NEXT 250 ROWS ONLY;
+                FETCH NEXT 350 ROWS ONLY;
         """
         player_data = pd.read_sql_query(query, conn)
     except Exception as e:
@@ -58,7 +58,7 @@ def getConsistency(feature):
     return playerNames, teams
 
 def main():
-    print(getConsistency('p_r'))
+    print(getConsistency('ast'))
 
 if __name__ == '__main__':
     main()
