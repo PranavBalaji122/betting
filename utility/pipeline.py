@@ -8,9 +8,9 @@ import os
 from dotenv import load_dotenv
 load_dotenv()
 
-def reset_tables(cursor):
-    cursor.execute("DROP TABLE IF EXISTS public.nba;")
-    cursor.execute("DROP TABLE IF EXISTS public.game_stats;")
+def reset_table(cursor):
+    cursor.execute("DROP TABLE IF EXISTS public.nba_append;")
+    cursor.execute("DROP TABLE IF EXISTS public.game_stats_append;")
     cursor.execute("DROP TABLE IF EXISTS public.latest_player_teams;")
 
 def process_csv():
@@ -24,28 +24,44 @@ def process_csv():
     # Corresponding SQL column names (excluding 'id' which is auto-generated)
     sql_columns = [
         'player', 'date', 'age', 'team', 'hoa', 'opp', 'result', 'gs', 'mp', 'fg', 'fga',
-        'fg_percent', 'twop', 'twopa', 'twop_percent', 'threep', 'threepa', 'threep_percent',
+        'fg_percent', 'twop', 'twopa', 'twop_percent', 'tpm', 'threepa', 'threep_percent',
         'ft', 'fta', 'ft_percent', 'ts_percent', 'orb', 'drb', 'trb', 'ast', 'stl', 'blk', 
         'tov', 'pf', 'pts', 'gmsc', 'bpm', 'plus_minus', 'pos', 'player_additional'
     ]
 
     column_mapping = dict(zip(csv_columns, sql_columns))
-    df = pd.read_csv('csv/data.csv', keep_default_na=False)
+    df = pd.read_csv('csv/new_data.csv', keep_default_na=False,low_memory=False)
     df = df.drop(['Rk'], axis=1)
     df.rename(columns=column_mapping, inplace=True)
 
     # Numeric columns that may contain empty strings
     numeric_columns = ['fg_percent', 'twop_percent', 'threep_percent', 'ft_percent', 'ts_percent','plus_minus']
+    def safe_to_float(value):
+        """
+        Convert value to string, strip whitespace, then:
+          - if empty => None
+          - else => float
+          - if float fails => None
+        """
+        val_str = str(value).strip()
+        if val_str == "":
+            return None
+        try:
+            return float(val_str)
+        except ValueError:
+            return None
+    
+    # Apply the safe_to_float logic
     for column in numeric_columns:
-        df[column] = df[column].apply(lambda x: "None" if x.strip() == "" else float(x))
+        df[column] = df[column].apply(safe_to_float)
 
-    df.to_csv('csv/modified_data.csv', index=False)
+    df.to_csv('csv/modified_data.csv', index=False, na_rep='None')
     print("CSV has been rewritten with SQL-compatible column names and corrected numeric fields.")
 
 
 def create_table(cursor):
     cursor.execute("""
-        CREATE TABLE public.nba
+        CREATE TABLE public.nba_append
         (
             id SERIAL PRIMARY KEY,
             player VARCHAR(50),
@@ -63,7 +79,7 @@ def create_table(cursor):
             twop INTEGER,
             twopa INTEGER,
             twop_percent NUMERIC(5,3) NULL,  -- Allow NULLs
-            threep INTEGER,
+            tpm INTEGER,
             threepa INTEGER,
             threep_percent NUMERIC(5,3) NULL,  -- Allow NULLs
             ft INTEGER,
@@ -90,43 +106,179 @@ def create_table(cursor):
 def load_data(cursor):
     with open('csv/modified_data.csv', 'r') as f:
         next(f)  # This skips the header line to prevent it from being read as data
-        cursor.copy_from(f, 'nba', sep=',', null='None', columns=('player', 'date', 'age', 'team', 'hoa', 'opp', 'result', 'gs', 'mp', 'fg', 'fga', 'fg_percent', 'twop', 'twopa', 'twop_percent', 'threep', 'threepa', 'threep_percent', 'ft', 'fta', 'ft_percent', 'ts_percent', 'orb', 'drb', 'trb', 'ast', 'stl', 'blk', 'tov', 'pf', 'pts', 'gmsc', 'bpm', 'plus_minus', 'pos', 'player_additional'))
+        cursor.copy_from(f, 'nba_append', sep=',', null='None', columns=('player', 'date', 'age', 'team', 'hoa', 'opp', 'result', 'gs', 'mp', 'fg', 'fga', 'fg_percent', 'twop', 'twopa', 'twop_percent', 'tpm', 'threepa', 'threep_percent', 'ft', 'fta', 'ft_percent', 'ts_percent', 'orb', 'drb', 'trb', 'ast', 'stl', 'blk', 'tov', 'pf', 'pts', 'gmsc', 'bpm', 'plus_minus', 'pos', 'player_additional'))
 
 def perform_updates(cursor):
     # List of SQL updates and modifications to perform
     updates = [
-        "UPDATE public.nba SET result = REPLACE(result, ' (OT)', '');",
-        "ALTER TABLE public.nba ADD COLUMN resultChar CHAR(1), ADD COLUMN score1 INTEGER, ADD COLUMN score2 INTEGER;",
-        "UPDATE public.nba SET resultChar = TRIM(SUBSTRING(result FROM '^[WL]')), score1 = CAST(TRIM(SPLIT_PART(SUBSTRING(result FROM '[0-9]+-[0-9]+'), '-', 1)) AS INTEGER), score2 = CAST(TRIM(SPLIT_PART(SUBSTRING(result FROM '[0-9]+-[0-9]+'), '-', 2)) AS INTEGER);",
-        "ALTER TABLE public.nba ADD COLUMN total_score INTEGER;",
-        "UPDATE public.nba SET total_score = score1 + score2;",
-        "ALTER TABLE public.nba DROP COLUMN result, DROP COLUMN score1, DROP COLUMN score2;",
-        "ALTER TABLE public.nba ADD COLUMN p_r_a INTEGER GENERATED ALWAYS AS (pts + trb + ast) STORED, ADD COLUMN p_r INTEGER GENERATED ALWAYS AS (pts + trb) STORED, ADD COLUMN p_a INTEGER GENERATED ALWAYS AS (pts + ast) STORED, ADD COLUMN a_r INTEGER GENERATED ALWAYS AS (ast + trb) STORED;",
-        "UPDATE public.nba SET age = CAST(SUBSTRING(age FROM 1 FOR 2) AS INTEGER);",
-        "ALTER TABLE public.nba ALTER COLUMN age TYPE INTEGER USING CAST(age AS INTEGER);",
-        "UPDATE public.nba SET hoa = CASE WHEN hoa = '' THEN '0' WHEN hoa = '@' THEN '1' END;",
-        "ALTER TABLE public.nba ALTER COLUMN hoa TYPE INTEGER USING CAST(hoa AS INTEGER);",
-        "UPDATE public.nba SET gs = CASE WHEN gs = '' THEN '0' WHEN gs = '*' THEN '1' END;",
-        "ALTER TABLE public.nba ALTER COLUMN gs TYPE INTEGER USING CAST(gs AS INTEGER);",
-        "DELETE FROM public.nba WHERE mp = 0;",
-        "UPDATE public.nba SET fg_percent = COALESCE(fg_percent, 0), twop_percent = COALESCE(twop_percent, 0);",
-        "DELETE FROM public.nba WHERE fg_percent = 0;",
-        "ALTER TABLE public.nba ADD COLUMN month INTEGER;",
-        "UPDATE public.nba SET month = EXTRACT(MONTH FROM date);",
-        "ALTER TABLE public.nba ADD COLUMN days_since INTEGER;",
-        "UPDATE public.nba SET days_since = date - DATE '2023-10-24';",
-        "ALTER TABLE public.nba DROP COLUMN threepa, DROP COLUMN threep_percent, DROP COLUMN fta, DROP COLUMN twopa;",
-        "ALTER TABLE public.nba RENAME COLUMN resultChar TO result;",
-        "UPDATE public.nba SET result = CASE WHEN result = 'L' THEN 0 WHEN result = 'W' THEN 1 END;",
-        "ALTER TABLE public.nba ALTER COLUMN result TYPE INTEGER USING CAST(result AS INTEGER);"
-        "UPDATE public.nba SET team = REPLACE(team, 'CHO', 'CHA'), opp = REPLACE(opp, 'CHO', 'CHA');"
-        "UPDATE public.nba SET team = REPLACE(team, 'PHO', 'PHX'), opp = REPLACE(opp, 'PHO', 'PHX');"
-        "UPDATE public.nba SET team = REPLACE(team, 'BRK', 'BKN'), opp = REPLACE(opp, 'BRK', 'BKN');"
+        "UPDATE public.nba_append SET result = REPLACE(result, ' (OT)', '');",
+        "ALTER TABLE public.nba_append ADD COLUMN resultChar CHAR(1), ADD COLUMN score1 INTEGER, ADD COLUMN score2 INTEGER;",
+        "UPDATE public.nba_append SET resultChar = TRIM(SUBSTRING(result FROM '^[WL]')), score1 = CAST(TRIM(SPLIT_PART(SUBSTRING(result FROM '[0-9]+-[0-9]+'), '-', 1)) AS INTEGER), score2 = CAST(TRIM(SPLIT_PART(SUBSTRING(result FROM '[0-9]+-[0-9]+'), '-', 2)) AS INTEGER);",
+        "ALTER TABLE public.nba_append ADD COLUMN total_score INTEGER;",
+        "UPDATE public.nba_append SET total_score = score1 + score2;",
+        "ALTER TABLE public.nba_append DROP COLUMN result, DROP COLUMN score1, DROP COLUMN score2;",
+        "ALTER TABLE public.nba_append ADD COLUMN p_r_a INTEGER GENERATED ALWAYS AS (pts + trb + ast) STORED, ADD COLUMN p_r INTEGER GENERATED ALWAYS AS (pts + trb) STORED, ADD COLUMN p_a INTEGER GENERATED ALWAYS AS (pts + ast) STORED, ADD COLUMN a_r INTEGER GENERATED ALWAYS AS (ast + trb) STORED;",
+        "UPDATE public.nba_append SET age = CAST(SUBSTRING(age FROM 1 FOR 2) AS INTEGER);",
+        "ALTER TABLE public.nba_append ALTER COLUMN age TYPE INTEGER USING CAST(age AS INTEGER);",
+        "UPDATE public.nba_append SET hoa = CASE WHEN hoa = '' THEN '0' WHEN hoa = '@' THEN '1' END;",
+        "ALTER TABLE public.nba_append ALTER COLUMN hoa TYPE INTEGER USING CAST(hoa AS INTEGER);",
+        "UPDATE public.nba_append SET gs = CASE WHEN gs = '' THEN '0' WHEN gs = '*' THEN '1' END;",
+        "ALTER TABLE public.nba_append ALTER COLUMN gs TYPE INTEGER USING CAST(gs AS INTEGER);",
+        "DELETE FROM public.nba_append WHERE mp = 0;",
+        "UPDATE public.nba_append SET fg_percent = COALESCE(fg_percent, 0), twop_percent = COALESCE(twop_percent, 0);",
+        "DELETE FROM public.nba_append WHERE fg_percent = 0;",
+        "ALTER TABLE public.nba_append ADD COLUMN month INTEGER;",
+        "UPDATE public.nba_append SET month = EXTRACT(MONTH FROM date);",
+        "ALTER TABLE public.nba_append ADD COLUMN days_since INTEGER;",
+        "UPDATE public.nba_append SET days_since = date - DATE '2023-10-24';",
+        "ALTER TABLE public.nba_append DROP COLUMN threepa, DROP COLUMN threep_percent, DROP COLUMN fta, DROP COLUMN twopa;",
+        "ALTER TABLE public.nba_append RENAME COLUMN resultChar TO result;",
+        "UPDATE public.nba_append SET result = CASE WHEN result = 'L' THEN 0 WHEN result = 'W' THEN 1 END;",
+        "ALTER TABLE public.nba_append ALTER COLUMN result TYPE INTEGER USING CAST(result AS INTEGER);"
+        "UPDATE public.nba_append SET team = REPLACE(team, 'CHO', 'CHA'), opp = REPLACE(opp, 'CHO', 'CHA');"
+        "UPDATE public.nba_append SET team = REPLACE(team, 'PHO', 'PHX'), opp = REPLACE(opp, 'PHO', 'PHX');"
+        "UPDATE public.nba_append SET team = REPLACE(team, 'BRK', 'BKN'), opp = REPLACE(opp, 'BRK', 'BKN');"
+        """INSERT INTO public.nba
+            (player, date, age, team, hoa, opp, result, gs, mp, fg, fga, fg_percent, twop, twop_percent, tpm, ft, ft_percent, ts_percent, orb, drb, trb, ast, stl, blk, tov, pf, pts, gmsc, bpm, plus_minus, pos, player_additional, month, days_since)
+        SELECT 
+            player, date, age, team, hoa, opp, result, gs, mp, fg, fga, fg_percent, twop, twop_percent, tpm, ft, ft_percent, ts_percent, orb, drb, trb, ast, stl, blk, tov, pf, pts, gmsc, bpm, plus_minus, pos, player_additional, month, days_since
+        FROM public.nba_append;
+        """
     ]
 
     for command in updates:
         cursor.execute(command)
-        
+
+def create_game_stats_table(cursor):
+    cursor.execute("""
+        CREATE TABLE IF NOT EXISTS game_stats_append
+        (
+            game_id SERIAL PRIMARY KEY,
+            date DATE,
+            team VARCHAR(10),
+            opp VARCHAR(10),
+            teammates_points JSONB,
+            teammates_rebounds JSONB,
+            teammates_assists JSONB,
+            teammates_tpm JSONB,
+            teammates_pr JSONB,
+            teammates_pa JSONB,
+            teammates_ar JSONB,
+            teammates_pra JSONB,
+            teammates_blocks JSONB,  -- New column for teammates' blocks
+            teammates_turnovers JSONB,  -- New column for teammates' turnovers
+            opponents_points JSONB,
+            opponents_rebounds JSONB,
+            opponents_assists JSONB,
+            opponents_tpm JSONB,
+            opponents_pr JSONB,
+            opponents_pa JSONB,
+            opponents_ar JSONB,
+            opponents_pra JSONB,
+            opponents_blocks JSONB,  -- New column for opponents' blocks
+            opponents_turnovers JSONB  -- New column for opponents' turnovers
+        );
+    """)
+    print("Game stats table created successfully with new columns for blocks and turnovers.")
+
+def update_game_stats(cursor):
+    # Fetch distinct games and teams from nba_append
+    cursor.execute("""
+        SELECT DISTINCT date, team, opp FROM public.nba_append;
+    """)
+    games = cursor.fetchall()
+
+    for game_date, team, opponent in games:
+        # Prepare dictionaries to hold stats for each metric
+        team_stats = {metric: {} for metric in ['points', 'rebounds', 'assists', 'tpm', 'pr', 'pa', 'ar', 'pra', 'blocks', 'turnovers']}
+        opponent_stats = {metric: {} for metric in ['points', 'rebounds', 'assists', 'tpm', 'pr', 'pa', 'ar', 'pra', 'blocks', 'turnovers']}
+
+        # Get distinct players for each team (or opponent)
+        for relation, team_to_query in [('teammates', team), ('opponent', opponent)]:
+            cursor.execute("""
+                SELECT player
+                FROM public.nba_append
+                WHERE team = %s
+                GROUP BY player;
+            """, (team_to_query,))
+            top_players = [row[0] for row in cursor.fetchall()]
+
+            # Fetch player stats for the game
+            cursor.execute("""
+                SELECT player, pts, trb, ast, tpm, blk, tov
+                FROM public.nba_append
+                WHERE team = %s AND date = %s;
+            """, (team_to_query, game_date))
+            stats = cursor.fetchall()
+            stats_dict = {stat[0]: stat[1:] for stat in stats}
+
+            # Prepare the data, filling in zeros for missing players
+            for player in top_players:
+                pts, trb, ast, tpm, blk, tov = stats_dict.get(player, (0, 0, 0, 0, 0, 0))
+                metrics = {
+                    'points': pts,
+                    'rebounds': trb,
+                    'assists': ast,
+                    'tpm': tpm,
+                    'pr': pts + trb,
+                    'pa': pts + ast,
+                    'ar': ast + trb,
+                    'pra': pts + trb + ast,
+                    'blocks': blk,
+                    'turnovers': tov
+                }
+                if relation == 'teammates':
+                    for metric in metrics:
+                        team_stats[metric][player] = metrics[metric]
+                else:
+                    for metric in metrics:
+                        opponent_stats[metric][player] = metrics[metric]
+
+        # Insert the computed game stats into game_stats_append staging table
+        cursor.execute("""
+            INSERT INTO game_stats_append (
+                date, team, opp, teammates_points, teammates_rebounds, teammates_assists, 
+                teammates_tpm, teammates_pr, teammates_pa, teammates_ar, teammates_pra, 
+                teammates_blocks, teammates_turnovers, opponents_points, opponents_rebounds, 
+                opponents_assists, opponents_tpm, opponents_pr, opponents_pa, opponents_ar, 
+                opponents_pra, opponents_blocks, opponents_turnovers
+            )
+            VALUES (
+                %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s
+            );
+        """, (
+            game_date, team, opponent, 
+            Json(team_stats['points']), Json(team_stats['rebounds']), Json(team_stats['assists']),
+            Json(team_stats['tpm']), Json(team_stats['pr']), Json(team_stats['pa']),
+            Json(team_stats['ar']), Json(team_stats['pra']), Json(team_stats['blocks']), Json(team_stats['turnovers']),
+            Json(opponent_stats['points']), Json(opponent_stats['rebounds']), Json(opponent_stats['assists']),
+            Json(opponent_stats['tpm']), Json(opponent_stats['pr']), Json(opponent_stats['pa']),
+            Json(opponent_stats['ar']), Json(opponent_stats['pra']), Json(opponent_stats['blocks']), Json(opponent_stats['turnovers'])
+        ))
+    
+    # Once all games are processed, append game_stats_append data into public.game_stats
+    cursor.execute("""
+        INSERT INTO public.game_stats (
+            date, team, opp, teammates_points, teammates_rebounds, teammates_assists, 
+            teammates_tpm, teammates_pr, teammates_pa, teammates_ar, teammates_pra, 
+            teammates_blocks, teammates_turnovers, opponents_points, opponents_rebounds, 
+            opponents_assists, opponents_tpm, opponents_pr, opponents_pa, opponents_ar, 
+            opponents_pra, opponents_blocks, opponents_turnovers
+        )
+        SELECT 
+            date, team, opp, teammates_points, teammates_rebounds, teammates_assists, 
+            teammates_tpm, teammates_pr, teammates_pa, teammates_ar, teammates_pra, 
+            teammates_blocks, teammates_turnovers, opponents_points, opponents_rebounds, 
+            opponents_assists, opponents_tpm, opponents_pr, opponents_pa, opponents_ar, 
+            opponents_pra, opponents_blocks, opponents_turnovers
+        FROM public.game_stats_append;
+    """)
+    
+    # Finally, drop the staging tables (after processing all games)
+    cursor.execute("DROP TABLE public.nba_append;")
+    cursor.execute("DROP TABLE public.game_stats_append;")
+
+
 def create_most_recent_player_team_table(cursor, positions):
     # Update player positions based on the provided mapping
     for player, pos in positions.items():
@@ -146,6 +298,7 @@ def create_most_recent_player_team_table(cursor, positions):
             pts,
             trb,
             ast,
+            tpm,
             stl,
             blk,
             tov,  -- Include turnovers
@@ -162,6 +315,7 @@ def create_most_recent_player_team_table(cursor, positions):
             pts,
             trb,
             ast,
+            tpm,
             stl,
             blk,
             tov,  -- Include turnovers
@@ -175,6 +329,7 @@ def create_most_recent_player_team_table(cursor, positions):
                 pts,
                 trb,
                 ast,
+                tpm,
                 stl,
                 blk,
                 tov,  -- Include turnovers
@@ -194,6 +349,7 @@ def create_most_recent_player_team_table(cursor, positions):
             ROUND(AVG(pts), 2) AS avg_pts,
             ROUND(AVG(trb), 2) AS avg_trb,
             ROUND(AVG(ast), 2) AS avg_ast,
+            ROUND(AVG(tpm), 2) AS avg_tpm,
             ROUND(AVG(stl), 2) AS avg_stl,
             ROUND(AVG(blk), 2) AS avg_blk,
             ROUND(AVG(tov), 2) AS avg_tov,  -- Calculate average turnovers
@@ -213,6 +369,7 @@ def create_most_recent_player_team_table(cursor, positions):
         a.avg_pts,
         a.avg_trb,
         a.avg_ast,
+        a.avg_tpm,
         a.avg_stl,
         a.avg_blk,
         a.avg_tov,  -- Include average turnovers in the selection
@@ -232,84 +389,6 @@ def create_most_recent_player_team_table(cursor, positions):
     cursor.execute(sql_query)
     print("Most recent player-team table created successfully with updated positions and statistical averages from the last 15 games, including blocks and turnovers.")
 
-
-def create_game_stats_table(cursor):
-    cursor.execute("""
-        CREATE TABLE IF NOT EXISTS game_stats
-        (
-            game_id SERIAL PRIMARY KEY,
-            date DATE,
-            team VARCHAR(10),
-            opp VARCHAR(10),
-            teammates_points JSONB,
-            teammates_rebounds JSONB,
-            teammates_assists JSONB,
-            teammates_pr JSONB,
-            teammates_pa JSONB,
-            teammates_ar JSONB,
-            teammates_pra JSONB,
-            teammates_blocks JSONB,  -- New column for teammates' blocks
-            teammates_turnovers JSONB,  -- New column for teammates' turnovers
-            opponents_points JSONB,
-            opponents_rebounds JSONB,
-            opponents_assists JSONB,
-            opponents_pr JSONB,
-            opponents_pa JSONB,
-            opponents_ar JSONB,
-            opponents_pra JSONB,
-            opponents_blocks JSONB,  -- New column for opponents' blocks
-            opponents_turnovers JSONB  -- New column for opponents' turnovers
-        );
-    """)
-    print("Game stats table created successfully with new columns for blocks and turnovers.")
-
-
-def update_game_stats(cursor):
-    # Fetch distinct games and teams
-    cursor.execute("""
-        SELECT DISTINCT date, team, opp FROM public.nba;
-    """)
-    games = cursor.fetchall()
-
-    for game_date, team, opponent in games:
-        # Expanding metrics to include blocks and turnovers
-        team_stats = {metric: {} for metric in ['points', 'rebounds', 'assists', 'pr', 'pa', 'ar', 'pra', 'blocks', 'turnovers']}
-        opponent_stats = {metric: {} for metric in ['points', 'rebounds', 'assists', 'pr', 'pa', 'ar', 'pra', 'blocks', 'turnovers']}
-
-        # Get top 7 players by average minutes for each team
-        for relation, team_to_query in [('teammates', team), ('opponent', opponent)]:
-            cursor.execute("""
-                SELECT player
-                FROM public.nba
-                WHERE team = %s
-                GROUP BY player
-            """, (team_to_query,))
-            top_players = [row[0] for row in cursor.fetchall()]
-
-            # Fetch player stats for the game
-            cursor.execute("""
-                SELECT player, pts, trb, ast, blk, tov
-                FROM public.nba
-                WHERE team = %s AND date = %s;
-            """, (team_to_query, game_date))
-            stats = cursor.fetchall()
-            stats_dict = {stat[0]: stat[1:] for stat in stats}
-
-            # Prepare the data, filling in zeros for absent top players
-            for player in top_players:
-                pts, trb, ast, blk, tov = stats_dict.get(player, (0, 0, 0, 0, 0))
-                metrics = {'points': pts, 'rebounds': trb, 'assists': ast, 'pr': pts + trb, 'pa': pts + ast, 'ar': ast + trb, 'pra': pts + trb + ast, 'blocks': blk, 'turnovers': tov}
-                for metric in metrics:
-                    if relation == 'teammates':
-                        team_stats[metric][player] = metrics[metric]
-                    else:
-                        opponent_stats[metric][player] = metrics[metric]
-
-        # Insert data into the new table
-        cursor.execute("""
-            INSERT INTO game_stats (date, team, opp, teammates_points, teammates_rebounds, teammates_assists, teammates_pr, teammates_pa, teammates_ar, teammates_pra, teammates_blocks, teammates_turnovers, opponents_points, opponents_rebounds, opponents_assists, opponents_pr, opponents_pa, opponents_ar, opponents_pra, opponents_blocks, opponents_turnovers)
-            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s);
-        """, (game_date, team, opponent, Json(team_stats['points']), Json(team_stats['rebounds']), Json(team_stats['assists']), Json(team_stats['pr']), Json(team_stats['pa']), Json(team_stats['ar']), Json(team_stats['pra']), Json(team_stats['blocks']), Json(team_stats['turnovers']), Json(opponent_stats['points']), Json(opponent_stats['rebounds']), Json(opponent_stats['assists']), Json(opponent_stats['pr']), Json(opponent_stats['pa']), Json(opponent_stats['ar']), Json(opponent_stats['pra']), Json(opponent_stats['blocks']), Json(opponent_stats['turnovers'])))
 
 # Function to connect to the PostgreSQL database and load data
 def load_data_csv():
@@ -454,18 +533,19 @@ def run_pipeline():
         "Zion Williamson": 'F',
         "Alex Ducas": 'G',
         "Alperen Şengün": 'C',
-        "Guerschon Yabusele": 'F'
+        "Guerschon Yabusele": 'F',
+        "Tony Bradley": 'F'
     }
     try:
         process_csv()
-        reset_tables(cursor)
+        reset_table(cursor)
         conn.commit()
         create_table(cursor)
         load_data(cursor)
         perform_updates(cursor)
-        create_most_recent_player_team_table(cursor,positions)
         create_game_stats_table(cursor)
         update_game_stats(cursor)  # New function to update teammate details
+        create_most_recent_player_team_table(cursor,positions)
         conn.commit()
         print("Pipeline executed successfully.")
         load_data_csv()

@@ -19,6 +19,16 @@ def safe_int(value):
     except ValueError:
         return None
 
+def safe_three_point(value):
+    """Parses a string like '3-5' and returns the first number as an int, or None if parsing fails."""
+    if value == "N/A":
+        return None
+    try:
+        first_number = value.split("-")[0]
+        return int(first_number)
+    except (ValueError, IndexError):
+        return None
+
 def extract_player_stats(summary_data):
     """
     Extracts player stats from the ESPN summary data. In addition to the default columns,
@@ -55,6 +65,10 @@ def extract_player_stats(summary_data):
                     stat_labels[i]: stats[i] if i < len(stats) else "N/A"
                     for i in range(len(stat_labels))
                 }
+                
+                # Convert the "Three-Point Field Goals" stat from "3-5" to an int (first number)
+                if "Three-Point Field Goals" in labeled_stats:
+                    labeled_stats["tpm"] = safe_three_point(labeled_stats["Three-Point Field Goals"])
                 
                 # Safely parse pts, trb, ast for combined fields
                 pts_val = safe_int(labeled_stats.get("pts", "N/A"))
@@ -111,7 +125,7 @@ def format_date(date_string):
 
 
 
-def updateGoogleSheet(column_range, date):
+def updateGoogleSheet(column_range, date, column):
     """
     Updates Google Sheets using batch update to avoid hitting API limits.
     """
@@ -132,7 +146,9 @@ def updateGoogleSheet(column_range, date):
     client = gspread.authorize(creds)
 
     sheet_name = format_date(date)
-    sheet = client.open_by_key(SHEET_ID).worksheet(sheet_name)
+    sheet = client.open_by_key(SHEET_ID).worksheet(sheet_name
+                                                #    + " 1"
+                                                   )
 
     # Load NBA stats from JSON file
     with open(JSON_FILE, "r") as file:
@@ -142,7 +158,7 @@ def updateGoogleSheet(column_range, date):
     headers = sheet.get_values(f"A1:K1")[0]
     player_index = headers.index('Player')
     market_index = headers.index('Market')
-    actual_column_letter = chr(64 + (headers.index('Actual') + 1))  # Convert index to column letter
+    actual_column_letter = column
 
     data = sheet.get_values(f"A{column_range[0]}:G{column_range[1]}")
     
@@ -174,7 +190,7 @@ def updateGoogleSheet(column_range, date):
     # Batch update using a **single** API call
     if update_values:
         sheet.update(update_values, update_range, value_input_option="USER_ENTERED")
-        print(f"Updated {len(update_values)} rows in range {update_range} in one batch request!")
+        # print(f"Updated {len(update_values)} rows in range {update_range} in one batch request!")
     else:
         print("No matching stats found to update.")
 
@@ -183,7 +199,7 @@ def updateGoogleSheet(column_range, date):
 
 
 
-def run(date, range_row):
+def run(date, range_row, column):
     event_ids = get_nba_game_event_id(date)
     all_stats = []
     
@@ -193,19 +209,19 @@ def run(date, range_row):
             stats = extract_player_stats(summary_data)
             if stats:
                 all_stats.extend(stats)
-            else:
-                print(f"No stats available for game {event_id}")
         
         with open("JSON/nba_stats.json", "w") as file:
             json.dump(all_stats, file, indent=4)
-        print("All stats saved to nba_stats.json")
+        # print("All stats saved to nba_stats.json")
     else:
         print("No games found for the given date.")
 
-    updateGoogleSheet(range_row, date)
+    updateGoogleSheet(range_row, date, column)
 
 
 if __name__ == "__main__":
-    range_row = (2,120) # range of rows to update
-    date = (datetime.now() - timedelta(hours=6)).strftime("%Y%m%d")
-    run(date, range_row)
+    while True:
+        range_row = (2,200) # range of rows to update
+        date = (datetime.now() - timedelta(hours=6)).strftime("%Y%m%d")
+        run(date, range_row, 'J')
+        time.sleep(30)

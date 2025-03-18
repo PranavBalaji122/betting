@@ -91,7 +91,8 @@ def process_props_and_output(cursor, data):
         "player_points_rebounds": "p_r", 
         "player_points_assists": "p_a" , 
         "player_rebounds_assists": "a_r",
-        "player_points_rebounds_assists": "p_r_a"
+        "player_points_rebounds_assists": "p_r_a",
+        "player_threes": "tpm"
     }
     results = {}
     for platform, markets in data.items():

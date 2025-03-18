@@ -19,7 +19,7 @@ def predict_features(df, player_id, opponent, hoa, feature):
     # Define columns of interest for similarity checking
     similarity_columns = [
         'mp','fg', 'fga', 'fg_percent', 'twop', 
-        'twop_percent', 'threep', 'ft', 'ft_percent', 'ts_percent', 
+        'twop_percent', 'tpm', 'ft', 'ft_percent', 'ts_percent', 
         'trb', 'ast', 'stl', 'blk', 'tov', 'pf', 'gmsc','pts','p_r_a', 'hoa', 'p_r', 'p_a', 'a_r'
     ]
     if(feature in similarity_columns):

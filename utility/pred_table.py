@@ -15,6 +15,8 @@ def write_table(filename='json/predictions.json'):
             "Line": entry["line"],
             #"Odds": entry["odds"],
             "Last Ten": entry["last_ten"],
+            "Score": entry["bet"]["score"],
+            "Rank": entry["bet"]["rank"],
             "Game": entry["game"]
         }
         for entry in data["DraftKings"]
@@ -61,4 +63,4 @@ def write_table(filename='json/predictions.json'):
 
 
 if __name__ == '__main__':
-    write_table()
+    write_table('json/predictions3.json')

@@ -72,6 +72,7 @@ def load_game_stats(player,conn):
             return position_totals
         
         stats_fields = ['teammates_points', 'teammates_rebounds', 'teammates_assists', 'opponents_points', 'opponents_rebounds', 'opponents_assists',
+                        #'teammates_tpm','opponents_tpm',
                         # 'teammates_pr','teammates_pa','teammates_ar','opponents_pr','opponents_pa','opponents_ar','teammates_pra','opponents_pra', 'teammates_blocks', 
                         'teammates_turnovers', 'opponents_blocks', 'opponents_turnovers']
         # Applying the transformation for each stats field
@@ -126,7 +127,8 @@ def gradient_boost(player, market, conn, n_estimators):
             'opponents_points_C', 'opponents_rebounds_G', 'opponents_rebounds_F', 'opponents_rebounds_C',
             'opponents_assists_G', 'opponents_assists_F', 'opponents_assists_C', 'teammates_turnovers_F',
             'teammates_turnovers_C', 'teammates_turnovers_G', 'opponents_blocks_F', 'opponents_blocks_C',
-            'opponents_blocks_G', 'opponents_turnovers_F', 'opponents_turnovers_C', 'opponents_turnovers_G'
+            'opponents_blocks_G', 'opponents_turnovers_F', 'opponents_turnovers_C', 'opponents_turnovers_G',
+            # 'teammates_tpm_G', 'teammates_tpm_F', 'teammates_tpm_C', 'opponents_tpm_G', 'opponents_tpm_F', 'opponents_tpm_C',
         ]),
         ('cat', OneHotEncoder(handle_unknown='ignore'), ['opp'])
     ]
@@ -145,7 +147,12 @@ def gradient_boost(player, market, conn, n_estimators):
     ])
 
     features = [col for col in df.columns if col not in ['date', market]]
-    X_train, X_test, y_train, y_test = train_test_split(df[features], df[market], test_size=0.2, random_state=42)
+    X_train, X_test, y_train, y_test = train_test_split(df[features], 
+                                                        df[market], 
+                                                        test_size=0.2, 
+                                                        # random_state=42
+                                                        )
+    
 
     pipeline.fit(X_train, y_train)
     y_pred = pipeline.predict(X_test)
@@ -174,11 +181,13 @@ def get_soft_predictions(team, opp, player_df):
     # Initialize dictionaries to hold individual player data
     team_stats = {
         'pts': {}, 'trb': {}, 'ast': {}, 
+        # 'tpm': {},
         # 'p_r': {}, 'p_a': {}, 'a_r': {}, 'p_r_a': {}, 'blk': {}, 
         'tov': {}
     }
     opp_stats = {
         'pts': {}, 'trb': {}, 'ast': {}, 
+        # 'tpm': {},
         # 'p_r': {}, 'p_a': {}, 'a_r': {}, 'p_r_a': {}, 
         'blk': {}, 'tov': {}
     }
@@ -240,6 +249,8 @@ def get_soft_predictions(team, opp, player_df):
         'opponents_points': [aggregate_position_data(opp_stats['pts'], player_df)],
         'opponents_rebounds': [aggregate_position_data(opp_stats['trb'], player_df)],
         'opponents_assists': [aggregate_position_data(opp_stats['ast'], player_df)],
+        # 'teammates_tpm': [aggregate_position_data(team_stats['tpm'], player_df)],
+        # 'opponents_tpm': [aggregate_position_data(opp_stats['tpm'], player_df)],
         # 'teammates_pr': [aggregate_position_data(team_stats['p_r'], player_df)],
         # 'teammates_pa': [aggregate_position_data(team_stats['p_a'], player_df)],
         # 'teammates_ar': [aggregate_position_data(team_stats['a_r'], player_df)],
@@ -260,6 +271,7 @@ def get_soft_predictions(team, opp, player_df):
     # Expand each dictionary into separate columns and drop the original column
     for field in ['teammates_points', 'teammates_rebounds', 'teammates_assists',
                   'opponents_points', 'opponents_rebounds', 'opponents_assists',
+                  #'teammates_tpm', 'opponents_tpm',
                 #   'teammates_pr', 'teammates_pa', 'teammates_ar', 'opponents_pr',
                 #   'opponents_pa', 'opponents_ar', 'teammates_pra', 'opponents_pra',
                 #   'teammates_blocks', 
@@ -293,7 +305,8 @@ def run_xgb(player, team, opp, hoa, market, nestimators):
         'teammates_assists_G', 'teammates_assists_F', 'teammates_assists_C', 
         'opponents_points_G', 'opponents_points_F', 'opponents_points_C', 
         'opponents_rebounds_G', 'opponents_rebounds_F', 'opponents_rebounds_C', 
-        'opponents_assists_G', 'opponents_assists_F', 'opponents_assists_C', 
+        'opponents_assists_G', 'opponents_assists_F', 'opponents_assists_C',
+        #'teammates_tpm_G', 'teammates_tpm_F', 'teammates_tpm_C', 'opponents_tpm_G', 'opponents_tpm_F', 'opponents_tpm_C',
         # 'teammates_pr_G', 'teammates_pr_F', 'teammates_pr_C', 'teammates_pa_G', 
         # 'teammates_pa_F', 'teammates_pa_C', 'teammates_ar_G', 'teammates_ar_F', 
         # 'teammates_ar_C', 'opponents_pr_G', 'opponents_pr_F', 'opponents_pr_C', 
@@ -315,5 +328,5 @@ def run_xgb(player, team, opp, hoa, market, nestimators):
 
 if __name__ == "__main__":
 
-    prediction, error = run_xgb("DeMar DeRozan","SAC", "LAC",1,"pts",100)
+    prediction, error = run_xgb("Jaylen Brown","BOS", "DEN",1,"tpm",100)
     print(f"Predicted Output: {prediction} + - {(error)}")

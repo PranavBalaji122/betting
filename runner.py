@@ -19,13 +19,13 @@ banned_list = [
     "Tyrese Maxey",  
     "Ty Jerome", 
     "Max Strus", 
-    "Domantas Sabonis",
     "Lauri Markkanen", 
-    "Kris Middleton",
+    "Khris Middleton",
     "Royce O'Neale",
     "Bilal Coulibaly",
     "Jalen Duren",
-    "Markelle Fultz"
+    "Markelle Fultz",
+    "Bogdan Bogdanović"
 ]
 
 def load_odds(input_path):
@@ -55,46 +55,33 @@ def get_consistent_players(features):
         consistent_players[feature] = playerNames
     return consistent_players
 
+def get_rank(player, consistent_players, market):
+    return (consistent_players.get(market, [])).index(player)
+
 def get_player_last(player, market, line, stat=-1):
     df = pd.read_csv('csv/sql.csv')
     player_df = df[df['player'] == player].copy()
-    line = line - 1
-    
+
+    # Slight tweak to 'line' if it's tpm or something else
+    if market == "tpm":
+        line = line - 0.4
+    elif market in ('pts','trb','ast','a_r'): 
+        line = line - 1
+    else:
+        line = line - 2
+
     if player_df.empty:
         return 0
 
     player_df.sort_values(by='date', ascending=False, inplace=True)
     last_ten = player_df.head(10)
 
-    if (stat == -1 or stat > line):
-        count = (last_ten[market] > line).sum()
+    # Decide if we want (stat >= line) or (stat < line)
+    if (stat == -1 or stat >= line):
+        count = (last_ten[market] >= line).sum()
     else:
         count = (last_ten[market] < line).sum()
     return count
-
-def get_market_consistency(player, market):
-    df = pd.read_csv('csv/sql.csv')
-    player_df = df[df['player'] == player].copy()
-
-    if player_df.empty:
-        return float('inf')
-
-    player_df.sort_values(by='date', ascending=False, inplace=True)
-    last_ten = player_df.head(10)
-
-    if market not in last_ten.columns:
-        return float('inf')
-
-    values = last_ten[market].dropna()
-    if len(values) == 0:
-        return float('inf')
-
-    mean_val = values.mean()
-    std_val  = values.std(ddof=0)
-    if mean_val == 0:
-        return float('inf')
-    cv = std_val / mean_val
-    return cv
 
 def calc_player_stats(odds_data, consistent_players, injuries):
     conn = create_engine(os.getenv("SQL_ENGINE"))
@@ -120,44 +107,69 @@ def calc_player_stats(odds_data, consistent_players, injuries):
                     'bet': {}
                 }
 
+                # --- Old logic: get last-10 (optional to keep) ---
                 last_ten = get_player_last(player, market, line)
                 
+                # If you want to remove or loosen these conditions, go ahead.
                 if (
-                    last_ten > 5
+                    last_ten > 6
                     and player in consistent_players.get(market, [])
                     and player not in injuries
                     and player not in banned_list
-                    and team not in ("DEN", "OKC")
                 ):
                     print(f"Running models on {player} for {market}")
                     
                     # Run both models
-                    stat_rf, err_rf = run_rf(player, team, opponent, hoa, market, 20)
+                    #stat_rf, err_rf = run_rf(player, team, opponent, hoa, market, 20)
                     stat_gb, err_gb = run_xgb(player, team, opponent, hoa, market, 100)
- 
-                    rf_says_over = (stat_rf > line + err_rf * 0.9)
-                    gb_says_over = (stat_gb > line + err_gb * 0.9)
+                    
+                    # Example tweak for tpm error
+                    if market == "tpm":
+                        err_rf *= 0.8
+                        err_gb *= 0.8
 
-                    final_pred = None   
+                    #rf_says_over = (stat_rf > line + err_rf)
+                    gb_says_over = (stat_gb > line + err_gb)
+
+                    final_pred = None
                     final_err = None
-                    if rf_says_over and gb_says_over:
-                        final_pred = (stat_rf + stat_gb) / 2.0
-                        final_err = (err_rf + err_gb) / 2.0
-                    elif rf_says_over:  # only RF
-                        final_pred = stat_rf
-                        final_err  = err_rf
-                    elif gb_says_over:  # only GB
+                    # Just combining logic as you had
+                    # if rf_says_over and gb_says_over:
+                    #     final_pred = (stat_rf + stat_gb) / 2.0
+                    #     final_err = (err_rf + err_gb) / 2.0
+                    # elif rf_says_over:  # only RF
+                    #     final_pred = stat_rf
+                    #     final_err  = err_rf
+                    # elif gb_says_over:  # only GB
+                    #     final_pred = stat_gb
+                    #     final_err  = err_gb
+                    
+                    if gb_says_over:
                         final_pred = stat_gb
                         final_err  = err_gb
 
-
                     if final_pred is None:
-                        continue  # skip
+                        continue  # skip if no "over" scenario from the models
+
+                    # ----------------------------
+                    # New metric: scale or “score”
+                    # (predicted - error - line)/line
+                    # ----------------------------
+                    score = (final_pred - final_err - line) / line
                     player_data['bet'] = {
-                        'predicted': round(float(final_pred),2),
-                        'error': round(float(final_err),1)
+                        'predicted': round(float(final_pred), 3),
+                        'error': round(float(final_err), 2),
+                        'score': round(float(score), 3),
+                        'rank': get_rank(player, consistent_players, market)
                     }
 
+                    # If you want to skip if score < 0, do so:
+                    if score < 0:
+                        # Means we’re not comfortable it goes over
+                        continue
+
+                    # old logic to pick "over" or "under" odds 
+                    # (fyi, with the new 'score' approach, you might just do over)
                     if stat_gb >= line:
                         # "over" scenario
                         del player_data['under']
@@ -166,6 +178,8 @@ def calc_player_stats(odds_data, consistent_players, injuries):
                         del player_data['over']
                         player_data['odds'] = player_data.pop('under')
 
+                    # Store the last-10
+                    player_data['last_ten_val'] = int(last_ten)
                     player_data['last_ten'] = f"{int(last_ten)}/10"
                     results[bookmaker_name].append(player_data)
 
@@ -176,34 +190,23 @@ def calc_player_stats(odds_data, consistent_players, injuries):
 
 def main():
     odds = load_odds('json/processed_odds.json')
-    consitnent_players = get_consistent_players(['pts','trb','ast','p_r','p_a','a_r','p_r_a'])
+    consistent_players = get_consistent_players(['pts','trb','ast','p_r','p_a','a_r','p_r_a','tpm'])
     injuries = load_injury_report()
-    jsonData = calc_player_stats(odds, consitnent_players, injuries)
+    jsonData = calc_player_stats(odds, consistent_players, injuries)
 
-    for bookmaker_name, bets in jsonData.items():
-        grouped_by_player = defaultdict(list)
-        for bet_info in bets:
-            grouped_by_player[bet_info['player']].append(bet_info)
+    # # Condense or group bets for the same player, etc.
+    # for bookmaker_name, bets in jsonData.items():
+    #     grouped_by_player = defaultdict(list)
+    #     for bet_info in bets:
+    #         grouped_by_player[bet_info['player']].append(bet_info)
     
-        final_bets_for_bookmaker = []
-        for player, player_bets in grouped_by_player.items():
-            if len(player_bets) == 1:
-                final_bets_for_bookmaker.append(player_bets[0])
-            else:
-                best_bet = None
-                best_consistency = float('inf')
-                
-                for bet_candidate in player_bets:
-                    market = bet_candidate['market']
-                    consistency_score = get_market_consistency(player, market)
-                    if consistency_score < best_consistency:
-                        best_consistency = consistency_score
-                        best_bet = bet_candidate
-                
-                if best_bet:
-                    final_bets_for_bookmaker.append(best_bet)
+    #     final_bets_for_bookmaker = []
+    #     for player, player_bets in grouped_by_player.items():
+    #         # Example: keep the bet with the highest score, rather than last_ten
+    #         top_bet = max(player_bets, key=lambda x: x['bet']['score'])
+    #         final_bets_for_bookmaker.append(top_bet)
 
-        jsonData[bookmaker_name] = final_bets_for_bookmaker
+    #     jsonData[bookmaker_name] = final_bets_for_bookmaker
 
     filename = 'json/predictions.json'
     with open(filename, 'w') as file:

@@ -185,7 +185,7 @@ def gradient_boost(player, market,conn, nestimators):
 
     # Split the data (ensuring the weights correspond to the training split)
     X_train, X_test, y_train, y_test, sw_train, sw_test = train_test_split(
-        X, y, sample_weights, test_size=0.2, random_state=42
+        X, y, sample_weights, test_size=0.2
     )
     preprocessor = ColumnTransformer(transformers=transformers)
     # Create your pipeline (assuming it is defined as in your code)
