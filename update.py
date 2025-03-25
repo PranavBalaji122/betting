@@ -2,14 +2,13 @@ import requests
 from datetime import datetime, timedelta, timezone
 from utility.process_props import process_props
 from utility.load_injuries import load_injuries
-from utility.get_new_data import get_new_Data
 from utility.pipeline import run_pipeline
 import json
 import os
 from dotenv import load_dotenv
 load_dotenv()
 
-api_key = '00818dd5e805e576c42713cf9a5ef458'
+api_key = 'bcc5ec16403b4a472cf239fab07cdd3b'
 
 nba_teams = {
     "Atlanta Hawks": "ATL",
@@ -106,8 +105,6 @@ def collect_all_odds(base_url, api_key, game_ids):
     return all_bookmakers_data
 
 def updates():
-
-    #get_new_Data()
     #run_pipeline()
 
     from datetime import datetime, timedelta
@@ -119,7 +116,8 @@ def updates():
 
     commence_time_to = tomorrow_at_5am.isoformat() + 'Z'
     base_url = "https://api.the-odds-api.com/v4/sports/basketball_nba/events"
-    ids = game_ids(base_url, api_key, commence_time_to)
+    # ids = game_ids(base_url, api_key, commence_time_to)
+    ids = ["c39fca06cd6bde50f88622a84514c31e", "5823666c4647cda743363c25278be9c7"]
     props = collect_all_odds(base_url, api_key, ids)
     
     with open('json/props.json', 'w') as file:

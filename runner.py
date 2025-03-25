@@ -17,15 +17,13 @@ banned_list = [
     "Aaron Nesmith",
     "Joel Embiid",
     "Tyrese Maxey",  
-    "Ty Jerome", 
-    "Max Strus", 
+    "Ty Jerome",
     "Lauri Markkanen", 
     "Khris Middleton",
     "Royce O'Neale",
     "Bilal Coulibaly",
     "Jalen Duren",
     "Markelle Fultz",
-    "Bogdan Bogdanović"
 ]
 
 def load_odds(input_path):
@@ -121,7 +119,7 @@ def calc_player_stats(odds_data, consistent_players, injuries):
                     
                     # Run both models
                     #stat_rf, err_rf = run_rf(player, team, opponent, hoa, market, 20)
-                    stat_gb, err_gb = run_xgb(player, team, opponent, hoa, market, 100)
+                    stat_gb, err_gb = run_xgb(player, team, opponent, hoa, market, 20)
                     
                     # Example tweak for tpm error
                     if market == "tpm":
@@ -129,7 +127,7 @@ def calc_player_stats(odds_data, consistent_players, injuries):
                         err_gb *= 0.8
 
                     #rf_says_over = (stat_rf > line + err_rf)
-                    gb_says_over = (stat_gb > line + err_gb)
+                    gb_says_over = (stat_gb > line + err_gb*0.9)
 
                     final_pred = None
                     final_err = None
